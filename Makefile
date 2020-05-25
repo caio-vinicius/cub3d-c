@@ -6,7 +6,7 @@
 #    By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/27 18:16:34 by caio              #+#    #+#              #
-#    Updated: 2020/05/24 20:56:08 by caio             ###   ########.fr        #
+#    Updated: 2020/05/25 13:28:38 by nayran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS = main.o
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	clang -g -Wall -Wextra -Werror $(OBJS) -lm -lbsd -lmlx -lXext -lX11
+	clang -g $(OBJS) -lmlx
 	ar rcs $@ $<
 
 clean:
