@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/24 21:40:32 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/25 13:19:04 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,27 @@ void	render()
 	
 }
 
-void	update(t_vars *vars)
+void	update(t_player *player)
 {
-	vars->x += 1;
-	vars->y += 1;
+	player->x += 1;
+	player->y += 1;
 }
 
-void	setup(t_vars *vars)
+t_player	*setup()
 {
-	vars = malloc(sizeof(t_vars));
-	vars->x = 0;
-	vars->y = 0;
+	t_player *player;
+	
+	player.x = 0;
+	player.y = 0;
+	
+	return (&player);
 }
 
 void	process_keys(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
 		mlx_destroy_window(vars->init, vars->window);
-	printf("%d\n", keycode);
+	//printf("%d\n", keycode);
 }
 
 int	game_loop(int keycode, t_vars *vars)
@@ -48,21 +51,21 @@ int	game_loop(int keycode, t_vars *vars)
 	process_keys(keycode, vars);
 	//update(vars);
 	render();
-	//printf("%d %p\n", keycode, player);
 }
 
 int	main(void)
 {
-	t_vars vars;
+	t_vars *vars;
+	t_player *player;
 
-	init(&vars);
+	init(vars);
 	
-	setup(&vars);
+	player = setup();
 
-	if (vars.init && vars.window)
+	if (vars->init && vars->window)
 	{
-		mlx_hook(vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &vars);
-		mlx_loop_hook(vars.init, game_loop, &vars);
-		mlx_loop(vars.init);
+		mlx_hook(vars->window, E_KEYPRESS, M_KEYPRESS, game_loop, &vars);
+		mlx_loop_hook(vars->init, game_loop, &vars);
+		mlx_loop(vars->init);
 	}
 }
