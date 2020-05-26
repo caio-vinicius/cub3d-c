@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/25 20:50:21 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/26 11:53:56 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,23 @@ typedef struct		s_vars {
 	void		*window;
 }			t_vars;
 
+typedef struct	s_data {
+	void	*img;
+	char	*img_addr;
+	int	bpp;
+	int	line_lenght;
+	int	endian;
+}		t_data;
+
 typedef struct	s_player {
 	int	x;
 	int	y;
+	void	*player;
 }		t_player;
 
-typedef struct	s_all {
+typedef struct		s_all {
 	t_vars		vars;
 	t_player	player;
-}		t_all;
+}			t_all;
 
 #endif

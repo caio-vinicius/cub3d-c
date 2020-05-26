@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/25 23:07:47 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/26 12:05:43 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ t_vars	init(t_vars vars)
 	return (vars);
 }	
 
-void	render()
+void	render(t_all all)
 {
-	
+	mlx_clear_window(all.vars.init, all.vars.window);
+	mlx_put_image_to_window(all.vars.init, all.vars.window,
+		all.player.player, all.player.x, all.player.y);
 }
 
 t_player	update(t_player player)
@@ -31,11 +33,16 @@ t_player	update(t_player player)
 	return (player);
 }
 
-t_player	setup(t_player player)
+t_all	setup(t_all all)
 {
-	player.x = 0;
-	player.y = 0;
-	return (player);
+	int width;
+	int height;
+	
+	all.player.player = mlx_xpm_file_to_image(all.vars.init,
+		"textures/stone.xpm", &width, &height);
+	all.player.x = 0;
+	all.player.y = 0;
+	return (all);
 }
 
 void	process_keys(int keycode, t_vars vars)
@@ -46,10 +53,11 @@ void	process_keys(int keycode, t_vars vars)
 
 int	game_loop(int keycode, t_all *all)
 {
+	//sleep(1);
 	process_keys(keycode, all->vars);
 	all->player = update(all->player);
-	render();
-	//printf("x %d y %d\n", all->player.x, all->player.y);
+	render(*all);
+	printf("x %d y %d\n", all->player.x, all->player.y);
 }
 
 int	main(void)
@@ -57,13 +65,13 @@ int	main(void)
 	t_all all;
 
 	all.vars = init(all.vars);	
-	all.player = setup(all.player);
+	all = setup(all);
 	game_loop(0, &all);
 
 	if (all.vars.init && all.vars.window)
 	{
 		mlx_hook(all.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &all);
-		//mlx_loop_hook(vars.init, game_loop, &vars);
+		//mlx_loop_hook(all.vars.init, game_loop, &all);
 		mlx_loop(all.vars.init);
 	}
 }
