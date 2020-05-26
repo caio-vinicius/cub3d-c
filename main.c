@@ -6,66 +6,64 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/25 13:19:04 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/25 23:07:47 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init(t_vars *vars)
+t_vars	init(t_vars vars)
 {
-	vars->init = mlx_init();
-	vars->window = mlx_new_window(vars->init, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");	
-}
+	vars.init = mlx_init();
+	vars.window = mlx_new_window(vars.init, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
+	return (vars);
+}	
 
 void	render()
 {
 	
 }
 
-void	update(t_player *player)
+t_player	update(t_player player)
 {
-	player->x += 1;
-	player->y += 1;
+	player.x += 1;
+	player.y += 1;
+	return (player);
 }
 
-t_player	*setup()
+t_player	setup(t_player player)
 {
-	t_player *player;
-	
 	player.x = 0;
 	player.y = 0;
-	
-	return (&player);
+	return (player);
 }
 
-void	process_keys(int keycode, t_vars *vars)
+void	process_keys(int keycode, t_vars vars)
 {
 	if (keycode == 65307)
-		mlx_destroy_window(vars->init, vars->window);
-	//printf("%d\n", keycode);
+		mlx_destroy_window(vars.init, vars.window);
 }
 
-int	game_loop(int keycode, t_vars *vars)
+int	game_loop(int keycode, t_all *all)
 {
-	process_keys(keycode, vars);
-	//update(vars);
+	process_keys(keycode, all->vars);
+	all->player = update(all->player);
 	render();
+	//printf("x %d y %d\n", all->player.x, all->player.y);
 }
 
 int	main(void)
 {
-	t_vars *vars;
-	t_player *player;
+	t_all all;
 
-	init(vars);
-	
-	player = setup();
+	all.vars = init(all.vars);	
+	all.player = setup(all.player);
+	game_loop(0, &all);
 
-	if (vars->init && vars->window)
+	if (all.vars.init && all.vars.window)
 	{
-		mlx_hook(vars->window, E_KEYPRESS, M_KEYPRESS, game_loop, &vars);
-		mlx_loop_hook(vars->init, game_loop, &vars);
-		mlx_loop(vars->init);
+		mlx_hook(all.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &all);
+		//mlx_loop_hook(vars.init, game_loop, &vars);
+		mlx_loop(all.vars.init);
 	}
 }

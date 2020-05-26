@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/25 12:59:30 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/25 20:50:21 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ typedef struct	s_player {
 	int	x;
 	int	y;
 }		t_player;
+
+typedef struct	s_all {
+	t_vars		vars;
+	t_player	player;
+}		t_all;
 
 #endif
