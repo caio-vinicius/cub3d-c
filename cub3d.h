@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 12:30:34 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 13:21:59 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define MAP_NUM_ROWS 8
 # define MAP_NUM_COLS 12
 
+# define MINIMAP_SCALE 0.2
+
 # define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
 # define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
 
@@ -39,16 +41,7 @@
 
 # define NUM_RAYS WINDOW_WIDTH
 
-const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-	{1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,1,1,1,1},
-	{1,1,1,1,0,0,0,0,0,0,0,1},
-	{1,0,0,1,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,1,1,1,1},
-	{1,0,0,1,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1}
-};
+extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
 typedef struct		s_vars {
 	void		*init;
@@ -59,7 +52,7 @@ typedef struct	s_data {
 	void	*img;
 	char	*img_addr;
 	int	bpp;
-	int	line_lenght;
+	int	line_length;
 	int	endian;
 }		t_data;
 
@@ -78,5 +71,7 @@ typedef struct		s_all {
 	t_vars		vars;
 	t_player	player;
 }			t_all;
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

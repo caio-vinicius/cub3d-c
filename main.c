@@ -6,11 +6,22 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 12:34:53 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 13:30:33 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+	{1,1,1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,1,1,1,1},
+	{1,1,1,1,0,0,0,0,0,0,0,1},
+	{1,0,0,1,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,1,1,1,1},
+	{1,0,0,1,0,0,0,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1,1,1}
+};
 
 t_vars	init(t_vars vars)
 {
@@ -19,20 +30,36 @@ t_vars	init(t_vars vars)
 	return (vars);
 }
 
-void	draw_wall(int x, int y, t_all all)
+void	draw_wall(int x1, int y1, t_vars vars)
 {
-	int width;
-	int height;
-	void *wall;
 	static int i;
+	int size;
+	int x;
+	int y;
+	t_data data;
 	
-	wall = mlx_xpm_file_to_image(all.vars.init, "textures/brick.xpm", &width, &height);
-	mlx_put_image_to_window(all.vars.init, all.vars.window, wall, x, y);
-	mlx_destroy_image(all.vars.init, wall);
-	printf("a wall was put %d\n", i++);
+	x = 0;
+	y = 0;	
+	size = TILE_SIZE * MINIMAP_SCALE;
+	data.img = mlx_new_image(vars.init, size, size);
+	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
+		&data.endian);	
+	while (x <= size)
+	{
+		my_mlx_pixel_put(&data, x, y, 0xffffff);
+		if (y++ == size)
+		{
+			y = 0;
+			x++;
+		}
+	}
+	//printf("x1 %d y1 %d\n", x1, y1);
+	mlx_put_image_to_window(vars.init, vars.window, data.img, x1, y1);
+	mlx_destroy_image(vars.init, data.img);
+	//printf("wall was draw %d\n", i++);
 }
 
-void	render_map(t_all all)
+void	render_map(t_vars vars)
 {
 	int x;
 	int y;
@@ -44,7 +71,8 @@ void	render_map(t_all all)
 		while (y < MAP_NUM_COLS)
 		{
 			if (map[x][y] == 1)
-				draw_wall(y * TILE_SIZE, x * TILE_SIZE, all);
+				draw_wall((y * TILE_SIZE) * MINIMAP_SCALE,
+					(x * TILE_SIZE) * MINIMAP_SCALE, vars);
 			y++;
 		}
 		y = 0;
@@ -54,7 +82,7 @@ void	render_map(t_all all)
 
 void	render(t_all all)
 {
-	render_map(all);
+	render_map(all.vars);
 	//render_player(all);
 }
 
