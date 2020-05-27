@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/26 17:57:52 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 12:30:34 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-# define TILE_SIZE 42
+# define TILE_SIZE 32
 # define MAP_NUM_ROWS 8
 # define MAP_NUM_COLS 12
 

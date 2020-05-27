@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 00:04:32 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 12:34:53 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	draw_wall(int x, int y, t_all all)
 {
 	int width;
 	int height;
-	t_data data;
+	void *wall;
+	static int i;
 	
-	data.img = mlx_xpm_file_to_image(all.vars.init, "textures/brick.xpm", &width, &height);
-	mlx_put_image_to_window(all.vars.init, all.vars.window, data.img, x, y);
-	mlx_destroy_image(all.vars.init, data.img);
-	//segmentation fault no sense here. (of course is no sense...)
+	wall = mlx_xpm_file_to_image(all.vars.init, "textures/brick.xpm", &width, &height);
+	mlx_put_image_to_window(all.vars.init, all.vars.window, wall, x, y);
+	mlx_destroy_image(all.vars.init, wall);
+	printf("a wall was put %d\n", i++);
 }
 
 void	render_map(t_all all)
@@ -38,14 +39,12 @@ void	render_map(t_all all)
 
 	x = 0;
 	y = 0;
-	while (x < WINDOW_HEIGHT)
+	while (x < MAP_NUM_ROWS)
 	{
-		while (y < WINDOW_WIDTH)
+		while (y < MAP_NUM_COLS)
 		{
 			if (map[x][y] == 1)
-			{
 				draw_wall(y * TILE_SIZE, x * TILE_SIZE, all);
-			}
 			y++;
 		}
 		y = 0;
