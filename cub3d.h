@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/26 17:39:47 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/26 17:57:52 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define TWO_PI 6.28318530
 
 # define TILE_SIZE 42
-# define MAP_NUM_ROWS 11
-# define MAP_NUM_COLS 15
+# define MAP_NUM_ROWS 8
+# define MAP_NUM_COLS 12
 
 # define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
 # define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
@@ -39,6 +39,16 @@
 
 # define NUM_RAYS WINDOW_WIDTH
 
+const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+	{1,1,1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,1,1,1,1},
+	{1,1,1,1,0,0,0,0,0,0,0,1},
+	{1,0,0,1,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,1,1,1,1},
+	{1,0,0,1,0,0,0,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1,1,1}
+};
 
 typedef struct		s_vars {
 	void		*init;
@@ -54,9 +64,14 @@ typedef struct	s_data {
 }		t_data;
 
 typedef struct	s_player {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 	void	*player;
+	int	ad_direction; // -1 left, +1 right
+	int	ws_direction; // -1 back, +1 front
+	float	rot_angle;
+	float	ad_speed;
+	float	ws_speed;
 }		t_player;
 
 typedef struct		s_all {
