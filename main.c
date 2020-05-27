@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 13:30:33 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 15:18:30 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,36 @@ t_vars	init(t_vars vars)
 	return (vars);
 }
 
-void	draw_wall(int x1, int y1, t_vars vars)
+void	draw_square_on_image(t_data *data, int size, int color)
 {
-	static int i;
-	int size;
 	int x;
 	int y;
-	t_data data;
-	
+
 	x = 0;
-	y = 0;	
-	size = TILE_SIZE * MINIMAP_SCALE;
-	data.img = mlx_new_image(vars.init, size, size);
-	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
-		&data.endian);	
+	y = 0;
 	while (x <= size)
 	{
-		my_mlx_pixel_put(&data, x, y, 0xffffff);
+		my_mlx_pixel_put(data, x, y, color);
 		if (y++ == size)
 		{
 			y = 0;
 			x++;
 		}
 	}
-	//printf("x1 %d y1 %d\n", x1, y1);
-	mlx_put_image_to_window(vars.init, vars.window, data.img, x1, y1);
+}
+
+void	draw_wall(int x, int y, t_vars vars)
+{
+	t_data data;
+	int size;
+
+	size = TILE_SIZE * MINIMAP_SCALE;
+	data.img = mlx_new_image(vars.init, size, size);
+	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
+		&data.endian);	
+	draw_square_on_image(&data, size, 0xffffff);
+	mlx_put_image_to_window(vars.init, vars.window, data.img, x, y);
 	mlx_destroy_image(vars.init, data.img);
-	//printf("wall was draw %d\n", i++);
 }
 
 void	render_map(t_vars vars)
@@ -80,10 +83,29 @@ void	render_map(t_vars vars)
 	} 
 }
 
+void	draw_player(int x, int y, t_vars vars)
+{
+	t_data data;
+	int size;
+
+	size = 10 * MINIMAP_SCALE;
+	data.img = mlx_new_image(vars.init, size, size);
+	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
+		&data.endian);	
+	draw_square_on_image(&data, size, 0xff0000);
+	mlx_put_image_to_window(vars.init, vars.window, data.img, x, y);
+	mlx_destroy_image(vars.init, data.img);
+}
+
+void	render_player(t_all all)
+{
+	draw_player(all.player.x * MINIMAP_SCALE, all.player.y * MINIMAP_SCALE, all.vars);
+}
+
 void	render(t_all all)
 {
 	render_map(all.vars);
-	//render_player(all);
+	render_player(all);
 }
 
 t_player	update(t_player player)
