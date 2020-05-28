@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 23:15:12 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 23:33:06 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,14 @@ void	update(t_player *player)
 	float new_x;
 	float new_y;
 	
+	//rotation	
 	player->rot_angle += player->ad_direction * player->ad_speed;
-
+	//walk
 	move_step = player->ws_direction * player->ws_speed;
-
 	new_x = player->x + cos(player->rot_angle) * move_step;
 	new_y = player->y + sin(player->rot_angle) * move_step;
+	new_x = ceil(new_x);
+	new_y = ceil(new_y);
 	if (is_walkable(new_x, new_y))
 	{
 		player->x = new_x;
@@ -164,14 +166,10 @@ void	process_keys(int keycode, t_player *player)
 		player->ws_direction = 1;
 	else if (keycode == DOWN_ARROW)
 		player->ws_direction = -1;
-	else
-		player->ws_direction = 0;	
-	if (keycode == LEFT_ARROW)
+	else if (keycode == LEFT_ARROW)
 		player->ad_direction = -1;
 	else if (keycode == RIGHT_ARROW)
 		player->ad_direction = 1;
-	else
-		player->ad_direction = 0;
 }
 
 int	game_loop(int keycode, t_all *all)
@@ -180,6 +178,20 @@ int	game_loop(int keycode, t_all *all)
 	update(&all->player);
 	render(*all);
 }
+
+int	release_button(int keycode, t_all *all)
+{
+	if (keycode == UP_ARROW)
+		all->player.ws_direction = 0;
+	else if (keycode == DOWN_ARROW)
+		all->player.ws_direction = 0;
+	else if (keycode == LEFT_ARROW)
+		all->player.ad_direction = 0;
+	else if (keycode == RIGHT_ARROW)
+		all->player.ad_direction = 0;
+	game_loop(0, all);
+}
+
 
 int	main(void)
 {
@@ -192,6 +204,7 @@ int	main(void)
 	if (all.vars.init && all.vars.window)
 	{
 		mlx_hook(all.vars.window, 2, 1L<<0, game_loop, &all);
+		mlx_hook(all.vars.window, 3, 1L<<1, release_button, &all);
 		//mlx_loop_hook(all.vars.init, game_loop, &all);
 		mlx_loop(all.vars.init);
 	}
