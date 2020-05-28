@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 22:13:36 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 23:15:12 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	draw_player(int x, int y, t_vars vars)
 	t_data data;
 	int size;
 
-	size = 10 * MINIMAP_SCALE;
+	size = 3 * MINIMAP_SCALE;
 	data.img = mlx_new_image(vars.init, size, size);
 	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
 		&data.endian);	
@@ -104,8 +104,8 @@ void	render_player(t_all all)
 	dda_draw_line(
 		all.player.x * MINIMAP_SCALE,
 		all.player.y * MINIMAP_SCALE,
-		(all.player.x + cos(all.player.rot_angle) * 20) * MINIMAP_SCALE,
-		(all.player.y + sin(all.player.rot_angle) * 20) * MINIMAP_SCALE,
+		(all.player.x + cos(all.player.rot_angle) * 10) * MINIMAP_SCALE,
+		(all.player.y + sin(all.player.rot_angle) * 10) * MINIMAP_SCALE,
 		all.vars);
 }
 
@@ -115,9 +115,35 @@ void	render(t_all all)
 	render_map(all.vars);
 }
 
+int is_walkable(int x, int y)
+{
+	int x_map;
+	int y_map;
+	
+	x_map = x / TILE_SIZE;
+	y_map = y / TILE_SIZE;
+	if (map[y_map][x_map] == 0)
+		return (1);
+	return (0);
+}
+
 void	update(t_player *player)
 {
+	float move_step;
+	float new_x;
+	float new_y;
+	
 	player->rot_angle += player->ad_direction * player->ad_speed;
+
+	move_step = player->ws_direction * player->ws_speed;
+
+	new_x = player->x + cos(player->rot_angle) * move_step;
+	new_y = player->y + sin(player->rot_angle) * move_step;
+	if (is_walkable(new_x, new_y))
+	{
+		player->x = new_x;
+		player->y = new_y;
+	}
 }
 
 t_all	setup(t_all all)
@@ -128,16 +154,16 @@ t_all	setup(t_all all)
 	all.player.ws_direction = 0;
 	all.player.rot_angle = PI / 2;
 	all.player.ad_speed = 5 * (PI / 180);
-	all.player.ws_speed = 50;	
+	all.player.ws_speed = 5;	
 	return (all);
 }
 
 void	process_keys(int keycode, t_player *player)
 {
 	if (keycode == UP_ARROW)
-		player->ws_direction = 0;
+		player->ws_direction = 1;
 	else if (keycode == DOWN_ARROW)
-		player->ws_direction = 0;
+		player->ws_direction = -1;
 	else
 		player->ws_direction = 0;	
 	if (keycode == LEFT_ARROW)
