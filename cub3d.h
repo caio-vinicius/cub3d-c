@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 21:58:12 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/28 13:21:19 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+#define INT_MAX 2147483647
 
 # define M_KEYPRESS 1L<<0
 # define M_KEYRELEASE 1L<<1
@@ -72,9 +74,23 @@ typedef struct	s_player {
 	float	ws_speed;
 }		t_player;
 
+typedef struct	s_ray {
+	float	ray_angle;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	float	distance;
+	int	was_hit_vertical;
+	int	ray_facing_up;
+	int	ray_facing_down;
+	int	ray_facing_left;
+	int	ray_facing_right;
+	int	wall_hit_content;
+}		t_ray[NUM_RAYS];
+
 typedef struct		s_all {
 	t_vars		vars;
 	t_player	player;
+	t_ray		ray;
 }			t_all;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
