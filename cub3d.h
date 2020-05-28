@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 13:21:59 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 21:58:12 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MAP_NUM_ROWS 8
 # define MAP_NUM_COLS 12
 
-# define MINIMAP_SCALE 0.2
+# define MINIMAP_SCALE 1.0
 
 # define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
 # define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
@@ -40,6 +40,11 @@
 # define FOV_ANGLE (60 * (PI / 180))
 
 # define NUM_RAYS WINDOW_WIDTH
+
+# define UP_ARROW 65362
+# define DOWN_ARROW 65364
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
@@ -73,5 +78,6 @@ typedef struct		s_all {
 }			t_all;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	dda_draw_line(int x0, int y0, int x1, int y1, t_vars vars);
 
 #endif

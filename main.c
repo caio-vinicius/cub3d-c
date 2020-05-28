@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/27 15:18:30 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/27 22:13:36 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,26 @@ void	draw_player(int x, int y, t_vars vars)
 }
 
 void	render_player(t_all all)
-{
+{	
+	mlx_clear_window(all.vars.init, all.vars.window);
 	draw_player(all.player.x * MINIMAP_SCALE, all.player.y * MINIMAP_SCALE, all.vars);
+	dda_draw_line(
+		all.player.x * MINIMAP_SCALE,
+		all.player.y * MINIMAP_SCALE,
+		(all.player.x + cos(all.player.rot_angle) * 20) * MINIMAP_SCALE,
+		(all.player.y + sin(all.player.rot_angle) * 20) * MINIMAP_SCALE,
+		all.vars);
 }
 
 void	render(t_all all)
 {
-	render_map(all.vars);
 	render_player(all);
+	render_map(all.vars);
 }
 
-t_player	update(t_player player)
+void	update(t_player *player)
 {
-	return (player);
+	player->rot_angle += player->ad_direction * player->ad_speed;
 }
 
 t_all	setup(t_all all)
@@ -120,24 +127,32 @@ t_all	setup(t_all all)
 	all.player.ad_direction = 0;
 	all.player.ws_direction = 0;
 	all.player.rot_angle = PI / 2;
-	all.player.ad_speed = 45 * (PI / 180);
+	all.player.ad_speed = 5 * (PI / 180);
 	all.player.ws_speed = 50;	
 	return (all);
 }
 
-void	process_keys(int keycode, t_vars vars)
+void	process_keys(int keycode, t_player *player)
 {
-	if (keycode == 65308)
-		mlx_destroy_window(vars.init, vars.window);
+	if (keycode == UP_ARROW)
+		player->ws_direction = 0;
+	else if (keycode == DOWN_ARROW)
+		player->ws_direction = 0;
+	else
+		player->ws_direction = 0;	
+	if (keycode == LEFT_ARROW)
+		player->ad_direction = -1;
+	else if (keycode == RIGHT_ARROW)
+		player->ad_direction = 1;
+	else
+		player->ad_direction = 0;
 }
 
 int	game_loop(int keycode, t_all *all)
 {
-	//sleep(1);
-	process_keys(keycode, all->vars);
-	all->player = update(all->player);
+	process_keys(keycode, &all->player);
+	update(&all->player);
 	render(*all);
-	//printf("x %d y %d\n", all->player.x, all->player.y);
 }
 
 int	main(void)
@@ -150,7 +165,7 @@ int	main(void)
 	
 	if (all.vars.init && all.vars.window)
 	{
-		mlx_hook(all.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &all);
+		mlx_hook(all.vars.window, 2, 1L<<0, game_loop, &all);
 		//mlx_loop_hook(all.vars.init, game_loop, &all);
 		mlx_loop(all.vars.init);
 	}
