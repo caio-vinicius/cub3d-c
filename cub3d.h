@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/29 12:44:02 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/29 13:37:53 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,16 @@ typedef struct		s_all {
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	dda_draw_line(int x0, int y0, int x1, int y1, t_vars vars);
+float	distance_points(float x1, float y1, float x2, float y2);
+float	normalize_angle(float angle);
+int	is_walkable(float x, float y);
+void	cast_ray(float ray_angle, int id, t_all *all);
+void	draw_square_on_image(t_data *data, int size, int color);
+void	render_map(t_vars vars);
+void	render_player(t_all all);
+void	render_rays(t_all *all);
+void	move_player(t_player *player);
+void	cast_all_rays(t_all *all);
+int	game_loop(int keycode, t_all *all);
 
 #endif
