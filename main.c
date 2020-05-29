@@ -6,27 +6,28 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/28 22:05:01 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/29 13:07:45 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-	{1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,1,1,1,1},
-	{1,1,1,1,0,0,0,0,0,0,0,1},
-	{1,0,0,1,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,1,1,1,1},
-	{1,0,0,1,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1}
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
+	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
+	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
 t_vars	init(t_vars vars)
 {
 	vars.init = mlx_init();
-	vars.window = mlx_new_window(vars.init, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
+	vars.window = mlx_new_window(vars.init, WINDOW_WIDTH, WINDOW_HEIGHT,
+		"cub3d");
 	return (vars);
 }
 
@@ -43,7 +44,7 @@ float	distance_points(float x1, float y1, float x2, float y2)
 	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
-int is_walkable(float x, float y)
+int	is_walkable(float x, float y)
 {
 	int x_map;
 	int y_map;
@@ -57,161 +58,134 @@ int is_walkable(float x, float y)
 	return (0);
 }
 
-void	cast_ray(float ray_angle, int id, t_all *all)
+void	search_wall(t_grid_vars *vars, t_ray_vars ray, int time)
 {
-	ray_angle = normalize_angle(ray_angle);	
-	int ray_facing_down;
-	int ray_facing_up;
-	int ray_facing_right;
-	int ray_facing_left;
-	
-	float xintercept;
-	float yintercept;
-	float xstep;
-	float ystep;
-
-	float x_to_check;
-	float y_to_check;
-	//horizontal	
-	int found_horz_wall_hit = 0;
-	float horz_wall_hit_x = 0;
-	float horz_wall_hit_y = 0;
-	int horz_wall_content = 0;
-	float next_horz_touch_x;
-	float next_horz_touch_y;
-	
-	ray_facing_down = ray_angle > 0 && ray_angle < PI;
-	ray_facing_up = !ray_facing_down;
-	ray_facing_right = ray_angle < 0.5 * PI || ray_angle > 1.5 * PI;
-	ray_facing_left = !ray_facing_right;
-	
-	yintercept = floor(all->player.y / TILE_SIZE) * TILE_SIZE;
-	yintercept += (ray_facing_down) ? TILE_SIZE : 0;
-
-	xintercept = all->player.x + (yintercept - all->player.y) / tan(ray_angle);
-
-	ystep = TILE_SIZE;
-	ystep *= (ray_facing_up) ? -1 : 1;
-
-	xstep = TILE_SIZE / tan(ray_angle);
-	xstep *= (ray_facing_left && xstep > 0) ? -1 : 1;
-	xstep *= (ray_facing_right && xstep < 0) ? -1 : 1;
-
-	next_horz_touch_x = xintercept;
-	next_horz_touch_y = yintercept;
-
-	while (next_horz_touch_x >= 0 && next_horz_touch_x <= WINDOW_WIDTH &&
-		next_horz_touch_y >= 0 && next_horz_touch_y <= WINDOW_HEIGHT)
+	while (vars->next_touch_x >= 0 && vars->next_touch_x <= WINDOW_WIDTH &&
+		vars->next_touch_y >= 0 && vars->next_touch_y <= WINDOW_HEIGHT)
 	{
-		x_to_check = next_horz_touch_x;
-		y_to_check = next_horz_touch_y + ((ray_facing_up) ? -1 : 0);
-		
-		if (is_walkable(x_to_check, y_to_check))
+		ray.x_to_check = (time == 1) ? vars->next_touch_x +
+			((ray.facing_left) ? -1 : 0) : vars->next_touch_x;
+		ray.y_to_check = (time == 1) ? vars->next_touch_y :
+			vars->next_touch_y + ((ray.facing_up) ? -1 : 0);
+		if (is_walkable(ray.x_to_check, ray.y_to_check))
 		{
-			next_horz_touch_x += xstep;
-			next_horz_touch_y += ystep;
+			vars->next_touch_x += ray.xstep;
+			vars->next_touch_y += ray.ystep;
 		}
 		else
 		{
-			horz_wall_hit_x = next_horz_touch_x;
-			horz_wall_hit_y = next_horz_touch_y;
-			horz_wall_content = map[(int)floor(y_to_check / TILE_SIZE)][(int)floor(x_to_check / TILE_SIZE)];
-			found_horz_wall_hit = 1;
-			break;
+			vars->wall_hit_x = vars->next_touch_x;
+			vars->wall_hit_y = vars->next_touch_y;
+			vars->wall_content = map[(int)floor(ray.y_to_check / TILE_SIZE)]
+				[(int)floor(ray.x_to_check / TILE_SIZE)];
+			vars->found_wall_hit = 1;
+			break ;
 		}
 	}
-	//vertical
-	int found_vert_wall_hit = 0;
-	float vert_wall_hit_x = 0;
-	float vert_wall_hit_y = 0;
-	int vert_wall_content = 0;
-	float next_vert_touch_x;
-	float next_vert_touch_y;
-	
-	xintercept = floor(all->player.x / TILE_SIZE) * TILE_SIZE;
-	xintercept += (ray_facing_right) ? TILE_SIZE : 0;
+}
 
-	yintercept = all->player.y + (xintercept - all->player.x) * tan(ray_angle);
+void	horz_grid(t_ray_vars *ray, t_grid_vars *horz, t_player player)
+{
+	ray->yintercept = floor(player.y / TILE_SIZE) * TILE_SIZE;
+	ray->yintercept += (ray->facing_down) ? TILE_SIZE : 0;
+	ray->xintercept = player.x + (ray->yintercept - player.y) / tan(ray->angle);
+	ray->ystep = TILE_SIZE;
+	ray->ystep *= (ray->facing_up) ? -1 : 1;
+	ray->xstep = TILE_SIZE / tan(ray->angle);
+	ray->xstep *= (ray->facing_left && ray->xstep > 0) ? -1 : 1;
+	ray->xstep *= (ray->facing_right && ray->xstep < 0) ? -1 : 1;
+	horz->next_touch_x = ray->xintercept;
+	horz->next_touch_y = ray->yintercept;
+	search_wall(horz, *ray, 0);
+}
 
-	xstep = TILE_SIZE;
-	xstep *= (ray_facing_left) ? -1 : 1;
+void	vert_grid(t_ray_vars *ray, t_grid_vars *vert, t_player player)
+{
+	ray->xintercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
+	ray->xintercept += (ray->facing_right) ? TILE_SIZE : 0;
+	ray->yintercept = player.y + (ray->xintercept - player.x) * tan(ray->angle);
+	ray->xstep = TILE_SIZE;
+	ray->xstep *= (ray->facing_left) ? -1 : 1;
+	ray->ystep = TILE_SIZE * tan(ray->angle);
+	ray->ystep *= (ray->facing_up && ray->ystep > 0) ? -1 : 1;
+	ray->ystep *= (ray->facing_down && ray->ystep < 0) ? -1 : 1;
+	vert->next_touch_x = ray->xintercept;
+	vert->next_touch_y = ray->yintercept;
+	search_wall(vert, *ray, 1);
+}
 
-	ystep = TILE_SIZE * tan(ray_angle);
-	ystep *= (ray_facing_up && ystep > 0) ? -1 : 1;
-	ystep *= (ray_facing_down && ystep < 0) ? -1 : 1;
+void	init_horz_vert(t_grid_vars *vars)
+{
+	vars->found_wall_hit = 0;
+	vars->wall_hit_x = 0;
+	vars->wall_hit_y = 0;
+	vars->wall_content = 0;
+}
 
-	next_vert_touch_x = xintercept;
-	next_vert_touch_y = yintercept;
+void	set_ray_vert(t_all *all, t_grid_vars vert, float vert_hit, int id)
+{
+	all->ray[id].distance = vert_hit;
+	all->ray[id].wall_hit_x = vert.wall_hit_x;
+	all->ray[id].wall_hit_y = vert.wall_hit_y;
+	all->ray[id].wall_hit_content = vert.wall_content;
+	all->ray[id].was_hit_vertical = 1;
+}
 
-	while (next_vert_touch_x >= 0 && next_vert_touch_x <= WINDOW_WIDTH &&
-		next_vert_touch_y >= 0 && next_vert_touch_y <= WINDOW_HEIGHT)
-	{
-		x_to_check = next_vert_touch_x + ((ray_facing_left) ? -1 : 0);
-		y_to_check = next_vert_touch_y;
-		if (is_walkable(x_to_check, y_to_check))
-		{
-			next_vert_touch_x += xstep;
-			next_vert_touch_y += ystep;
-		}
-		else
-		{
-			vert_wall_hit_x = next_vert_touch_x;
-			vert_wall_hit_y = next_vert_touch_y;
-			vert_wall_content = map[(int)floor(y_to_check / TILE_SIZE)][(int)floor(x_to_check / TILE_SIZE)];
-			found_vert_wall_hit = 1;
-			break;
-		}
-	}
+void	set_ray_horz(t_all *all, t_grid_vars horz, float horz_hit, int id)
+{
+	all->ray[id].distance = horz_hit;
+	all->ray[id].wall_hit_x = horz.wall_hit_x;
+	all->ray[id].wall_hit_y = horz.wall_hit_y;
+	all->ray[id].wall_hit_content = horz.wall_content;
+	all->ray[id].was_hit_vertical = 0;
+}
 
+void	choose_smallest_distance(t_grid_vars horz, t_grid_vars vert, t_ray_vars ray, t_all *all)
+{
 	float horz_hit_distance;
 	float vert_hit_distance;
 
-	if (found_horz_wall_hit)
-	{
-		horz_hit_distance = distance_points(all->player.x, all->player.y,
-			horz_wall_hit_x, horz_wall_hit_y);
-	}
-	else
-		horz_hit_distance = INT_MAX;
-	if (found_vert_wall_hit)
-	{
-		vert_hit_distance = distance_points(all->player.x, all->player.y,
-			vert_wall_hit_x, vert_wall_hit_y);
-	}
-	else
-		vert_hit_distance = INT_MAX;
-
+	horz_hit_distance = (horz.found_wall_hit) ? distance_points(all->player.x,
+		all->player.y, horz.wall_hit_x, horz.wall_hit_y) : INT_MAX;
+	vert_hit_distance = (vert.found_wall_hit) ? distance_points(all->player.x,
+		all->player.y, vert.wall_hit_x, vert.wall_hit_y) : INT_MAX;
 	if (vert_hit_distance < horz_hit_distance)
-	{
-		all->ray[id].distance = vert_hit_distance;
-		all->ray[id].wall_hit_x = vert_wall_hit_x;
-		all->ray[id].wall_hit_y = vert_wall_hit_y;
-		all->ray[id].wall_hit_content = vert_wall_content;	
-		all->ray[id].was_hit_vertical = 1;
-	}
+		set_ray_vert(all, vert, vert_hit_distance, ray.id);
 	else
-	{
-		all->ray[id].distance = horz_hit_distance;
-		all->ray[id].wall_hit_x = horz_wall_hit_x;
-		all->ray[id].wall_hit_y = horz_wall_hit_y;
-		all->ray[id].wall_hit_content = horz_wall_content;	
-		all->ray[id].was_hit_vertical = 0;
-	}
-	//printf("distance %f\n", all->ray[id].distance);
-	all->ray[id].ray_angle = ray_angle;
-	all->ray[id].ray_facing_down = ray_facing_down;	
-	all->ray[id].ray_facing_up = ray_facing_up;	
-	all->ray[id].ray_facing_left = ray_facing_left;	
-	all->ray[id].ray_facing_right = ray_facing_right;	
+		set_ray_horz(all, horz, horz_hit_distance, ray.id);
+	all->ray[ray.id].ray_angle = ray.angle;
+	all->ray[ray.id].ray_facing_down = ray.facing_down;
+	all->ray[ray.id].ray_facing_up = ray.facing_up;
+	all->ray[ray.id].ray_facing_left = ray.facing_left;
+	all->ray[ray.id].ray_facing_right = ray.facing_right;
+}
+
+void	cast_ray(float ray_angle, int id, t_all *all)
+{
+	t_ray_vars	ray;
+	t_grid_vars	horz;
+	t_grid_vars	vert;
+
+	ray.angle = normalize_angle(ray_angle);
+	ray.facing_down = ray.angle > 0 && ray.angle < PI;
+	ray.facing_up = !ray.facing_down;
+	ray.facing_right = ray.angle < 0.5 * PI || ray.angle > 1.5 * PI;
+	ray.facing_left = !ray.facing_right;
+	ray.id = id;
+	init_horz_vert(&horz);
+	init_horz_vert(&vert);
+	horz_grid(&ray, &horz, all->player);
+	vert_grid(&ray, &vert, all->player);
+	choose_smallest_distance(horz, vert, ray, all);
 }
 
 void	cast_all_rays(t_all *all)
 {
-	float ray_angle;
-	int id;
+	float	ray_angle;
+	int	id;
 
 	id = 0;
-	ray_angle = all->player.rot_angle - (FOV_ANGLE / 2); 
+	ray_angle = all->player.rot_angle - (FOV_ANGLE / 2);
 	while (id < NUM_RAYS)
 	{
 		cast_ray(ray_angle, id, all);
@@ -240,8 +214,8 @@ void	draw_square_on_image(t_data *data, int size, int color)
 
 void	draw_wall(int x, int y, t_vars vars)
 {
-	t_data data;
-	int size;
+	t_data	data;
+	int	size;
 
 	size = TILE_SIZE * MINIMAP_SCALE;
 	data.img = mlx_new_image(vars.init, size, size);
@@ -270,13 +244,13 @@ void	render_map(t_vars vars)
 		}
 		y = 0;
 		x++;
-	} 
+	}
 }
 
 void	draw_player(int x, int y, t_vars vars)
 {
-	t_data data;
-	int size;
+	t_data	data;
+	int	size;
 
 	size = 3 * MINIMAP_SCALE;
 	data.img = mlx_new_image(vars.init, size, size);
@@ -288,9 +262,10 @@ void	draw_player(int x, int y, t_vars vars)
 }
 
 void	render_player(t_all all)
-{	
+{
 	mlx_clear_window(all.vars.init, all.vars.window);
-	draw_player(all.player.x * MINIMAP_SCALE, all.player.y * MINIMAP_SCALE, all.vars);
+	draw_player(all.player.x * MINIMAP_SCALE, all.player.y * MINIMAP_SCALE,
+		all.vars);
 	dda_draw_line(
 		all.player.x * MINIMAP_SCALE,
 		all.player.y * MINIMAP_SCALE,
@@ -299,11 +274,11 @@ void	render_player(t_all all)
 		all.vars);
 }
 
-void	render_rays(t_all *all) {
+void	render_rays(t_all *all)
+{
 	int i;
 
 	i = 0;
-
 	while (i < NUM_RAYS)
 	{
 		dda_draw_line(MINIMAP_SCALE * all->player.x,
@@ -321,13 +296,13 @@ void	render(t_all all)
 	render_map(all.vars);
 }
 
-void move_player(t_player *player)
+void	move_player(t_player *player)
 {
 	float move_step;
 	float new_x;
 	float new_y;
-	
-	//rotation	
+
+	//rotation
 	player->rot_angle += player->ad_direction * player->ad_speed;
 	//walk
 	move_step = player->ws_direction * player->ws_speed;
@@ -339,7 +314,7 @@ void move_player(t_player *player)
 	{
 		player->x = new_x;
 		player->y = new_y;
-	}	
+	}
 }
 
 void	update(t_all *all)
@@ -356,7 +331,7 @@ t_all	setup(t_all all)
 	all.player.ws_direction = 0;
 	all.player.rot_angle = PI / 2;
 	all.player.ad_speed = 5 * (PI / 180);
-	all.player.ws_speed = 5;	
+	all.player.ws_speed = 5;
 	return (all);
 }
 
@@ -392,19 +367,17 @@ int	release_button(int keycode, t_all *all)
 	game_loop(0, all);
 }
 
-
 int	main(void)
 {
 	t_all all;
 
-	all.vars = init(all.vars);	
+	all.vars = init(all.vars);
 	all = setup(all);
 	game_loop(0, &all);
-	
 	if (all.vars.init && all.vars.window)
 	{
-		mlx_hook(all.vars.window, 2, 1L<<0, game_loop, &all);
-		mlx_hook(all.vars.window, 3, 1L<<1, release_button, &all);
+		mlx_hook(all.vars.window, 2, 1L << 0, game_loop, &all);
+		mlx_hook(all.vars.window, 3, 1L << 1, release_button, &all);
 		//mlx_loop_hook(all.vars.init, game_loop, &all);
 		mlx_loop(all.vars.init);
 	}

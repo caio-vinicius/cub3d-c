@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/28 13:21:19 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/29 12:44:02 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,30 @@ typedef struct	s_ray {
 	int	ray_facing_right;
 	int	wall_hit_content;
 }		t_ray[NUM_RAYS];
+
+typedef struct	s_ray_vars {
+	float	angle;
+	int	facing_up;
+	int	facing_down;
+	int	facing_left;
+	int	facing_right;
+	float	xintercept;
+	float	yintercept;
+	float	xstep;
+	float	ystep;
+	float	x_to_check;
+	float	y_to_check;
+	int	id;
+}		t_ray_vars;
+
+typedef struct	s_grid_vars {
+	int	found_wall_hit;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	int	wall_content;
+	float	next_touch_x;
+	float	next_touch_y;
+}		t_grid_vars;
 
 typedef struct		s_all {
 	t_vars		vars;
