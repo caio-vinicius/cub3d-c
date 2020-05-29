@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/28 21:26:33 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/28 22:05:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ float	normalize_angle(float angle)
 
 float	distance_points(float x1, float y1, float x2, float y2)
 {
-	return (sqrt(x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
 int is_walkable(float x, float y)
 {
 	int x_map;
 	int y_map;
-	
+
+	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+		return (0);
 	x_map = floor(x / TILE_SIZE);
 	y_map = floor(y / TILE_SIZE);
 	if (map[y_map][x_map] == 0)
@@ -144,8 +146,8 @@ void	cast_ray(float ray_angle, int id, t_all *all)
 	while (next_vert_touch_x >= 0 && next_vert_touch_x <= WINDOW_WIDTH &&
 		next_vert_touch_y >= 0 && next_vert_touch_y <= WINDOW_HEIGHT)
 	{
-		float x_to_check = next_vert_touch_x + ((ray_facing_left) ? -1 : 0);
-		float y_to_check = next_vert_touch_y;
+		x_to_check = next_vert_touch_x + ((ray_facing_left) ? -1 : 0);
+		y_to_check = next_vert_touch_y;
 		if (is_walkable(x_to_check, y_to_check))
 		{
 			next_vert_touch_x += xstep;
@@ -195,6 +197,7 @@ void	cast_ray(float ray_angle, int id, t_all *all)
 		all->ray[id].wall_hit_content = horz_wall_content;	
 		all->ray[id].was_hit_vertical = 0;
 	}
+	//printf("distance %f\n", all->ray[id].distance);
 	all->ray[id].ray_angle = ray_angle;
 	all->ray[id].ray_facing_down = ray_facing_down;	
 	all->ray[id].ray_facing_up = ray_facing_up;	
@@ -352,7 +355,7 @@ t_all	setup(t_all all)
 	all.player.ad_direction = 0;
 	all.player.ws_direction = 0;
 	all.player.rot_angle = PI / 2;
-	all.player.ad_speed = 10 * (PI / 180);
+	all.player.ad_speed = 5 * (PI / 180);
 	all.player.ws_speed = 5;	
 	return (all);
 }
