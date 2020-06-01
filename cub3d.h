@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/05/29 13:37:53 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/01 15:49:09 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include <mlx.h>
 # include <math.h>
-// remeber to remove
+// remember to remove
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-#define INT_MAX 2147483647
+# define INT_MAX 2147483647
 
 # define M_KEYPRESS 1L<<0
 # define M_KEYRELEASE 1L<<1
@@ -30,11 +30,12 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-# define TILE_SIZE 32
+# define TILE_SIZE 60
 # define MAP_NUM_ROWS 8
 # define MAP_NUM_COLS 12
 
-# define MINIMAP_SCALE 1.0
+# define MINIMAP_SCALE 0.2
+# define WALL_STRIP_WIDTH 1
 
 # define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
 # define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
@@ -110,6 +111,15 @@ typedef struct	s_grid_vars {
 	float	next_touch_x;
 	float	next_touch_y;
 }		t_grid_vars;
+
+typedef struct	s_wall {
+	float	perp_distance;
+	float	distance_projection_plane;
+	float 	projected_height;
+	int	strip_height;
+	int	top_pixel;
+	int	bottom_pixel;			
+}		t_wall;
 
 typedef struct		s_all {
 	t_vars		vars;
