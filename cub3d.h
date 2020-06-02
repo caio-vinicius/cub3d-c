@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/01 15:49:09 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/02 12:43:51 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define MAP_NUM_COLS 12
 
 # define MINIMAP_SCALE 0.2
-# define WALL_STRIP_WIDTH 1
+# define WALL_STRIP_WIDTH 1.0
 
 # define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
 # define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
@@ -48,6 +48,12 @@
 # define DOWN_ARROW 65364
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+
+# define WALL_3D_COLOR 0x99b898
+# define WALL_2D_COLOR 0xfeceab
+# define PLAYER_COLOR 0x000000
+# define CEILING_COLOR 0xcef0f9
+# define FLOOR_COLOR 0x7c3c21
 
 extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
@@ -134,9 +140,11 @@ float	normalize_angle(float angle);
 int	is_walkable(float x, float y);
 void	cast_ray(float ray_angle, int id, t_all *all);
 void	draw_square_on_image(t_data *data, int size, int color);
-void	render_map(t_vars vars);
+void	render_map(t_vars vars, t_data *data);
 void	render_player(t_all all);
 void	render_rays(t_all *all);
+void	render_walls(t_all all, t_data *data);
+void	render_background(t_all all, t_data *data);
 void	move_player(t_player *player);
 void	cast_all_rays(t_all *all);
 int	game_loop(int keycode, t_all *all);

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/05/29 13:38:56 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/01 15:56:43 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
-	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
-	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
@@ -31,7 +31,7 @@ t_all	setup(t_all all)
 	all.player.ws_direction = 0;
 	all.player.rot_angle = PI / 2;
 	all.player.ad_speed = 5 * (PI / 180);
-	all.player.ws_speed = 5;
+	all.player.ws_speed = 15;
 	return (all);
 }
 
@@ -59,6 +59,7 @@ int	main(void)
 	game_loop(0, &all);
 	if (all.vars.init && all.vars.window)
 	{
+		//mlx_key_hook(all.vars.window, game_loop, &all);
 		mlx_hook(all.vars.window, 2, 1L << 0, game_loop, &all);
 		mlx_hook(all.vars.window, 3, 1L << 1, release_button, &all);
 		//mlx_loop_hook(all.vars.init, game_loop, &all);
