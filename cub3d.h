@@ -49,7 +49,9 @@
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 
-# define WALL_3D_COLOR 0x99b898
+# define WALL_3D_COLOR 0xffffffff
+//0x99b898
+# define WALL_3D_2COLOR 0xffcccccc
 # define WALL_2D_COLOR 0xfeceab
 # define PLAYER_COLOR 0x000000
 # define CEILING_COLOR 0xcef0f9

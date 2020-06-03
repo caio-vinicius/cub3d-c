@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:46:16 by caio              #+#    #+#             */
-/*   Updated: 2020/06/02 12:34:30 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/02 21:34:42 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_strip(t_data *data, t_wall wall, int i)
+void	draw_strip(t_data *data, t_wall wall, int color, int i)
 {
 	int x;
 	int y;
@@ -22,7 +22,7 @@ void	draw_strip(t_data *data, t_wall wall, int i)
 	printf("x %d y %x\n", x, y);
 	while (y < wall.bottom_pixel)
 	{
-		my_mlx_pixel_put(data, x, y, WALL_3D_COLOR);
+		my_mlx_pixel_put(data, x, y, color);
 		x++;
 		if (x == WALL_STRIP_WIDTH + (WALL_STRIP_WIDTH * i))
 		{
@@ -35,6 +35,7 @@ void	draw_strip(t_data *data, t_wall wall, int i)
 void	render_walls(t_all all, t_data *data)
 {
 	int i;
+	int color;
 	t_wall wall;
 
 	i = 0;
@@ -48,7 +49,8 @@ void	render_walls(t_all all, t_data *data)
 		wall.top_pixel = (wall.top_pixel < 0) ? 0 : wall.top_pixel;
 		wall.bottom_pixel = (WINDOW_HEIGHT / 2) + (wall.strip_height / 2);
 		wall.bottom_pixel = (wall.bottom_pixel > WINDOW_HEIGHT) ? WINDOW_HEIGHT : wall.bottom_pixel;	
-		draw_strip(data, wall, i);
+		color = (all.ray[i].was_hit_vertical) ? WALL_3D_COLOR : WALL_3D_2COLOR;
+		draw_strip(data, wall, color, i);
 		i++;
 	}
 }
