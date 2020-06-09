@@ -1,4 +1,4 @@
-[submodule "get_next_line"]
+[submodule "cub_reader/get_next_line"]
 	path = cub_reader/get_next_line
 	url = https://github.com/caio-vinicius/get_next_line.git
 [submodule "cub_reader/libft"]
