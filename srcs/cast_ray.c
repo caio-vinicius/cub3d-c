@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:23:13 by caio              #+#    #+#             */
-/*   Updated: 2020/05/29 13:24:45 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/04 14:22:45 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ void	choose_smallest_distance(t_grid_vars horz, t_grid_vars vert, t_ray_vars ray
 		set_ray_vert(all, vert, vert_hit_distance, ray.id);
 	else
 		set_ray_horz(all, horz, horz_hit_distance, ray.id);
-	all->ray[ray.id].ray_angle = ray.angle;
-	all->ray[ray.id].ray_facing_down = ray.facing_down;
-	all->ray[ray.id].ray_facing_up = ray.facing_up;
-	all->ray[ray.id].ray_facing_left = ray.facing_left;
-	all->ray[ray.id].ray_facing_right = ray.facing_right;
+	all->ray[ray.id].angle = ray.angle;
+	all->ray[ray.id].facing_down = ray.facing_down;
+	all->ray[ray.id].facing_up = ray.facing_up;
+	all->ray[ray.id].facing_left = ray.facing_left;
+	all->ray[ray.id].facing_right = ray.facing_right;
 }
 
 void	cast_ray(float ray_angle, int id, t_all *all)

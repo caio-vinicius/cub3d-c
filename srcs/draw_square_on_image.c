@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:25:51 by caio              #+#    #+#             */
-/*   Updated: 2020/05/29 13:26:03 by caio             ###   ########.fr       */
+/*   Updated: 2020/05/30 17:07:44 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ void	draw_square_on_image(t_data *data, int size, int color)
 		}
 	}
 }
-

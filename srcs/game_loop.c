@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/02 12:44:45 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/05 21:18:22 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	render(t_all all)
 		&data.endian);
 
 	render_background(all, &data);
-	render_walls(all, &data);
+	render_walls(all.ray, all.player, &data, all);
 	render_map(all.vars, &data);
 	//render_player(all);
 	

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/09 16:13:28 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/09 22:28:41 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	get_rgb(char *s, t_cub *cub)
 	char *r;
 	char *g;
 	char *b;
+	char *color;
 	int i;
 	int j;
 
@@ -29,7 +30,8 @@ void	get_rgb(char *s, t_cub *cub)
 	j = 0;
 	if (((r = (char*)ft_calloc(4, sizeof(char))) &&
 		(g = (char*)ft_calloc(4, sizeof(char))) &&
-		(b = (char*)ft_calloc(4, sizeof(char)))))
+		(b = (char*)ft_calloc(4, sizeof(char)))
+	))
 	{
 		while (ft_isdigit(s[i]))
 			r[j++] = s[i++];
@@ -45,7 +47,10 @@ void	get_rgb(char *s, t_cub *cub)
 	r = ft_itoa_base(ft_atoi(r), 16);
 	g = ft_itoa_base(ft_atoi(g), 16);
 	b = ft_itoa_base(ft_atoi(b), 16);
-	printf("%s %s %s\n", r, g, b);	
+	color = ft_strjoin(color, r);
+	color = ft_strjoin(color, g);
+	color = ft_strjoin(color, b);
+	printf("| COLOR %s%s%s|\n", r, g, b);
 }
 
 void	get_resolution(char *s, t_cub *cub)
@@ -109,7 +114,7 @@ void	scan_cub()
 	t_cub	cub;
 	
 	init_cub(&cub);
-	fd = open("cub3d.cub", O_RDONLY);
+	fd = open("cub3d2.cub", O_RDONLY);
 	while ((ret = get_next_line(fd, &line)) > 0)
 		recognize_identifier(line, &cub);
 	
