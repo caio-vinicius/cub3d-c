@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/09 22:28:41 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/10 23:38:48 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,66 +17,11 @@
 
 }*/
 
-void	get_rgb(char *s, t_cub *cub)
-{
-	char *r;
-	char *g;
-	char *b;
-	char *color;
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if (((r = (char*)ft_calloc(4, sizeof(char))) &&
-		(g = (char*)ft_calloc(4, sizeof(char))) &&
-		(b = (char*)ft_calloc(4, sizeof(char)))
-	))
-	{
-		while (ft_isdigit(s[i]))
-			r[j++] = s[i++];
-		j = 0;
-		i++;
-		while (ft_isdigit(s[i]))
-			g[j++] = s[i++];
-		j = 0;
-		i++;
-		while (ft_isdigit(s[i]))
-			b[j++] = s[i++];
-	}
-	r = ft_itoa_base(ft_atoi(r), 16);
-	g = ft_itoa_base(ft_atoi(g), 16);
-	b = ft_itoa_base(ft_atoi(b), 16);
-	color = ft_strjoin(color, r);
-	color = ft_strjoin(color, g);
-	color = ft_strjoin(color, b);
-	printf("| COLOR %s%s%s|\n", r, g, b);
-}
-
-void	get_resolution(char *s, t_cub *cub)
-{
-	int i;
-	int j;
-	char *width;
-	char *height;
-	
-	i = 0;
-	i = ft_digitlen(s);
-	width = ft_substr(s, 0, i);
-	if (ft_isspace(s[i]))
-		i++;
-	j = i;
-	i = ft_digitlen(&s[i]);
-	height = ft_substr(s, j, i);
-	cub->width = ft_atoi(width);
-	cub->height = ft_atoi(height);
-}
-
 void	recognize_identifier(char *s, t_cub *cub)
-{	
+{
 	if (s[0] == 'R')
 		get_resolution(&s[2], cub);
-	else if (s[0] == 'N' && s[1] == 'O')	
+	else if (s[0] == 'N' && s[1] == 'O')
 		cub->t_no = &s[3];
 	else if (s[0] == 'S' && s[1] == 'O')
 		cub->t_so = &s[3];
@@ -87,9 +32,9 @@ void	recognize_identifier(char *s, t_cub *cub)
 	else if (s[0] == 'S')
 		cub->t_s = &s[2];
 	else if (s[0] == 'F')
-		get_rgb(&s[2], cub);
+		cub->floor = get_rgb(&s[2], cub);
 	else if (s[0] == 'C')
-		get_rgb(&s[2], cub);
+		cub->ceiling = get_rgb(&s[2], cub);
 }
 
 void	init_cub(t_cub *cub)
@@ -101,8 +46,8 @@ void	init_cub(t_cub *cub)
 	cub->t_we = NULL;
 	cub->t_ea = NULL;
 	cub->t_s = NULL;
-	cub->floor_color = 0;
-	cub->ceiling_color = 0;
+	cub->floor = NULL;
+	cub->ceiling = NULL;
 	cub->map = 0;
 }
 
@@ -112,13 +57,13 @@ void	scan_cub()
 	char	*line;
 	int	ret;
 	t_cub	cub;
-	
+
 	init_cub(&cub);
 	fd = open("cub3d2.cub", O_RDONLY);
 	while ((ret = get_next_line(fd, &line)) > 0)
 		recognize_identifier(line, &cub);
-	
-	//printf("R %d %d\nNO %s\nSO %s\nWE %s\nEA %s\nS %s\n", cub.width, cub.height, cub.t_no, cub.t_so, cub.t_we, cub.t_ea, cub.t_s);
+
+	//printf("R %d %d\nNO %s\nSO %s\nWE %s\nEA %s\nS %s\nC %s\nF %s\n", cub.width, cub.height, cub.t_no, cub.t_so, cub.t_we, cub.t_ea, cub.t_s, cub.floor, cub.ceiling);
 	close(fd);
 }
 
