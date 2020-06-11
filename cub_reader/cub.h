@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/10 23:35:58 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/11 16:33:35 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ typedef struct	s_rgb {
 
 void	get_resolution(char *s, t_cub *cub);
 char	*get_rgb(char *s, t_cub *cub);
+int		recognize_map(char *s);
+char	**get_map(char *s);
 
 #endif
