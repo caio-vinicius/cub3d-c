@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/05 21:18:22 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/13 17:13:49 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	render(t_all all)
 	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
 		&data.endian);
 
-	render_background(all, &data);
-	render_walls(all.ray, all.player, &data, all);
-	render_map(all.vars, &data);
+	render_background(&data);
+	render_walls(&data, all);
+	render_map(&data);
 	//render_player(all);
-	
+
 	mlx_put_image_to_window(all.vars.init, all.vars.window, data.img, 0, 0);
-	mlx_destroy_image(all.vars.init, data.img);	
+	mlx_destroy_image(all.vars.init, data.img);
 
 	render_rays(&all);
 }
@@ -53,4 +53,5 @@ int	game_loop(int keycode, t_all *all)
 	process_keys(keycode, &all->player);
 	update(all);
 	render(*all);
+	return (0);
 }

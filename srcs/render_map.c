@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:27:44 by caio              #+#    #+#             */
-/*   Updated: 2020/06/02 12:40:05 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/13 17:09:33 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_wall_on_image(t_data *data, int x1, int y1, int size, t_vars vars)
+void	draw_wall_on_image(t_data *data, int x1, int y1, int size)
 {
 	int x;
 	int y;
@@ -31,12 +31,12 @@ void	draw_wall_on_image(t_data *data, int x1, int y1, int size, t_vars vars)
 	}
 }
 
-void	render_map(t_vars vars, t_data *data)
+void	render_map(t_data *data)
 {
 	int	size;
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	y = 0;
 	size = TILE_SIZE * MINIMAP_SCALE;
@@ -45,7 +45,7 @@ void	render_map(t_vars vars, t_data *data)
 		while (y < MAP_NUM_COLS)
 		{
 			if (map[x][y] == 1)
-				draw_wall_on_image(data, y, x, size, vars);
+				draw_wall_on_image(data, y, x, size);
 			y++;
 		}
 		y = 0;

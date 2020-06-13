@@ -6,19 +6,19 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:42:53 by caio              #+#    #+#             */
-/*   Updated: 2020/06/02 12:43:12 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/13 17:11:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	render_background(t_all all, t_data *data)
+void	render_background(t_data *data)
 {
 	int i;
 	int j;
-	
+
 	i = 0;
-	j = 0;	
+	j = 0;
 	while (i < WINDOW_WIDTH)
 	{
 		while (j < WINDOW_HEIGHT / 2)

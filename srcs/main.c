@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/02 21:31:13 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/13 17:07:02 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ int	release_button(int keycode, t_all *all)
 	else if (keycode == RIGHT_ARROW)
 		all->player.ad_direction = 0;
 	game_loop(0, all);
+	return (0);
 }
 
 int	main(void)
 {
 	t_all all;
-	
+
+	//teste, aroque.
 	all.vars.init = mlx_init();
 	all.vars.window = mlx_new_window(all.vars.init, WINDOW_WIDTH, WINDOW_HEIGHT,
 		"cub3d");
@@ -69,4 +71,5 @@ int	main(void)
 		//mlx_loop_hook(all.vars.init, game_loop, &all);
 		mlx_loop(all.vars.init);
 	}
+	return (0);
 }
