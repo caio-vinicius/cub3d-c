@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strerror.c                                      :+:      :+:    :+:   */
+/*   is_l_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 20:24:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/11 20:24:18 by caio             ###   ########.fr       */
+/*   Created: 2020/06/11 16:30:53 by caio              #+#    #+#             */
+/*   Updated: 2020/06/15 10:12:47 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_strerror(int errno)
+int		is_l_map(char *s)
 {
-	if (errno == EBADCUB)
-		ft_putstr_fd("Error:\nBad cub file\n", 1);
-	else if (errno == EBADFD)
-		ft_putstr_fd("Error:\nFile descriptor in bad state\n", 1);
-	exit (EXIT_FAILURE);
+	int i;
+
+	i = 0;
+	if (!s || s[i] == '\0')
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == '0' || s[i] == '1' || s[i] == '2'
+			|| s[i] == 'N' || s[i] == 'S' || s[i] == 'E' || s[i] == 'W'
+			|| s[i] == ' ')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }

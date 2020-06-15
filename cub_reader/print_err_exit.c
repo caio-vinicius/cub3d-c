@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.c                                          :+:      :+:    :+:   */
+/*   print_err_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 16:31:30 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 15:34:50 by caio             ###   ########.fr       */
+/*   Created: 2020/06/11 20:24:00 by caio              #+#    #+#             */
+/*   Updated: 2020/06/12 18:32:32 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-//thank you sfreitas.
-char	**get_map(char *s, int j)
+void	print_err_exit(int errno)
 {
-	char			**tmp;
-	static char		**map;
-	int				i;
-	//static int		j;
-
-	i = 0;
-	tmp = malloc((j + 1) * sizeof(char*));
-	if (map)
-	{
-		while (i < j)
-		{
-			tmp[i] = map[i];
-			i++;
-		}
-		free(map);
-	}
-	tmp[j] = s;
-	map = tmp;
-	//j++;
-	return (map);
+	if (errno == EBADCUB)
+		ft_putstr_fd("Error\nBad cub file\n", 1);
+	else if (errno == EBADFD)
+		ft_putstr_fd("Error\nFile descriptor in bad state\n", 1);
+	else if (errno == ENSURRW)
+		ft_putstr_fd("Error\nMap no surround by walls", 1);
+	exit (EXIT_FAILURE);
 }
