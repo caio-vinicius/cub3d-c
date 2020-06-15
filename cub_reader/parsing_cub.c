@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 16:08:24 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/15 18:14:59 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,52 @@ int	ft_ptrlen(char **ptr)
 	while (ptr[y])
 		y++;
 	return (y);
+}
+
+int		find_biggest_line(char **ptr)
+{
+	int i;
+	int y;
+	int ptrlen;
+	int strlen;
+	ptrlen = ft_ptrlen(ptr);
+	y = 0;
+	strlen = 0;
+	while (y < ptrlen)
+	{
+		i = strlen;
+		strlen = ft_strlen(ptr[y]);
+		if (strlen > i)
+			i = strlen;
+		else
+			strlen = i;
+		y++;
+	}
+	return (i);
+}
+
+char	**format_map(char **map, t_cub *cub)
+{
+	int x;
+	int y;
+
+	cub->cols = find_biggest_line(map);
+	cub->rows = ft_ptrlen(map);
+	y = 0;
+	x = 0;
+	while (y < cub->rows)
+	{
+		map[y][cub->cols] = '\0';
+		while (x < cub->cols)
+		{
+			if ((!(is_c_map(map[y][x])) || map[y][x] == ' '))
+				map[y][x] = '1';
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (map);
 }
 
 void	validate_map(char **map)
@@ -117,6 +163,7 @@ void	parsing_cub()
 	close(fd);
 	cub.map[j] = NULL;
 	validate_map(cub.map);
+	cub.map = format_map(cub.map, &cub);
 }
 
 int main(void)
