@@ -1,7 +1,0 @@
-[submodule "cub_reader/libft"]
-	path = cub_reader/libft
-	url = https://github.com/caio-vinicius/libft
-[submodule "cub_reader/get_next_line"]
-	path = cub_reader/get_next_line
-	url = https://github.com/caio-vinicius/get_next_line
-	branch = gnl_cub3d
