@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:19:25 by caio              #+#    #+#             */
-/*   Updated: 2020/06/03 10:14:23 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 13:13:12 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_walkable(float x, float y)
+int	is_walkable(float x, float y, char **map)
 {
 	int x_map;
 	int y_map;
@@ -21,7 +21,7 @@ int	is_walkable(float x, float y)
 		return (0);
 	x_map = floor(x / TILE_SIZE);
 	y_map = floor(y / TILE_SIZE);
-	if (map[y_map][x_map] == 0)
+	if (map[y_map][x_map] == '0')
 		return (1);
 	return (0);
 }

@@ -6,26 +6,11 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 23:03:24 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 16:52:44 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1}
-};
 
 t_all	setup(t_all all)
 {
@@ -55,14 +40,15 @@ int	release_button(int keycode, t_all *all)
 
 int	main(int argc, char *argv[])
 {
-	t_all all;
+	t_all	all;
 
+	(void)argc;
 	if (!argv[1])
 		print_err_exit(EMISCUB);
-	cub_analyzecub(argv[1]);
+	all.cub = cub_analyzecub(argv[1]);
 	all.vars.init = mlx_init();
-	all.vars.window = mlx_new_window(all.vars.init, WINDOW_WIDTH, WINDOW_HEIGHT,
-		"cub3d");
+	all.vars.window = mlx_new_window(all.vars.init, WINDOW_WIDTH,
+			WINDOW_HEIGHT, "cub3d");
 	all = setup(all);
 	game_loop(0, &all);
 	if (all.vars.init && all.vars.window)

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 23:09:21 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 11:11:07 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	recognize_identifier(char *s, t_cub *cub)
 	else if (s[0] == 'S')
 		cub->t_s = &s[2];
 	else if (s[0] == 'F')
-		cub->floor = cub_getrgb(&s[2], cub);
+		cub->floor = cub_getrgb(&s[2]);
 	else if (s[0] == 'C')
-		cub->ceiling = cub_getrgb(&s[2], cub);
+		cub->ceiling = cub_getrgb(&s[2]);
 	else if (cub_isstrmap(s))
 		cub->map = cub_getmap(s, j++);
 	else if (s[0] == '\0')
@@ -57,7 +57,7 @@ void	init_cub(t_cub *cub)
 	cub->rows = 0;
 }
 
-void	cub_analyzecub(char *file)
+t_cub	cub_analyzecub(char *file)
 {
 	int		fd;
 	char	*line;
@@ -74,11 +74,6 @@ void	cub_analyzecub(char *file)
 	cub_validatevars(cub);
 	cub_validatemap(cub.map);
 	cub.map = cub_formatmap(cub.map, &cub);
-
+	return (cub);
 	//printf("R %d %d\nNO %s\nSO %s\nWE %s\nEA %s\nS %s\nF %s\nC %s\nM1 %s\nM2 %s\nM3 %s\nM4 %s\nCOLS %d\nROWS %d\n", cub.width, cub.height, cub.t_no, cub.t_so, cub.t_we, cub.t_ea, cub.t_s, cub.floor, cub.ceiling, cub.map[0], cub.map[1], cub.map[2], cub.map[3], cub.cols, cub.rows);
 }
-/*
-int main(int argc, char *argv[])
-{
-	parsing_cub(argv[1]);
-}*/

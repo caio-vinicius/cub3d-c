@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/13 17:13:49 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 13:30:33 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	render(t_all all)
 
 	render_background(&data);
 	render_walls(&data, all);
-	render_map(&data);
+	render_map(&data, all.cub);
 	//render_player(all);
 
 	mlx_put_image_to_window(all.vars.init, all.vars.window, data.img, 0, 0);
@@ -32,7 +32,7 @@ void	render(t_all all)
 
 void	update(t_all *all)
 {
-	move_player(&all->player);
+	move_player(&all->player, all->cub);
 	cast_all_rays(all);
 }
 

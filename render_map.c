@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:27:44 by caio              #+#    #+#             */
-/*   Updated: 2020/06/13 17:09:33 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 13:31:50 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_wall_on_image(t_data *data, int x1, int y1, int size)
 	}
 }
 
-void	render_map(t_data *data)
+void	render_map(t_data *data, t_cub cub)
 {
 	int	size;
 	int	x;
@@ -40,11 +40,11 @@ void	render_map(t_data *data)
 	x = 0;
 	y = 0;
 	size = TILE_SIZE * MINIMAP_SCALE;
-	while (x < MAP_NUM_ROWS)
+	while (x < cub.rows)
 	{
-		while (y < MAP_NUM_COLS)
+		while (y < cub.cols)
 		{
-			if (map[x][y] == 1)
+			if (cub.map[x][y] == '1')
 				draw_wall_on_image(data, y, x, size);
 			y++;
 		}

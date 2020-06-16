@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 22:58:51 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 16:05:04 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include <stdio.h>
 
 typedef struct	s_cub {
-	int		width;
-	int		height;
+	int	width;
+	int	height;
 	char	*t_no;
 	char	*t_so;
 	char	*t_we;
@@ -38,19 +38,19 @@ typedef struct	s_cub {
 	char	*floor;
 	char	*ceiling;
 	char	**map;
-	int		cols;
-	int		rows;
-}				t_cub;
+	int	cols;
+	int	rows;
+}		t_cub;
 
 typedef struct	s_rgb {
-	char		*cr;
-	char		*cg;
-	char		*cb;
-}				t_rgb;
+	char	*cr;
+	char	*cg;
+	char	*cb;
+}		t_rgb;
 
-void	cub_analyzecub(char *file);
+t_cub	cub_analyzecub(char *file);
 void	cub_getr(char *s, t_cub *cub);
-char	*cub_getrgb(char *s, t_cub *cub);
+char	*cub_getrgb(char *s);
 char	**cub_getmap(char *s, int j);
 void	cub_validatevars(t_cub cub);
 void	cub_validatemap(char **map);

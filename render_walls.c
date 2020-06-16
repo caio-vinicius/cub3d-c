@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:46:16 by caio              #+#    #+#             */
-/*   Updated: 2020/06/13 17:10:10 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 10:58:14 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_strip(t_data *data, t_wall wall, int color, int i)
 
 	x = 0 + (WALL_STRIP_WIDTH * i);
 	y = wall.top_pixel;
-	printf("x %d y %x\n", x, y);
+	//printf("x %d y %x\n", x, y);
 	while (y < wall.bottom_pixel)
 	{
 		my_mlx_pixel_put(data, x, y, color);
