@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 16:05:04 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 17:54:21 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@
 
 # include <stdio.h>
 
+typedef struct	s_gen {
+	int	cols;
+	int	rows;
+	int	x_player;
+	int	y_player;
+	char	rot_angle;
+}		t_gen;
+
 typedef struct	s_cub {
 	int	width;
 	int	height;
@@ -38,8 +46,7 @@ typedef struct	s_cub {
 	char	*floor;
 	char	*ceiling;
 	char	**map;
-	int	cols;
-	int	rows;
+	t_gen	gen;
 }		t_cub;
 
 typedef struct	s_rgb {

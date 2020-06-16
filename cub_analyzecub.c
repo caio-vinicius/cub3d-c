@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 11:11:07 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 18:57:05 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	init_cub(t_cub *cub)
 	cub->floor = NULL;
 	cub->ceiling = NULL;
 	cub->map = NULL;
-	cub->cols = 0;
-	cub->rows = 0;
+	cub->gen.cols = 0;
+	cub->gen.rows = 0;
+	cub->gen.x_player = 0;
+	cub->gen.y_player = 0;
+	cub->gen.rot_angle = 0;
 }
 
 t_cub	cub_analyzecub(char *file)
@@ -71,9 +74,9 @@ t_cub	cub_analyzecub(char *file)
 		ret = recognize_identifier(line, &cub);
 	close(fd);
 	cub.map[ret] = NULL;
-	cub_validatevars(cub);
 	cub_validatemap(cub.map);
 	cub.map = cub_formatmap(cub.map, &cub);
+	cub_validatevars(cub);
 	return (cub);
 	//printf("R %d %d\nNO %s\nSO %s\nWE %s\nEA %s\nS %s\nF %s\nC %s\nM1 %s\nM2 %s\nM3 %s\nM4 %s\nCOLS %d\nROWS %d\n", cub.width, cub.height, cub.t_no, cub.t_so, cub.t_we, cub.t_ea, cub.t_s, cub.floor, cub.ceiling, cub.map[0], cub.map[1], cub.map[2], cub.map[3], cub.cols, cub.rows);
 }

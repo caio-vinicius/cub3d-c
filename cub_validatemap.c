@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:22:50 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 23:10:34 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 17:44:06 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	cub_validatemap(char **map)
 				print_err_exit(ENSURRW);
 			if ((y > 0 && y < ptrlen - 1) && (x > 0 && x < strlen - 1) &&
 					(map[y][x] == '0') && ((!(cub_ischarmap(map[y - 1][x]))) ||
-					(!(cub_ischarmap(map[y + 1][x]))) || (!(cub_ischarmap(map[y][x - 1])))
-					|| (!(cub_ischarmap(map[y][x + 1])))))
+					(!(cub_ischarmap(map[y + 1][x]))) ||
+					(!(cub_ischarmap(map[y][x - 1]))) ||
+					(!(cub_ischarmap(map[y][x + 1])))))
 				print_err_exit(ENSURRW);
 			x++;
 		}

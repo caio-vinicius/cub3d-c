@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 16:55:13 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 18:16:24 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@
 
 # define TEX_WIDTH 32
 # define TEX_HEIGHT 32
+
+# define SOUTH (PI / 2)
+# define WEST (PI)
+# define NORTH (PI * 1.5)
+# define EAST (PI * 2.0)
 
 # define UP_ARROW 65362
 # define DOWN_ARROW 65364

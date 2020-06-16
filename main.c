@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 16:52:44 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 18:47:37 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,23 @@
 
 t_all	setup(t_all all)
 {
-	all.player.x = WINDOW_WIDTH / 2;
-	all.player.y = WINDOW_HEIGHT / 2;
+	float rot_angle;
+
+	if (all.cub.gen.rot_angle == 'N')
+		rot_angle = NORTH;
+	else if (all.cub.gen.rot_angle == 'S')
+		rot_angle = SOUTH;
+	else if (all.cub.gen.rot_angle == 'E')
+		rot_angle = EAST;
+	else if (all.cub.gen.rot_angle == 'W')
+		rot_angle = WEST;
+	else
+		rot_angle = NORTH;
+	all.player.x = all.cub.gen.x_player * TILE_SIZE;
+	all.player.y = all.cub.gen.y_player * TILE_SIZE;
 	all.player.ad_direction = 0;
 	all.player.ws_direction = 0;
-	all.player.rot_angle = PI / 2;
+	all.player.rot_angle = rot_angle;
 	all.player.ad_speed = 5 * (PI / 180);
 	all.player.ws_speed = 15;
 	return (all);
@@ -51,6 +63,8 @@ int	main(int argc, char *argv[])
 			WINDOW_HEIGHT, "cub3d");
 	all = setup(all);
 	game_loop(0, &all);
+	printf("X %d Y %d POS %c\n", all.cub.gen.x_player, all.cub.gen.y_player,
+			all.cub.gen.rot_angle);
 	if (all.vars.init && all.vars.window)
 	{
 		//mlx_key_hook(all.vars.window, game_loop, &all);

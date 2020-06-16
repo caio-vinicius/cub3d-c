@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:27:44 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 13:31:50 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/16 17:48:54 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	render_map(t_data *data, t_cub cub)
 	x = 0;
 	y = 0;
 	size = TILE_SIZE * MINIMAP_SCALE;
-	while (x < cub.rows)
+	while (x < cub.gen.rows)
 	{
-		while (y < cub.cols)
+		while (y < cub.gen.cols)
 		{
 			if (cub.map[x][y] == '1')
 				draw_wall_on_image(data, y, x, size);
