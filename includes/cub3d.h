@@ -6,12 +6,14 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/08 14:43:34 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/15 20:31:38 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include "cub.h"
 
 # include <mlx.h>
 # include <math.h>
@@ -30,7 +32,7 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-# define TILE_SIZE 32
+# define TILE_SIZE 40
 # define MAP_NUM_ROWS 12
 # define MAP_NUM_COLS 16
 
@@ -148,11 +150,11 @@ float	normalize_angle(float angle);
 int	is_walkable(float x, float y);
 void	cast_ray(float ray_angle, int id, t_all *all);
 void	draw_square_on_image(t_data *data, int size, int color);
-void	render_map(t_vars vars, t_data *data);
+void	render_map(t_data *data);
 void	render_player(t_all all);
 void	render_rays(t_all *all);
-void	render_walls(t_ray ray, t_player player, t_data *data, t_all all);
-void	render_background(t_all all, t_data *data);
+void	render_walls(t_data *data, t_all all);
+void	render_background(t_data *data);
 void	move_player(t_player *player);
 void	cast_all_rays(t_all *all);
 int	game_loop(int keycode, t_all *all);

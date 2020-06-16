@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_rgb.c                                          :+:      :+:    :+:   */
+/*   cub_getrgb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
-/*   Updated: 2020/06/10 23:35:52 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/15 23:02:06 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_rgb_digit(char *s, char *color, int i)
 
 
 //sure memory leak here, check later
-char	*get_rgb(char *s, t_cub *cub)
+char	*cub_getrgb(char *s, t_cub *cub)
 {
 	t_rgb	rgb;
 	char	*color;

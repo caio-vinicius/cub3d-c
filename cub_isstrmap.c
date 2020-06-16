@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.c                                          :+:      :+:    :+:   */
+/*   cub_isstrmap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 16:31:30 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 15:34:50 by caio             ###   ########.fr       */
+/*   Created: 2020/06/11 16:30:53 by caio              #+#    #+#             */
+/*   Updated: 2020/06/15 23:02:27 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-//thank you sfreitas.
-char	**get_map(char *s, int j)
+int		cub_isstrmap(char *s)
 {
-	char			**tmp;
-	static char		**map;
-	int				i;
-	//static int		j;
+	int i;
 
 	i = 0;
-	tmp = malloc((j + 1) * sizeof(char*));
-	if (map)
+	if (!s || s[i] == '\0')
+		return (0);
+	while (s[i])
 	{
-		while (i < j)
-		{
-			tmp[i] = map[i];
+		if (s[i] == '0' || s[i] == '1' || s[i] == '2'
+			|| s[i] == 'N' || s[i] == 'S' || s[i] == 'E' || s[i] == 'W'
+			|| s[i] == ' ')
 			i++;
-		}
-		free(map);
+		else
+			return (0);
 	}
-	tmp[j] = s;
-	map = tmp;
-	//j++;
-	return (map);
+	return (1);
 }

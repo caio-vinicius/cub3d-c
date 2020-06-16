@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_c_map.c                                         :+:      :+:    :+:   */
+/*   cub_getmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/15 10:05:07 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 12:13:50 by caio             ###   ########.fr       */
+/*   Created: 2020/06/11 16:31:30 by caio              #+#    #+#             */
+/*   Updated: 2020/06/15 23:01:46 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		is_c_map(char c)
+//thank you sfreitas.
+char	**cub_getmap(char *s, int j)
 {
-	if (!c || c == '\0')
-		return (0);
-	if (c == '0' || c == '1' || c == '2' || c == 'N' ||
-			c == 'S' || c == 'E' || c == 'W')
-			return (1);
-	else
-			return (0);
+	char			**tmp;
+	static char		**map;
+	int				i;
+	//static int		j;
+
+	i = 0;
+	tmp = malloc((j + 1) * sizeof(char*));
+	if (map)
+	{
+		while (i < j)
+		{
+			tmp[i] = map[i];
+			i++;
+		}
+		free(map);
+	}
+	tmp[j] = s;
+	map = tmp;
+	//j++;
+	return (map);
 }

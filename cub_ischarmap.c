@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_resolution.c                                   :+:      :+:    :+:   */
+/*   cub_ischarmap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 23:33:52 by caio              #+#    #+#             */
-/*   Updated: 2020/06/10 23:35:45 by caio             ###   ########.fr       */
+/*   Created: 2020/06/15 10:05:07 by caio              #+#    #+#             */
+/*   Updated: 2020/06/15 23:02:15 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	get_resolution(char *s, t_cub *cub)
+int		cub_ischarmap(char c)
 {
-	int i;
-	int j;
-	char *width;
-	char *height;
-
-	i = 0;
-	i = ft_digitlen(s);
-	width = ft_substr(s, 0, i);
-	if (ft_isspace(s[i]))
-		i++;
-	j = i;
-	i = ft_digitlen(&s[i]);
-	height = ft_substr(s, j, i);
-	cub->width = ft_atoi(width);
-	cub->height = ft_atoi(height);
+	if (!c || c == '\0')
+		return (0);
+	if (c == '0' || c == '1' || c == '2' || c == 'N' ||
+			c == 'S' || c == 'E' || c == 'W')
+			return (1);
+	else
+			return (0);
 }

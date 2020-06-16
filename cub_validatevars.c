@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_l_map.c                                         :+:      :+:    :+:   */
+/*   cub_validatevars.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 16:30:53 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 10:12:47 by caio             ###   ########.fr       */
+/*   Created: 2020/06/15 18:32:01 by caio              #+#    #+#             */
+/*   Updated: 2020/06/15 23:02:57 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		is_l_map(char *s)
+void	cub_validatevars(t_cub cub)
 {
-	int i;
-
-	i = 0;
-	if (!s || s[i] == '\0')
-		return (0);
-	while (s[i])
-	{
-		if (s[i] == '0' || s[i] == '1' || s[i] == '2'
-			|| s[i] == 'N' || s[i] == 'S' || s[i] == 'E' || s[i] == 'W'
-			|| s[i] == ' ')
-			i++;
-		else
-			return (0);
-	}
-	return (1);
+	if (!cub.width || !cub.height)
+		print_err_exit(EBADCUB);
+	else if (!cub.t_no || !cub.t_so || !cub.t_we || !cub.t_ea || !cub.t_s)
+		print_err_exit(EBADCUB);
+	else if (!cub.floor || !cub.ceiling)
+		print_err_exit(EBADCUB);
+	else if (!cub.map[0])
+		print_err_exit(EBADCUB);
 }
