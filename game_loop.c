@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 13:30:33 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 09:28:36 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	process_keys(int keycode, t_player *player)
 		player->ad_direction = -1;
 	else if (keycode == RIGHT_ARROW)
 		player->ad_direction = 1;
+	else if (keycode == ESC)
+		print_exit(CLOSECL, 1);
 }
 
 int	game_loop(int keycode, t_all *all)

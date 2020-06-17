@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 18:57:05 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 09:29:06 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	recognize_identifier(char *s, t_cub *cub)
 	else if (s[0] == '\0')
 		return (0);
 	else
-		print_err_exit(EBADCUB);
+		print_exit(EBADCUB, 2);
 	return (j);
 }
 
@@ -69,7 +69,7 @@ t_cub	cub_analyzecub(char *file)
 
 	init_cub(&cub);
 	if ((fd = open(file, O_RDONLY)) == -1)
-		print_err_exit(EBADFD);
+		print_exit(EBADFD, 2);
 	while (get_next_line(fd, &line) > 0)
 		ret = recognize_identifier(line, &cub);
 	close(fd);

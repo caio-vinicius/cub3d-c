@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 18:16:24 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 09:18:26 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 # define INT_MAX 2147483647
 
-# define M_KEYPRESS 1L<<0
-# define M_KEYRELEASE 1L<<1
+# define M_KEYPRESS 1L << 0
+# define M_KEYRELEASE 1L << 1
 # define E_KEYPRESS 2
 # define E_KEYRELEASE 3
 
@@ -55,10 +55,11 @@
 # define NORTH (PI * 1.5)
 # define EAST (PI * 2.0)
 
-# define UP_ARROW 65362
-# define DOWN_ARROW 65364
-# define LEFT_ARROW 65361
-# define RIGHT_ARROW 65363
+# define UP_ARROW 119
+# define DOWN_ARROW 115
+# define LEFT_ARROW 97
+# define RIGHT_ARROW 100
+# define ESC 65307
 
 # define WALL_3D_COLOR 0xffffffff
 # define WALL_3D_2COLOR 0xffcccccc

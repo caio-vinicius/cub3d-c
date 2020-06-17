@@ -6,11 +6,32 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 18:47:37 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 09:28:19 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	validate_screen_size(int argc, t_all *all)
+{
+	int width;
+	int height;
+
+	(void)argc;
+	mlx_get_screen_size(all->vars.init, &width, &height);
+	if (all->cub.width > width)
+	{
+		ft_putstr_fd("Warning:\nScreen width excced your current screen, \
+resized to maximum.\n", 2);
+		all->cub.width = width;
+	}
+	if (all->cub.height > height)
+	{
+		ft_putstr_fd("Warning:\nScreen height excced your current screen, \
+resized to maximum.\n", 2);
+		all->cub.height = height;
+	}
+}
 
 t_all	setup(t_all all)
 {
@@ -36,7 +57,7 @@ t_all	setup(t_all all)
 	return (all);
 }
 
-int	release_button(int keycode, t_all *all)
+int		release_button(int keycode, t_all *all)
 {
 	if (keycode == UP_ARROW)
 		all->player.ws_direction = 0;
@@ -50,27 +71,23 @@ int	release_button(int keycode, t_all *all)
 	return (0);
 }
 
-int	main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	t_all	all;
 
-	(void)argc;
-	if (!argv[1])
-		print_err_exit(EMISCUB);
-	all.cub = cub_analyzecub(argv[1]);
 	all.vars.init = mlx_init();
+	if (!argv[1])
+		print_exit(EMISCUB, 2);
+	all.cub = cub_analyzecub(argv[1]);
+	validate_screen_size(argc, &all);
 	all.vars.window = mlx_new_window(all.vars.init, WINDOW_WIDTH,
 			WINDOW_HEIGHT, "cub3d");
 	all = setup(all);
 	game_loop(0, &all);
-	printf("X %d Y %d POS %c\n", all.cub.gen.x_player, all.cub.gen.y_player,
-			all.cub.gen.rot_angle);
 	if (all.vars.init && all.vars.window)
 	{
-		//mlx_key_hook(all.vars.window, game_loop, &all);
-		mlx_hook(all.vars.window, 2, 1L << 0, game_loop, &all);
-		mlx_hook(all.vars.window, 3, 1L << 1, release_button, &all);
-		//mlx_loop_hook(all.vars.init, game_loop, &all);
+		mlx_hook(all.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &all);
+		mlx_hook(all.vars.window, E_KEYRELEASE, M_KEYRELEASE, release_button, &all);
 		mlx_loop(all.vars.init);
 	}
 	return (0);

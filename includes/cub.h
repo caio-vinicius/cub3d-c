@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 17:54:21 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 09:36:42 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define EXIT_FAILURE 1
 
 // error codes
+# define CLOSECL 0 /* Sucess terminating process */
 # define EBADFD 1 /* File descriptor in bad state */
 # define ENSURRW 2 /* Map no surround by walls */
 # define EBADCUB 3 /* Bad cub file */
@@ -24,8 +25,6 @@
 
 # include "get_next_line.h"
 # include "libft.h"
-
-# include <stdio.h>
 
 typedef struct	s_gen {
 	int	cols;
@@ -65,7 +64,7 @@ char	**cub_formatmap(char **map, t_cub *cub);
 int	cub_isstrmap(char *s);
 int	cub_ischarmap(char c);
 int	cub_iswall(int c);
-void	print_err_exit(int errno);
+void	print_exit(int id, int type);
 int	cub_ptrlen(char **ptr);
 
 #endif
