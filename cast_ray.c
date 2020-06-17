@@ -6,22 +6,23 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:23:13 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 13:03:26 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 18:09:57 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	search_wall(t_grid_vars *vars, t_ray_vars ray, int time, char **map)
+void	search_wall(t_grid_vars *vars, t_ray_vars ray, int time, char **map,
+		t_gen gen)
 {
-	while (vars->next_touch_x >= 0 && vars->next_touch_x <= WINDOW_WIDTH &&
-		vars->next_touch_y >= 0 && vars->next_touch_y <= WINDOW_HEIGHT)
+	while (vars->next_touch_x >= 0 && vars->next_touch_x <= gen.window_width &&
+		vars->next_touch_y >= 0 && vars->next_touch_y <= gen.window_height)
 	{
 		ray.x_to_check = (time == 1) ? vars->next_touch_x +
 			((ray.facing_left) ? -1 : 0) : vars->next_touch_x;
 		ray.y_to_check = (time == 1) ? vars->next_touch_y :
 			vars->next_touch_y + ((ray.facing_up) ? -1 : 0);
-		if (is_walkable(ray.x_to_check, ray.y_to_check, map))
+		if (is_walkable(ray.x_to_check, ray.y_to_check, map, gen))
 		{
 			vars->next_touch_x += ray.xstep;
 			vars->next_touch_y += ray.ystep;
@@ -39,7 +40,7 @@ void	search_wall(t_grid_vars *vars, t_ray_vars ray, int time, char **map)
 }
 
 void	horz_grid(t_ray_vars *ray, t_grid_vars *horz, t_player player, char
-		**map)
+		**map, t_gen gen)
 {
 	ray->yintercept = floor(player.y / TILE_SIZE) * TILE_SIZE;
 	ray->yintercept += (ray->facing_down) ? TILE_SIZE : 0;
@@ -51,11 +52,11 @@ void	horz_grid(t_ray_vars *ray, t_grid_vars *horz, t_player player, char
 	ray->xstep *= (ray->facing_right && ray->xstep < 0) ? -1 : 1;
 	horz->next_touch_x = ray->xintercept;
 	horz->next_touch_y = ray->yintercept;
-	search_wall(horz, *ray, 0, map);
+	search_wall(horz, *ray, 0, map, gen);
 }
 
 void	vert_grid(t_ray_vars *ray, t_grid_vars *vert, t_player player, char
-		**map)
+		**map, t_gen gen)
 {
 	ray->xintercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
 	ray->xintercept += (ray->facing_right) ? TILE_SIZE : 0;
@@ -67,7 +68,7 @@ void	vert_grid(t_ray_vars *ray, t_grid_vars *vert, t_player player, char
 	ray->ystep *= (ray->facing_down && ray->ystep < 0) ? -1 : 1;
 	vert->next_touch_x = ray->xintercept;
 	vert->next_touch_y = ray->yintercept;
-	search_wall(vert, *ray, 1, map);
+	search_wall(vert, *ray, 1, map, gen);
 }
 
 void	init_horz_vert(t_grid_vars *vars)
@@ -130,7 +131,7 @@ void	cast_ray(float ray_angle, int id, t_all *all)
 	ray.id = id;
 	init_horz_vert(&horz);
 	init_horz_vert(&vert);
-	horz_grid(&ray, &horz, all->player, all->cub.map);
-	vert_grid(&ray, &vert, all->player, all->cub.map);
+	horz_grid(&ray, &horz, all->player, all->cub.map, all->cub.gen);
+	vert_grid(&ray, &vert, all->player, all->cub.map, all->cub.gen);
 	choose_smallest_distance(horz, vert, ray, all);
 }

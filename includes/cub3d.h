@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 09:18:26 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 17:48:51 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
 # define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
 
-# define NUM_RAYS WINDOW_WIDTH
+# define NUM_RAYS 500
 
 # define TEX_WIDTH 32
 # define TEX_HEIGHT 32
@@ -103,7 +103,7 @@ typedef struct	s_ray {
 	int	facing_left;
 	int	facing_right;
 	int	wall_hit_content;
-}		t_ray[NUM_RAYS];
+}		t_ray;
 
 typedef struct	s_ray_vars {
 	float	angle;
@@ -144,7 +144,7 @@ typedef struct	s_wall {
 typedef struct		s_all {
 	t_vars		vars;
 	t_player	player;
-	t_ray		ray;
+	t_ray		*ray;
 	t_cub		cub;
 }			t_all;
 
@@ -152,14 +152,14 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	dda_draw_line(int x0, int y0, int x1, int y1, t_vars vars);
 float	distance_points(float x1, float y1, float x2, float y2);
 float	normalize_angle(float angle);
-int	is_walkable(float x, float y, char **map);
+int	is_walkable(float x, float y, char **map, t_gen gen);
 void	cast_ray(float ray_angle, int id, t_all *all);
 void	draw_square_on_image(t_data *data, int size, int color);
 void	render_map(t_data *data, t_cub cub);
 void	render_player(t_all all);
 void	render_rays(t_all *all);
 void	render_walls(t_data *data, t_all all);
-void	render_background(t_data *data);
+void	render_background(t_data *data, t_cub cub);
 void	move_player(t_player *player, t_cub cub);
 void	cast_all_rays(t_all *all);
 int	game_loop(int keycode, t_all *all);

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 09:36:42 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 10:50:19 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@
 # include "get_next_line.h"
 # include "libft.h"
 
+// remember to remove
+# include <stdio.h>
+
 typedef struct	s_gen {
 	int	cols;
 	int	rows;
+	int	window_width;
+	int	window_height;
 	int	x_player;
 	int	y_player;
 	char	rot_angle;

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:32:03 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 11:29:00 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 10:41:32 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	move_player(t_player *player, t_cub cub)
 	new_y = player->y + sin(player->rot_angle) * move_step;
 	new_x = ceil(new_x);
 	new_y = ceil(new_y);
-	if (is_walkable(new_x, new_y, cub.map))
+	if (is_walkable(new_x, new_y, cub.map, cub.gen))
 	{
 		player->x = new_x;
 		player->y = new_y;

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 09:28:36 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 11:20:50 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	render(t_all all)
 {
 	t_data data;
-	data.img = mlx_new_image(all.vars.init, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data.img = mlx_new_image(all.vars.init, all.cub.width, all.cub.height);
 	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
 		&data.endian);
 
-	render_background(&data);
+	render_background(&data, all.cub);
 	render_walls(&data, all);
 	render_map(&data, all.cub);
 	//render_player(all);

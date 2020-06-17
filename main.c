@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 09:28:19 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/17 18:46:10 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,40 @@ void	validate_screen_size(int argc, t_all *all)
 	(void)argc;
 	mlx_get_screen_size(all->vars.init, &width, &height);
 	if (all->cub.width > width)
-	{
-		ft_putstr_fd("Warning:\nScreen width excced your current screen, \
-resized to maximum.\n", 2);
 		all->cub.width = width;
-	}
 	if (all->cub.height > height)
-	{
-		ft_putstr_fd("Warning:\nScreen height excced your current screen, \
-resized to maximum.\n", 2);
 		all->cub.height = height;
-	}
+}
+
+float	define_dir(char rot_angle)
+{
+	float dir;
+
+	if (rot_angle == 'N')
+		dir = NORTH;
+	else if (rot_angle == 'S')
+		dir = SOUTH;
+	else if (rot_angle == 'E')
+		dir = EAST;
+	else if (rot_angle == 'W')
+		dir = WEST;
+	else
+		dir = NORTH;
+	return (rot_angle);
 }
 
 t_all	setup(t_all all)
 {
-	float rot_angle;
-
-	if (all.cub.gen.rot_angle == 'N')
-		rot_angle = NORTH;
-	else if (all.cub.gen.rot_angle == 'S')
-		rot_angle = SOUTH;
-	else if (all.cub.gen.rot_angle == 'E')
-		rot_angle = EAST;
-	else if (all.cub.gen.rot_angle == 'W')
-		rot_angle = WEST;
-	else
-		rot_angle = NORTH;
 	all.player.x = all.cub.gen.x_player * TILE_SIZE;
 	all.player.y = all.cub.gen.y_player * TILE_SIZE;
 	all.player.ad_direction = 0;
 	all.player.ws_direction = 0;
-	all.player.rot_angle = rot_angle;
+	all.player.rot_angle = define_dir(all.cub.gen.rot_angle);
 	all.player.ad_speed = 5 * (PI / 180);
 	all.player.ws_speed = 15;
+	all.cub.gen.window_width = all.cub.gen.cols * TILE_SIZE;
+	all.cub.gen.window_height = all.cub.gen.rows * TILE_SIZE;
+	all.ray = malloc(all.cub.width * sizeof(t_ray));
 	return (all);
 }
 
@@ -80,8 +80,8 @@ int		main(int argc, char *argv[])
 		print_exit(EMISCUB, 2);
 	all.cub = cub_analyzecub(argv[1]);
 	validate_screen_size(argc, &all);
-	all.vars.window = mlx_new_window(all.vars.init, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "cub3d");
+	all.vars.window = mlx_new_window(all.vars.init, all.cub.width,
+			all.cub.height, "cub3d");
 	all = setup(all);
 	game_loop(0, &all);
 	if (all.vars.init && all.vars.window)
