@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
-/*   Updated: 2020/06/18 12:02:04 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/18 14:40:31 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	mem_clear(char **color, t_rgb value)
 {
-	free(color);
 	free(color[0]);
 	free(color[1]);
 	free(color[2]);
+	free(color);
 	free(value.r);
 	free(value.g);
 	free(value.b);
