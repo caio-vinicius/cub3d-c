@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:23:13 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 18:09:57 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/18 10:04:26 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	search_wall(t_grid_vars *vars, t_ray_vars ray, int time, char **map,
 	while (vars->next_touch_x >= 0 && vars->next_touch_x <= gen.window_width &&
 		vars->next_touch_y >= 0 && vars->next_touch_y <= gen.window_height)
 	{
-		ray.x_to_check = (time == 1) ? vars->next_touch_x +
-			((ray.facing_left) ? -1 : 0) : vars->next_touch_x;
+		ray.x_to_check = (time == 0) ? vars->next_touch_x :
+			vars->next_touch_x + ((ray.facing_left) ? -1 : 0);
 		ray.y_to_check = (time == 1) ? vars->next_touch_y :
 			vars->next_touch_y + ((ray.facing_up) ? -1 : 0);
 		if (is_walkable(ray.x_to_check, ray.y_to_check, map, gen))
