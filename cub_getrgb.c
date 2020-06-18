@@ -6,45 +6,53 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 09:51:23 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/18 12:02:04 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	get_rgb_digit(char *s, char *color, int i)
+void	mem_clear(char **color, t_rgb value)
 {
-	int j;
-
-	j = 0;
-	while (ft_isdigit(s[i]))
-		color[j++] = s[i++];
-	i++;
-	color[i] = '\0';
-	return (i);
+	free(color);
+	free(color[0]);
+	free(color[1]);
+	free(color[2]);
+	free(value.r);
+	free(value.g);
+	free(value.b);
 }
 
+char	*cat_rgb(char *r, char *g, char *b)
+{
+	int		length;
+	char	*str;
 
-//sure memory leak here, check later
+	length = ft_strlen(r) + ft_strlen(g) + ft_strlen(b);
+	str = malloc(length + 1);
+	if (str)
+	{
+		ft_strlcpy(str, r, length);
+		ft_strlcat(str, g, length);
+		ft_strlcat(str, b, length);
+	}
+	return (str);
+}
+
 char	*cub_getrgb(char *s)
 {
-	t_rgb	rgb;
-	char	*color;
+	t_rgb	value;
+	char	*rgb;
+	char	**color;
 	int		i;
 
 	i = 0;
-	if (((rgb.cr = (char*)ft_calloc(4, sizeof(char))) &&
-		(rgb.cg = (char*)ft_calloc(4, sizeof(char))) &&
-		(rgb.cb = (char*)ft_calloc(4, sizeof(char)))))
-	{
-		i = get_rgb_digit(s, rgb.cr, i);
-		i = get_rgb_digit(s, rgb.cg, i);
-		i = get_rgb_digit(s, rgb.cb, i);
-	}
-	rgb.cr = ft_itoa_base(ft_atoi(rgb.cr), 16);
-	rgb.cg = ft_itoa_base(ft_atoi(rgb.cg), 16);
-	rgb.cb = ft_itoa_base(ft_atoi(rgb.cb), 16);
-	color = ft_strjoin(rgb.cr, rgb.cg);
-	color = ft_strjoin(color, rgb.cb);
-	return (color);
+	color = ft_split(s, ',');
+	value.r = ft_itoa_base(ft_atoi(color[0]), 16);
+	value.g = ft_itoa_base(ft_atoi(color[1]), 16);
+	value.b = ft_itoa_base(ft_atoi(color[2]), 16);
+	rgb = cat_rgb(value.r, value.g, value.b);
+	mem_clear(color, value);
+	//remember to free rgb after
+	return (rgb);
 }

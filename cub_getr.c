@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 23:33:52 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 23:01:56 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/18 12:04:47 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@ void	cub_getr(char *s, t_cub *cub)
 	height = ft_substr(s, j, i);
 	cub->width = ft_atoi(width);
 	cub->height = ft_atoi(height);
+	free(width);
+	free(height);
 }
