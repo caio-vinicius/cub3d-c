@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 14:30:57 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 17:01:13 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ t_cub	*cub_analyzecub(char *file);
 void	cub_getr(char *s, t_cub *cub);
 char	*cub_getpath(char *s, int pos);
 t_color	cub_getrgb(char *s);
-char	**cub_getmap(char *s, int j);
+char	**cub_getmap(char *s);
 void	cub_validatevars(t_cub cub);
 void	cub_validatemap(char **map);
-char	**cub_formatmap(char **map, t_cub *cub);
+char	**cub_formatmap(char **map, t_gen *gen);
 int	cub_isstrmap(char *s);
 int	cub_ischarmap(char c);
 int	cub_iswall(int c);

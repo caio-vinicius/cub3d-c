@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 14:27:29 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 17:32:47 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_color	cub_getrgb(char *s)
 	t_color			rgb;
 	char			**color;
 
-	color = ft_split(s, ',');
+	color = ft_split(&s[2], ',');
 	r = (unsigned char)ft_atoi(color[0]);
 	g = (unsigned char)ft_atoi(color[1]);
 	b = (unsigned char)ft_atoi(color[2]);

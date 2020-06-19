@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_print_exit.c                                    :+:      :+:    :+:   */
+/*   game_print_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:05:42 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 15:24:07 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 17:51:02 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	mem_exit_clear(t_all all)
 		free(all.cub->map[i]);
 		i++;
 	}
+	free(all.cub->map);
+	free(all.cub);
 	//mlx_destroy_image(all.vars.init, all.data.img);
 	//mlx_destroy_window(all.vars.init, all.vars.window);
 }
