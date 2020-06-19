@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 17:48:51 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 14:46:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,11 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-# define TILE_SIZE 40
-# define MAP_NUM_ROWS 12
-# define MAP_NUM_COLS 16
-
+# define TILE_SIZE 32
 # define MINIMAP_SCALE 0.2
 //bug here when strip width is changed
 # define WALL_STRIP_WIDTH 1.0
-
 # define FOV_ANGLE (60 * (PI / 180))
-
-# define WINDOW_WIDTH (TILE_SIZE * MAP_NUM_COLS)
-# define WINDOW_HEIGHT (TILE_SIZE * MAP_NUM_ROWS)
-
-# define NUM_RAYS 500
 
 # define TEX_WIDTH 32
 # define TEX_HEIGHT 32
@@ -145,7 +136,8 @@ typedef struct		s_all {
 	t_vars		vars;
 	t_player	player;
 	t_ray		*ray;
-	t_cub		cub;
+	t_cub		*cub;
+	t_data		data;
 }			t_all;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -164,5 +156,6 @@ void	move_player(t_player *player, t_cub cub);
 void	cast_all_rays(t_all *all);
 int	game_loop(int keycode, t_all *all);
 int	sum_rgb(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+void	game_print_exit(int id, int type, t_all all);
 
 #endif

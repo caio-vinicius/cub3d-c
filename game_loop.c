@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 11:20:50 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 15:23:04 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,44 @@
 
 void	render(t_all all)
 {
-	t_data data;
-	data.img = mlx_new_image(all.vars.init, all.cub.width, all.cub.height);
-	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_length,
-		&data.endian);
+	all.data.img = mlx_new_image(all.vars.init, all.cub->width, all.cub->height);
+	all.data.img_addr = mlx_get_data_addr(all.data.img, &all.data.bpp,
+			&all.data.line_length, &all.data.endian);
 
-	render_background(&data, all.cub);
-	render_walls(&data, all);
-	render_map(&data, all.cub);
+	render_background(&all.data, *all.cub);
+	render_walls(&all.data, all);
+	render_map(&all.data, *all.cub);
 	//render_player(all);
 
-	mlx_put_image_to_window(all.vars.init, all.vars.window, data.img, 0, 0);
-	mlx_destroy_image(all.vars.init, data.img);
+	mlx_put_image_to_window(all.vars.init, all.vars.window, all.data.img, 0, 0);
+	mlx_destroy_image(all.vars.init, all.data.img);
 
 	render_rays(&all);
 }
 
 void	update(t_all *all)
 {
-	move_player(&all->player, all->cub);
+	move_player(&all->player, *all->cub);
 	cast_all_rays(all);
 }
 
-void	process_keys(int keycode, t_player *player)
+void	process_keys(int keycode, t_all *all)
 {
 	if (keycode == UP_ARROW)
-		player->ws_direction = 1;
+		all->player.ws_direction = 1;
 	else if (keycode == DOWN_ARROW)
-		player->ws_direction = -1;
+		all->player.ws_direction = -1;
 	else if (keycode == LEFT_ARROW)
-		player->ad_direction = -1;
+		all->player.ad_direction = -1;
 	else if (keycode == RIGHT_ARROW)
-		player->ad_direction = 1;
+		all->player.ad_direction = 1;
 	else if (keycode == ESC)
-		print_exit(CLOSECL, 1);
+		game_print_exit(CLOSECL, 1, *all);
 }
 
 int	game_loop(int keycode, t_all *all)
 {
-	process_keys(keycode, &all->player);
+	process_keys(keycode, all);
 	update(all);
 	render(*all);
 	return (0);

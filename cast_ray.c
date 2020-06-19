@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:23:13 by caio              #+#    #+#             */
-/*   Updated: 2020/06/18 10:04:26 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 15:17:03 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	cast_ray(float ray_angle, int id, t_all *all)
 	ray.id = id;
 	init_horz_vert(&horz);
 	init_horz_vert(&vert);
-	horz_grid(&ray, &horz, all->player, all->cub.map, all->cub.gen);
-	vert_grid(&ray, &vert, all->player, all->cub.map, all->cub.gen);
+	horz_grid(&ray, &horz, all->player, all->cub->map, all->cub->gen);
+	vert_grid(&ray, &vert, all->player, all->cub->map, all->cub->gen);
 	choose_smallest_distance(horz, vert, ray, all);
 }

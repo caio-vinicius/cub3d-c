@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 18:46:10 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 15:16:38 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	validate_screen_size(int argc, t_all *all)
 
 	(void)argc;
 	mlx_get_screen_size(all->vars.init, &width, &height);
-	if (all->cub.width > width)
-		all->cub.width = width;
-	if (all->cub.height > height)
-		all->cub.height = height;
+	if (all->cub->width > (unsigned int)width)
+		all->cub->width = width;
+	if (all->cub->height > (unsigned int)height)
+		all->cub->height = height;
 }
 
 float	define_dir(char rot_angle)
@@ -44,16 +44,16 @@ float	define_dir(char rot_angle)
 
 t_all	setup(t_all all)
 {
-	all.player.x = all.cub.gen.x_player * TILE_SIZE;
-	all.player.y = all.cub.gen.y_player * TILE_SIZE;
+	all.player.x = all.cub->gen.x_player * TILE_SIZE;
+	all.player.y = all.cub->gen.y_player * TILE_SIZE;
 	all.player.ad_direction = 0;
 	all.player.ws_direction = 0;
-	all.player.rot_angle = define_dir(all.cub.gen.rot_angle);
+	all.player.rot_angle = define_dir(all.cub->gen.rot_angle);
 	all.player.ad_speed = 5 * (PI / 180);
 	all.player.ws_speed = 15;
-	all.cub.gen.window_width = all.cub.gen.cols * TILE_SIZE;
-	all.cub.gen.window_height = all.cub.gen.rows * TILE_SIZE;
-	all.ray = malloc(all.cub.width * sizeof(t_ray));
+	all.cub->gen.window_width = all.cub->gen.cols * TILE_SIZE;
+	all.cub->gen.window_height = all.cub->gen.rows * TILE_SIZE;
+	all.ray = malloc(all.cub->width * sizeof(t_ray));
 	return (all);
 }
 
@@ -77,18 +77,16 @@ int		main(int argc, char *argv[])
 
 	all.vars.init = mlx_init();
 	if (!argv[1])
-		print_exit(EMISCUB, 2);
+		game_print_exit(EMISCUB, 2, all);
 	all.cub = cub_analyzecub(argv[1]);
 	validate_screen_size(argc, &all);
-	all.vars.window = mlx_new_window(all.vars.init, all.cub.width,
-			all.cub.height, "cub3d");
+	all.vars.window = mlx_new_window(all.vars.init, all.cub->width,
+			all.cub->height, "cub3d");
 	all = setup(all);
 	game_loop(0, &all);
-	if (all.vars.init && all.vars.window)
-	{
-		mlx_hook(all.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &all);
-		mlx_hook(all.vars.window, E_KEYRELEASE, M_KEYRELEASE, release_button, &all);
-		mlx_loop(all.vars.init);
-	}
+
+	mlx_hook(all.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &all);
+	mlx_hook(all.vars.window, E_KEYRELEASE, M_KEYRELEASE, release_button, &all);
+	mlx_loop(all.vars.init);
 	return (0);
 }

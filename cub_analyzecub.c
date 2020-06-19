@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/18 14:36:18 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 14:41:52 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,16 @@ int	recognize_identifier(char *s, t_cub *cub)
 	else if (s[0] == '\0')
 		free(s);
 	else
-		print_exit(EBADCUB, 2);
+		cub_print_exit(EBADCUB);
 	return (j);
 }
 
-void	init_cub(t_cub *cub)
+t_cub	*init_cub()
 {
+	t_cub *cub;
+
+	if (!(cub = malloc(sizeof(t_cub))))
+		return (NULL);
 	cub->width = 0;
 	cub->height = 0;
 	cub->t_no = NULL;
@@ -50,32 +54,55 @@ void	init_cub(t_cub *cub)
 	cub->t_we = NULL;
 	cub->t_ea = NULL;
 	cub->t_s = NULL;
-	cub->floor = NULL;
-	cub->ceiling = NULL;
 	cub->map = NULL;
 	cub->gen.cols = 0;
 	cub->gen.rows = 0;
 	cub->gen.x_player = 0;
 	cub->gen.y_player = 0;
 	cub->gen.rot_angle = 0;
+	return (cub);
 }
 
-t_cub	cub_analyzecub(char *file)
+t_cub	*cub_analyzecub(char *file)
 {
 	int		fd;
 	char	*line;
-	t_cub	cub;
+	t_cub	*cub;
 	int		ret;
 
-	init_cub(&cub);
+	cub = init_cub();
 	if ((fd = open(file, O_RDONLY)) == -1)
-		print_exit(EBADFD, 2);
+		cub_print_exit(EBADFD);
 	while (get_next_line(fd, &line) > 0)
-		ret = recognize_identifier(line, &cub);
+		ret = recognize_identifier(line, cub);
 	close(fd);
-	cub.map[ret] = NULL;
-	cub_validatemap(cub.map);
-	cub.map = cub_formatmap(cub.map, &cub);
-	cub_validatevars(cub);
+	cub->map[ret] = NULL;
+	cub_validatemap(cub->map);
+	cub->map = cub_formatmap(cub->map, cub);
+	cub_validatevars(*cub);
 	return (cub);
 }
+
+/*int	main(void)
+{
+	t_cub *cub;
+	int i;
+
+	i = 0;
+	//segv when wrong file
+	cub = cub_analyzecub("cub3d.cub");
+
+	printf("R |%d| |%d|\nNO |%s|\nSO |%s|\nWE |%s|\nEA |%s|\nS |%s|\nF |%x|\nC |%x|\nM1 |%s|\nM2 |%s|\nM3 |%s|\nM4 |%s|\nCOLS |%d|\nROWS |%d|\n", cub->width, cub->height, cub->t_no, cub->t_so, cub->t_we, cub->t_ea, cub->t_s, cub->floor, cub->ceiling, cub->map[0], cub->map[1], cub->map[2], cub->map[3], cub->gen.cols, cub->gen.rows);
+
+	free(cub->t_no);
+	free(cub->t_so);
+	free(cub->t_we);
+	free(cub->t_ea);
+	free(cub->t_s);
+	while (cub->gen.rows > i)
+	{
+		free(cub->map[i]);
+		i++;
+	}
+	free(cub);
+}*/

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:42:53 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 11:20:16 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 15:19:59 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	render_background(t_data *data, t_cub cub)
 {
-	int i;
-	int j;
+	unsigned int i;
+	unsigned int j;
 
 	i = 0;
 	j = 0;

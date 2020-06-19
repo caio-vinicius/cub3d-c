@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 16:31:30 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 23:01:46 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 14:40:21 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**cub_getmap(char *s, int j)
 	//static int		j;
 
 	i = 0;
-	tmp = malloc((j + 1) * sizeof(char*));
+	tmp = malloc((j + 2) * sizeof(char*));
 	if (map)
 	{
 		while (i < j)

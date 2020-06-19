@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:33:14 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 18:10:07 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 15:17:37 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	render_rays(t_all *all)
 {
-	int i;
+	unsigned int i;
 
 	i = 0;
-	while (i < all->cub.width)
+	while (i < all->cub->width)
 	{
 		dda_draw_line(
 			MINIMAP_SCALE * all->player.x,

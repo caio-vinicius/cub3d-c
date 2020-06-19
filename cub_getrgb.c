@@ -6,53 +6,34 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
-/*   Updated: 2020/06/18 14:40:31 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/19 14:27:29 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	mem_clear(char **color, t_rgb value)
+//thank you aroque.
+int	sum_rgb(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
+	return ((((r) << 24) + ((g) << 16) + ((b) << 8) + (a)));
+}
+
+t_color	cub_getrgb(char *s)
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	t_color			rgb;
+	char			**color;
+
+	color = ft_split(s, ',');
+	r = (unsigned char)ft_atoi(color[0]);
+	g = (unsigned char)ft_atoi(color[1]);
+	b = (unsigned char)ft_atoi(color[2]);
+	rgb = sum_rgb(r, g, b, 0x0);
 	free(color[0]);
 	free(color[1]);
 	free(color[2]);
 	free(color);
-	free(value.r);
-	free(value.g);
-	free(value.b);
-}
-
-char	*cat_rgb(char *r, char *g, char *b)
-{
-	int		length;
-	char	*str;
-
-	length = ft_strlen(r) + ft_strlen(g) + ft_strlen(b);
-	str = malloc(length + 1);
-	if (str)
-	{
-		ft_strlcpy(str, r, length);
-		ft_strlcat(str, g, length);
-		ft_strlcat(str, b, length);
-	}
-	return (str);
-}
-
-char	*cub_getrgb(char *s)
-{
-	t_rgb	value;
-	char	*rgb;
-	char	**color;
-	int		i;
-
-	i = 0;
-	color = ft_split(s, ',');
-	value.r = ft_itoa_base(ft_atoi(color[0]), 16);
-	value.g = ft_itoa_base(ft_atoi(color[1]), 16);
-	value.b = ft_itoa_base(ft_atoi(color[2]), 16);
-	rgb = cat_rgb(value.r, value.g, value.b);
-	mem_clear(color, value);
-	//remember to free rgb after
 	return (rgb);
 }
