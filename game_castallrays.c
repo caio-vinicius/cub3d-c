@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_background.c                                :+:      :+:    :+:   */
+/*   game_castallrays.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/02 12:42:53 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 15:19:59 by caio             ###   ########.fr       */
+/*   Created: 2020/05/29 13:34:30 by caio              #+#    #+#             */
+/*   Updated: 2020/06/20 13:14:05 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	render_background(t_data *data, t_cub cub)
+void	game_castallrays(t_game *game)
 {
-	unsigned int i;
-	unsigned int j;
+	float			ray_angle;
+	unsigned int	id;
 
-	i = 0;
-	j = 0;
-	while (i < cub.width)
+	id = 0;
+	ray_angle = game->player.rot_angle - (FOV_ANGLE / 2);
+	while (id < game->cub->width)
 	{
-		while (j < cub.height / 2)
-		{
-			my_mlx_pixel_put(data, i, j, CEILING_COLOR);
-			j++;
-		}
-		while (j < cub.height)
-		{
-			my_mlx_pixel_put(data, i, j, FLOOR_COLOR);
-			j++;
-		}
-		j = 0;
-		i++;
+		game_castray(ray_angle, id, game);
+		ray_angle += FOV_ANGLE / game->cub->width;
+		id++;
 	}
 }

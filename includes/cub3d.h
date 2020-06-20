@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 14:46:01 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/20 13:13:20 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@
 # define WALL_3D_2COLOR 0xffcccccc
 # define WALL_2D_COLOR 0xa6a6a6
 # define PLAYER_COLOR 0x000000
-# define CEILING_COLOR 0xff333333
-# define FLOOR_COLOR 0xff777777
 
 typedef struct		s_vars {
 	void		*init;
@@ -132,30 +130,29 @@ typedef struct	s_wall {
 	int	distance_from_top;
 }		t_wall;
 
-typedef struct		s_all {
+typedef struct		s_game {
 	t_vars		vars;
 	t_player	player;
 	t_ray		*ray;
 	t_cub		*cub;
 	t_data		data;
-}			t_all;
+}			t_game;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	dda_draw_line(int x0, int y0, int x1, int y1, t_vars vars);
-float	distance_points(float x1, float y1, float x2, float y2);
-float	normalize_angle(float angle);
-int	is_walkable(float x, float y, char **map, t_gen gen);
-void	cast_ray(float ray_angle, int id, t_all *all);
-void	draw_square_on_image(t_data *data, int size, int color);
-void	render_map(t_data *data, t_cub cub);
-void	render_player(t_all all);
-void	render_rays(t_all *all);
-void	render_walls(t_data *data, t_all all);
-void	render_background(t_data *data, t_cub cub);
-void	move_player(t_player *player, t_cub cub);
-void	cast_all_rays(t_all *all);
-int	game_loop(int keycode, t_all *all);
-int	sum_rgb(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
-void	game_print_exit(int id, int type, t_all all);
+void	game_print_exit		(int id, int type, t_game game);
+void	game_mlxpixelput	(t_data *data, int x, int y, int color);
+void	game_drawline		(int x0, int y0, int x1, int y1, t_vars vars);
+float	game_distancepoints	(float x1, float y1, float x2, float y2);
+float	game_normalizeangle	(float angle);
+int	game_iswalkable		(float x, float y, char **map, t_gen gen);
+void	game_drawsquare		(t_data *data, int size, int color);
+void	game_castallrays	(t_game *game);
+void	game_castray		(float ray_angle, int id, t_game *game);
+void	game_moveplayer		(t_player *player, t_cub cub);
+void	game_rendermap		(t_data *data, t_cub *cub);
+void	game_renderplayer	(t_player player, t_vars vars);
+void	game_renderrays		(t_cub *cub, t_player player, t_ray *ray, t_vars vars);
+void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player);
+void	game_renderbackground	(t_data *data, t_cub *cub);
+int	game_loop		(int keycode, t_game *game);
 
 #endif

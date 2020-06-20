@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 17:52:49 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/20 12:41:25 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	recognize_identifier(char *s, t_cub *cub)
+static void	recognize_identifier(char *s, t_cub *cub)
 {
 	if (s[0] == 'R')
 		cub_getr(s, cub);
@@ -39,7 +39,7 @@ void	recognize_identifier(char *s, t_cub *cub)
 	free(s);
 }
 
-t_cub	*init_cub()
+static t_cub	*init_cub()
 {
 	t_cub *cub;
 

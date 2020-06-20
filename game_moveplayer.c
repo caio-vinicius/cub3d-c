@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_player.c                                      :+:      :+:    :+:   */
+/*   game_moveplayer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	move_player(t_player *player, t_cub cub)
+void	game_moveplayer(t_player *player, t_cub cub)
 {
 	float move_step;
 	float new_x;
@@ -26,7 +26,7 @@ void	move_player(t_player *player, t_cub cub)
 	new_y = player->y + sin(player->rot_angle) * move_step;
 	new_x = ceil(new_x);
 	new_y = ceil(new_y);
-	if (is_walkable(new_x, new_y, cub.map, cub.gen))
+	if (game_iswalkable(new_x, new_y, cub.map, cub.gen))
 	{
 		player->x = new_x;
 		player->y = new_y;

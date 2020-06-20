@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_square_on_image.c                             :+:      :+:    :+:   */
+/*   game_normalizeangle.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/29 13:25:51 by caio              #+#    #+#             */
-/*   Updated: 2020/05/30 17:07:44 by caio             ###   ########.fr       */
+/*   Created: 2020/05/29 13:18:11 by caio              #+#    #+#             */
+/*   Updated: 2020/06/19 19:33:59 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_square_on_image(t_data *data, int size, int color)
+float	game_normalizeangle(float angle)
 {
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
-	while (x <= size)
-	{
-		my_mlx_pixel_put(data, x, y, color);
-		if (y++ == size)
-		{
-			y = 0;
-			x++;
-		}
-	}
+	angle = remainder(angle, TWO_PI);
+	if (angle < 0)
+		angle = TWO_PI + angle;
+	return (angle);
 }
+

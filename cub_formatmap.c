@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:19:48 by caio              #+#    #+#             */
-/*   Updated: 2020/06/16 17:54:56 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/20 12:41:30 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		find_biggest_line(char **ptr)
+static int		find_biggest_line(char **ptr)
 {
 	int i;
 	int y;
@@ -34,19 +34,19 @@ int		find_biggest_line(char **ptr)
 	return (i);
 }
 
-char	**cub_formatmap(char **map, t_cub *cub)
+char	**cub_formatmap(char **map, t_gen *gen)
 {
 	int x;
 	int y;
 
-	cub->gen.cols = find_biggest_line(map);
-	cub->gen.rows = cub_ptrlen(map);
+	gen->cols = find_biggest_line(map);
+	gen->rows = cub_ptrlen(map);
 	y = 0;
 	x = 0;
-	while (y < cub->gen.rows)
+	while (y < gen->rows)
 	{
-		map[y][cub->gen.cols] = '\0';
-		while (x < cub->gen.cols)
+		map[y][gen->cols] = '\0';
+		while (x < gen->cols)
 		{
 			if ((!(cub_ischarmap(map[y][x])) || map[y][x] == ' '))
 				map[y][x] = '1';
@@ -54,9 +54,9 @@ char	**cub_formatmap(char **map, t_cub *cub)
 			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' ||
 					map[y][x] == 'W')
 			{
-				cub->gen.x_player = x;
-				cub->gen.y_player = y;
-				cub->gen.rot_angle = map[y][x];
+				gen->x_player = x;
+				gen->y_player = y;
+				gen->rot_angle = map[y][x];
 			}
 
 		}

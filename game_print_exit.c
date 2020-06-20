@@ -6,35 +6,35 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:05:42 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 17:51:02 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/20 12:37:28 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	mem_exit_clear(t_all all)
+static void	mem_exit_clear(t_game game)
 {
 	int i;
 
 	i = 0;
-	free(all.cub->t_no);
-	free(all.cub->t_so);
-	free(all.cub->t_we);
-	free(all.cub->t_ea);
-	free(all.cub->t_s);
-	free(all.ray);
-	while (all.cub->gen.rows > i)
+	free(game.cub->t_no);
+	free(game.cub->t_so);
+	free(game.cub->t_we);
+	free(game.cub->t_ea);
+	free(game.cub->t_s);
+	free(game.ray);
+	while (game.cub->gen.rows > i)
 	{
-		free(all.cub->map[i]);
+		free(game.cub->map[i]);
 		i++;
 	}
-	free(all.cub->map);
-	free(all.cub);
-	//mlx_destroy_image(all.vars.init, all.data.img);
-	//mlx_destroy_window(all.vars.init, all.vars.window);
+	free(game.cub->map);
+	free(game.cub);
+	//mlx_destroy_image(game.vars.init, game.data.img);
+	//mlx_destroy_window(game.vars.init, game.vars.window);
 }
 
-void	game_print_exit(int id, int type, t_all all)
+void	game_print_exit(int id, int type, t_game game)
 {
 	if (type == 2)
 	{
@@ -47,7 +47,7 @@ void	game_print_exit(int id, int type, t_all all)
 	{
 		if (id == CLOSECL)
 			ft_putstr_fd("Closing cub3D...\n", type);
-		mem_exit_clear(all);
+		mem_exit_clear(game);
 		exit (EXIT_SUCESS);
 	}
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_walkable.c                                      :+:      :+:    :+:   */
+/*   game_iswalkable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:19:25 by caio              #+#    #+#             */
-/*   Updated: 2020/06/17 10:52:22 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/18 10:09:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_walkable(float x, float y, char **map, t_gen gen)
+int	game_iswalkable(float x, float y, char **map, t_gen gen)
 {
 	int x_map;
 	int y_map;

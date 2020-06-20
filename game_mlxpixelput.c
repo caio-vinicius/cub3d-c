@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sum_rgb.c                                          :+:      :+:    :+:   */
+/*   game_mlxpixelput.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/05 16:18:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/05 22:09:16 by caio             ###   ########.fr       */
+/*   Created: 2020/04/28 19:53:24 by caio              #+#    #+#             */
+/*   Updated: 2020/06/19 19:34:22 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	sum_rgb(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
-{	
-	//r = (r & 24) >> 24;
-	//g = (g & 24) >> 24;
-	//b = (b & 24) >> 24;
-	//a = (a & 24) >> 24;
-	return ((((r) << 24) + ((g) << 16) + ((b) << 8) + (a)));
-}
+void	game_mlxpixelput(t_data *data, int x, int y, int color)
+{
+	char    *dst;
 
+	dst = data->img_addr + (y * data->line_length + x * (data->bpp / 8));
+	*(unsigned int*)dst = color;
+}

@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   normalize_angle.c                                  :+:      :+:    :+:   */
+/*   game_renderbackground.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/29 13:18:11 by caio              #+#    #+#             */
-/*   Updated: 2020/05/29 13:18:26 by caio             ###   ########.fr       */
+/*   Created: 2020/06/02 12:42:53 by caio              #+#    #+#             */
+/*   Updated: 2020/06/20 12:54:22 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	normalize_angle(float angle)
+void	game_renderbackground(t_data *data, t_cub *cub)
 {
-	angle = remainder(angle, TWO_PI);
-	if (angle < 0)
-		angle = TWO_PI + angle;
-	return (angle);
-}
+	unsigned int i;
+	unsigned int j;
 
+	i = 0;
+	j = 0;
+	while (i < cub->width)
+	{
+		while (j < cub->height / 2)
+		{
+			game_mlxpixelput(data, i, j, cub->ceiling);
+			j++;
+		}
+		while (j < cub->height)
+		{
+			game_mlxpixelput(data, i, j, cub->floor);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
