@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 13:13:20 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/22 10:57:13 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "cub.h"
+# include "bmp.h"
 
 # include <mlx.h>
 # include <math.h>
@@ -32,8 +33,10 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
+// tile size 32 and scale of 0.25 is the best combination so far
 # define TILE_SIZE 32
-# define MINIMAP_SCALE 0.2
+# define MINIMAP_SCALE 0.25
+# define MINIMAP_MARGIN 10
 //bug here when strip width is changed
 # define WALL_STRIP_WIDTH 1.0
 # define FOV_ANGLE (60 * (PI / 180))

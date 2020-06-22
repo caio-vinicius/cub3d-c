@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 20:24:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/18 17:25:54 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/20 15:47:48 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ void	cub_print_exit(int id)
 	else if (id == EMISCUB)
 		ft_putstr_fd("Usage: ./cub3D cub_file [ --save ]\n\toptions: \
 			\n\t\t--save Save the first rendered image in bmp format", 2);
+	else if (id == EMDIR)
+		ft_putstr_fd("Error\nMissing position letter on map\n", 2);
 	exit (EXIT_FAILURE);
 }

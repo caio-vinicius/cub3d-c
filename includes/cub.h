@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 17:01:13 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/20 15:47:13 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define ENSURRW 2 /* Map no surround by walls */
 # define EBADCUB 3 /* Bad cub file */
 # define EMISCUB 4 /* Missing cub file */
+# define EMDIR 5   /* Missing position letter on map */
 
 // remember to remove
 # include <stdio.h>
@@ -55,18 +56,18 @@ typedef struct		s_cub {
 	t_gen		gen;
 }			t_cub;
 
-t_cub	*cub_analyzecub(char *file);
-void	cub_getr(char *s, t_cub *cub);
-char	*cub_getpath(char *s, int pos);
-t_color	cub_getrgb(char *s);
-char	**cub_getmap(char *s);
-void	cub_validatevars(t_cub cub);
-void	cub_validatemap(char **map);
-char	**cub_formatmap(char **map, t_gen *gen);
-int	cub_isstrmap(char *s);
-int	cub_ischarmap(char c);
-int	cub_iswall(int c);
-int	cub_ptrlen(char **ptr);
-void    cub_print_exit(int id);
+t_cub	*cub_analyzecub		(char *file);
+void	cub_getr		(char *s, t_cub *cub);
+char	*cub_getpath		(char *s, int pos);
+t_color	cub_getrgb		(char *s);
+char	**cub_getmap		(char *s);
+void	cub_validatevars	(t_cub cub);
+void	cub_validatemap		(char **map);
+char	**cub_formatmap		(char **map, t_gen *gen);
+int	cub_isstrmap		(char *s);
+int	cub_ischarmap		(char c);
+int	cub_iswall		(int c);
+int	cub_ptrlen		(char **ptr);
+void    cub_print_exit		(int id);
 
 #endif
