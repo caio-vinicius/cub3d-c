@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:32:01 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 15:45:52 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 12:34:09 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,4 @@ void	cub_validatevars(t_cub cub)
 		cub_print_exit(EBADCUB);
 	else if (!cub.map[0])
 		cub_print_exit(EBADCUB);
-	else if (!cub.gen.rot_angle)
-		cub_print_exit(EMDIR);
 }

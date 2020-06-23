@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 12:41:25 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 13:14:57 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,18 @@ t_cub	*cub_analyzecub(char *file)
 	int		fd;
 	char	*line;
 	t_cub	*cub;
-	int		ret;
 
 	cub = init_cub();
 	if ((fd = open(file, O_RDONLY)) == -1)
 		cub_print_exit(EBADFD);
-	while ((ret = get_next_line(fd, &line)) > 0)
+	while (get_next_line(fd, &line) > 0)
 		recognize_identifier(line, cub);
+	free(line);
 	close(fd);
-	if (ret == 0)
-		free(line);
+	cub_validatevars(*cub);
 	cub_validatemap(cub->map);
 	cub->map = cub_formatmap(cub->map, &cub->gen);
-	cub_validatevars(*cub);
+	if (!cub->gen.rot_angle)
+		cub_print_exit(EMDIR);
 	return (cub);
 }

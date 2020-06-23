@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 12:08:29 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 13:24:25 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static t_game	setup(t_game game)
 	game.cub->gen.window_width = game.cub->gen.cols * TILE_SIZE;
 	game.cub->gen.window_height = game.cub->gen.rows * TILE_SIZE;
 	game.ray = malloc(game.cub->width * sizeof(t_ray));
+	game.bmp = 0;
 	return (game);
 }
 
@@ -72,7 +73,7 @@ int		main(int argc, char *argv[])
 	game_validateargs(argc, argv, &game);
 	game.vars.init = mlx_init();
 	game.cub = cub_analyzecub(argv[1]);
-	game_validatescreen(argc, game.vars, game.cub);
+	game_validatescreen(game.vars, game.cub);
 	game.vars.window = mlx_new_window(game.vars.init, game.cub->width,
 			game.cub->height, "cub3d");
 	game = setup(game);
