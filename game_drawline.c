@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda_draw_line.c                                    :+:      :+:    :+:   */
+/*   game_drawline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 15:34:31 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 13:30:36 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 11:50:02 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int abs(int n)
 	return ((n>0) ? n : ( n * (-1)));
 }
 
-void game_drawline(int x0, int y0, int x1, int y1, t_vars vars)
+void game_drawline(int x0, int y0, int x1, int y1, t_data *data)
 {
 	int dx;
 	int dy;
@@ -38,8 +38,7 @@ void game_drawline(int x0, int y0, int x1, int y1, t_vars vars)
 	y = y0;
 	while (i <= steps)
 	{
-		mlx_pixel_put(vars.init, vars.window,
-			round(x), round(y), 0x0000ff);
+		game_mlxpixelput(data, round(x), round(y), 0x0000ff);
 		x += x_increase;
 		y += y_increase;
 		i++;

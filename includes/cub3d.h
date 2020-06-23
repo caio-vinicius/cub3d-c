@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/22 10:57:13 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 12:00:30 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "cub.h"
-# include "bmp.h"
 
 # include <mlx.h>
 # include <math.h>
@@ -27,8 +26,10 @@
 
 # define M_KEYPRESS 1L << 0
 # define M_KEYRELEASE 1L << 1
+# define M_KEYDESTROY 1L << 17
 # define E_KEYPRESS 2
 # define E_KEYRELEASE 3
+# define E_KEYDESTROY 17
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
@@ -60,11 +61,6 @@
 # define WALL_2D_COLOR 0xa6a6a6
 # define PLAYER_COLOR 0x000000
 
-typedef struct		s_vars {
-	void		*init;
-	void		*window;
-}			t_vars;
-
 typedef struct	s_data {
 	void	*img;
 	char	*img_addr;
@@ -72,6 +68,13 @@ typedef struct	s_data {
 	int	line_length;
 	int	endian;
 }		t_data;
+
+# include "bmp.h"
+
+typedef struct		s_vars {
+	void		*init;
+	void		*window;
+}			t_vars;
 
 typedef struct	s_player {
 	float	x;
@@ -139,11 +142,12 @@ typedef struct		s_game {
 	t_ray		*ray;
 	t_cub		*cub;
 	t_data		data;
+	unsigned char	bmp;
 }			t_game;
 
 void	game_print_exit		(int id, int type, t_game game);
 void	game_mlxpixelput	(t_data *data, int x, int y, int color);
-void	game_drawline		(int x0, int y0, int x1, int y1, t_vars vars);
+void	game_drawline		(int x0, int y0, int x1, int y1, t_data *data);
 float	game_distancepoints	(float x1, float y1, float x2, float y2);
 float	game_normalizeangle	(float angle);
 int	game_iswalkable		(float x, float y, char **map, t_gen gen);
@@ -152,8 +156,7 @@ void	game_castallrays	(t_game *game);
 void	game_castray		(float ray_angle, int id, t_game *game);
 void	game_moveplayer		(t_player *player, t_cub cub);
 void	game_rendermap		(t_data *data, t_cub *cub);
-void	game_renderplayer	(t_player player, t_vars vars);
-void	game_renderrays		(t_cub *cub, t_player player, t_ray *ray, t_vars vars);
+void	game_renderrays		(t_data *data, t_cub *cub, t_player player, t_ray *ray);
 void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player);
 void	game_renderbackground	(t_data *data, t_cub *cub);
 int	game_loop		(int keycode, t_game *game);

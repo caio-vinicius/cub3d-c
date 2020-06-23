@@ -6,24 +6,11 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 13:15:20 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 12:08:29 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	validate_screen_size(int argc, t_vars vars, t_cub *cub)
-{
-	int width;
-	int height;
-
-	(void)argc;
-	mlx_get_screen_size(vars.init, &width, &height);
-	if (cub->width > (unsigned int)width)
-		cub->width = width;
-	if (cub->height > (unsigned int)height)
-		cub->height = height;
-}
 
 static float	define_dir(char rot_angle)
 {
@@ -57,6 +44,7 @@ static t_game	setup(t_game game)
 	return (game);
 }
 
+
 static int		release_button(int keycode, t_game *game)
 {
 	if (keycode == UP_ARROW)
@@ -71,15 +59,20 @@ static int		release_button(int keycode, t_game *game)
 	return (0);
 }
 
+static int	x_exit(t_game *game)
+{
+	game_print_exit(CLOSECL, 1, *game);
+	return (0);
+}
+
 int		main(int argc, char *argv[])
 {
 	t_game	game;
 
+	game_validateargs(argc, argv, &game);
 	game.vars.init = mlx_init();
-	if (!argv[1])
-		game_print_exit(EMISCUB, 2, game);
 	game.cub = cub_analyzecub(argv[1]);
-	validate_screen_size(argc, game.vars, game.cub);
+	game_validatescreen(argc, game.vars, game.cub);
 	game.vars.window = mlx_new_window(game.vars.init, game.cub->width,
 			game.cub->height, "cub3d");
 	game = setup(game);
@@ -87,6 +80,7 @@ int		main(int argc, char *argv[])
 
 	mlx_hook(game.vars.window, E_KEYPRESS, M_KEYPRESS, game_loop, &game);
 	mlx_hook(game.vars.window, E_KEYRELEASE, M_KEYRELEASE, release_button, &game);
+	mlx_hook(game.vars.window, E_KEYDESTROY, M_KEYDESTROY, x_exit, &game);
 	mlx_loop(game.vars.init);
 	return (0);
 }

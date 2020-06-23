@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:02:08 by caio              #+#    #+#             */
-/*   Updated: 2020/06/22 12:26:09 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 11:41:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+# include "cub3d.h"
 # include "libft.h"
 
 //check specific types later
@@ -48,6 +49,11 @@ typedef	struct		s_bitmap_image_header {
 	unsigned int	important_colors;
 } __attribute__((packed)) t_img_header;
 
-int	bmp_save_bitmap(char *image);
+typedef struct		s_bitmap_headers {
+	t_file_header	file_h;
+	t_img_header	img_h;
+}			t_headers;
+
+int	bmp_save_bitmap		(t_data data, t_cub cub);
 
 #endif
