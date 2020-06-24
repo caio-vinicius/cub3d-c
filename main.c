@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 13:24:25 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 21:38:49 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static float	define_dir(char rot_angle)
 		dir = WEST;
 	else
 		dir = NORTH;
-	return (rot_angle);
+	return (dir);
 }
 
 static t_game	setup(t_game game)
@@ -41,7 +41,6 @@ static t_game	setup(t_game game)
 	game.cub->gen.window_width = game.cub->gen.cols * TILE_SIZE;
 	game.cub->gen.window_height = game.cub->gen.rows * TILE_SIZE;
 	game.ray = malloc(game.cub->width * sizeof(t_ray));
-	game.bmp = 0;
 	return (game);
 }
 
