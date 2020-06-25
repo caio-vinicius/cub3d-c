@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 12:00:34 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/25 11:56:53 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	render(t_game game)
 	game.data.img_addr = mlx_get_data_addr(game.data.img, &game.data.bpp,
 			&game.data.line_length, &game.data.endian);
 	game_renderbackground(&game.data, game.cub);
-	game_renderwalls(&game.data, game.ray, game.cub, game.player);
+	game_renderwalls(&game.data, game.ray, game.cub, game.player, game.textures);
 	game_rendermap(&game.data, game.cub);
 	game_renderrays(&game.data, game.cub, game.player, game.ray);
 	if (game.bmp == 1 && bmp == 0)

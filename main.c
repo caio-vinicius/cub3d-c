@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 21:38:49 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/25 11:53:52 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,31 @@ static float	define_dir(char rot_angle)
 	return (dir);
 }
 
+static t_tex	init_textures(t_vars vars)
+{
+	int width;
+	int height;
+	t_tex textures;
+
+	textures.no.img = mlx_xpm_file_to_image(vars.init, "textures/wood.xpm",
+			&width, &height);
+	textures.no.img_addr = mlx_get_data_addr(textures.no.img, &textures.no.bpp,
+			&textures.no.line_length, &textures.no.endian);
+	textures.so.img = mlx_xpm_file_to_image(vars.init, "textures/stone.xpm",
+			&width, &height);
+	textures.so.img_addr = mlx_get_data_addr(textures.so.img, &textures.so.bpp,
+			&textures.so.line_length, &textures.so.endian);
+	textures.we.img = mlx_xpm_file_to_image(vars.init, "textures/brick.xpm",
+			&width, &height);
+	textures.we.img_addr = mlx_get_data_addr(textures.we.img, &textures.we.bpp,
+			&textures.we.line_length, &textures.we.endian);
+	textures.ea.img = mlx_xpm_file_to_image(vars.init, "textures/metal.xpm",
+			&width, &height);
+	textures.ea.img_addr = mlx_get_data_addr(textures.ea.img, &textures.ea.bpp,
+			&textures.ea.line_length, &textures.ea.endian);
+	return (textures);
+}
+
 static t_game	setup(t_game game)
 {
 	game.player.x = game.cub->gen.x_player * TILE_SIZE;
@@ -41,6 +66,7 @@ static t_game	setup(t_game game)
 	game.cub->gen.window_width = game.cub->gen.cols * TILE_SIZE;
 	game.cub->gen.window_height = game.cub->gen.rows * TILE_SIZE;
 	game.ray = malloc(game.cub->width * sizeof(t_ray));
+	game.textures = init_textures(game.vars);
 	return (game);
 }
 

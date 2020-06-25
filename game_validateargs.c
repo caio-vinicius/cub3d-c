@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:05:06 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 12:05:40 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/25 12:00:35 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	game_validateargs(int argc, char *argv[], t_game *game)
 {
+	game->bmp = 0;
 	if (!argv[1])
 		game_print_exit(EMISCUB, 2, *game);
 	if (argc == 3)

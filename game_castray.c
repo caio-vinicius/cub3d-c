@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:23:13 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 13:18:16 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/24 23:44:29 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	search_wgame(t_grid_vars *vars, t_ray_vars ray, int time, char **map,
+static void	search_wall(t_grid_vars *vars, t_ray_vars ray, int time, char **map,
 		t_gen gen)
 {
 	while (vars->next_touch_x >= 0 && vars->next_touch_x <= gen.window_width &&
@@ -52,7 +52,7 @@ static void	horz_grid(t_ray_vars *ray, t_grid_vars *horz, t_player player, char
 	ray->xstep *= (ray->facing_right && ray->xstep < 0) ? -1 : 1;
 	horz->next_touch_x = ray->xintercept;
 	horz->next_touch_y = ray->yintercept;
-	search_wgame(horz, *ray, 0, map, gen);
+	search_wall(horz, *ray, 0, map, gen);
 }
 
 static void	vert_grid(t_ray_vars *ray, t_grid_vars *vert, t_player player, char
@@ -68,7 +68,7 @@ static void	vert_grid(t_ray_vars *ray, t_grid_vars *vert, t_player player, char
 	ray->ystep *= (ray->facing_down && ray->ystep < 0) ? -1 : 1;
 	vert->next_touch_x = ray->xintercept;
 	vert->next_touch_y = ray->yintercept;
-	search_wgame(vert, *ray, 1, map, gen);
+	search_wall(vert, *ray, 1, map, gen);
 }
 
 static void	init_horz_vert(t_grid_vars *vars)

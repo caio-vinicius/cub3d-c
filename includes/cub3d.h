@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 12:00:30 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/25 11:56:18 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define SOUTH (PI / 2)
 # define WEST (PI)
 # define NORTH (PI * 1.5)
-# define EAST (PI * 2.0)
+# define EAST TWO_PI
 
 # define UP_ARROW 119
 # define DOWN_ARROW 115
@@ -59,7 +59,6 @@
 # define WALL_3D_COLOR 0xffffffff
 # define WALL_3D_2COLOR 0xffcccccc
 # define WALL_2D_COLOR 0xa6a6a6
-# define PLAYER_COLOR 0x000000
 
 typedef struct	s_data {
 	void	*img;
@@ -136,13 +135,22 @@ typedef struct	s_wall {
 	int	distance_from_top;
 }		t_wall;
 
+typedef struct	s_tex {
+	t_data	no;
+	t_data  so;
+	t_data	we;
+	t_data	ea;
+	t_data	s;
+}		t_tex;
+
 typedef struct		s_game {
 	t_vars		vars;
 	t_player	player;
 	t_ray		*ray;
 	t_cub		*cub;
 	t_data		data;
-	unsigned char	bmp;
+	t_tex		textures;
+	unsigned int	bmp;
 }			t_game;
 
 void	game_print_exit		(int id, int type, t_game game);
@@ -157,8 +165,10 @@ void	game_castray		(float ray_angle, int id, t_game *game);
 void	game_moveplayer		(t_player *player, t_cub cub);
 void	game_rendermap		(t_data *data, t_cub *cub);
 void	game_renderrays		(t_data *data, t_cub *cub, t_player player, t_ray *ray);
-void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player);
+void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player, t_tex textures);
 void	game_renderbackground	(t_data *data, t_cub *cub);
+void	game_validateargs	(int argc, char *argv[], t_game *game);
+void	game_validatescreen	(t_vars vars, t_cub *cub);
 int	game_loop		(int keycode, t_game *game);
 
 #endif

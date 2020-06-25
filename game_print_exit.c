@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:05:42 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 11:33:37 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/25 12:06:35 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void	mem_exit_clear(t_game game)
 	}
 	free(game.cub->map);
 	free(game.cub);
-	//mlx_destroy_image(game.vars.init, game.data.img);
-	//mlx_destroy_window(game.vars.init, game.vars.window);
 }
 
 void	game_print_exit(int id, int type, t_game game)

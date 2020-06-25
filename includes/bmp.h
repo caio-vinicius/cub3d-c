@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:02:08 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 20:21:33 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/23 23:58:19 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ typedef struct		s_bitmap_headers {
 	t_img_header	img_h;
 }			t_headers;
 
-int	bmp_save_bitmap		(t_data data, t_cub cub);
+void	bmp_save_bitmap		(t_data data, t_cub cub);
 
 #endif

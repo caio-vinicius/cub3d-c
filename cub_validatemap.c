@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:22:50 by caio              #+#    #+#             */
-/*   Updated: 2020/06/18 17:26:28 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/24 15:25:48 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	cub_validatemap(char **map)
 	x = 0;
 	y = 0;
 	ptrlen = cub_ptrlen(map);
-	while (y < ptrlen - 1) //linha
+	while (y < ptrlen - 1)
 	{
 		strlen = ft_strlen(map[y]);
-		while (x < strlen) //coluna
+		while (x < strlen)
 		{
 			if (((y == 0 || y == ptrlen - 1) || (x == 0 || x == strlen - 1)) &&
 					(!(cub_iswall(map[y][x]))))
