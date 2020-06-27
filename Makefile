@@ -6,11 +6,16 @@
 #    By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/27 18:16:34 by caio              #+#    #+#              #
-#    Updated: 2020/06/23 12:07:25 by caio             ###   ########.fr        #
+#    Updated: 2020/06/27 20:47:22 by aroque           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
+
+CC = clang
+CC_FLAGS = -Wall	\
+		   -Wextra	\
+		   -Werror
 
 LIBRARY = libft/libft.a get_next_line/get_next_line.a
 
@@ -25,21 +30,21 @@ OBJS = $(patsubst %.c, build/%.o, $(SRCS))
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBRARY)
-	clang $^ -lm -lbsd -lmlx -lXext -lX11 $(LIBRARY) -o $@
+	$(CC) $^ -lm -lbsd -lmlx -lXext -lX11 $(LIBRARY) -o $@
 
 $(LIBRARY):
 	$(MAKE) -C libft
 	$(MAKE) -C get_next_line
 
 build/%.o: %.c
-	clang -g -Wall -Wextra -Werror -c -o $@ $< -I includes/
+	$(CC) $(CC_FLAGS) -g -c -o $@ $< -I includes/
 
 clean:
-	rm -rf $(OBJS)
+	$(RM) $(OBJS)
 	$(MAKE) clean -C libft
 	$(MAKE) clean -C get_next_line
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
