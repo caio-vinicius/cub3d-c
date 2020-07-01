@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:46:16 by caio              #+#    #+#             */
-/*   Updated: 2020/06/25 11:56:27 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/01 10:32:18 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static unsigned int	*choose_texture(t_tex textures, t_ray *ray, int i)
 		texture = (unsigned int*)textures.we.img_addr;
 	else if (ray[i].facing_right && ray[i].was_hit_vertical)
 		texture = (unsigned int*)textures.ea.img_addr;
+	if (ray[i].wall_hit_content == '2')
+		texture = (unsigned int*)textures.s.img_addr;
 	return (texture);
 }
 
@@ -68,7 +70,7 @@ static void	draw_strip(t_data *data, t_ray *ray, t_wall wall, int i,
 }
 
 void	game_renderwalls(t_data *data, t_ray *ray, t_cub *cub, t_player player,
-		t_tex textures)
+		t_tex textures, t_sprite *sprite)
 {
 	unsigned int i;
 	t_wall wall;
@@ -77,6 +79,7 @@ void	game_renderwalls(t_data *data, t_ray *ray, t_cub *cub, t_player player,
 	while (i < cub->width)
 	{
 		wall.perp_distance = ray[i].distance * cos(ray[i].angle - player.rot_angle);
+		sprite->zbuffer[i] = wall.perp_distance;
 		wall.distance_projection_plane = (cub->width / 2) / tan(FOV_ANGLE / 2);
 		wall.projected_height = (TILE_SIZE / wall.perp_distance) * wall.distance_projection_plane;
 		wall.strip_height = wall.projected_height;

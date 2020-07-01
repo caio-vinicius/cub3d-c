@@ -1,16 +1,16 @@
-R 2000 2000
+R 500 500
 
 NO textures/brick.xpm
 SO textures/stone.xpm
 WE textures/wood.xpm
 EA textures/metal.xpm
-S textures/sprite.xpm
+S textures/sprites/barrel.xpm
 
 C 63,115,206
 F 138,71,4
 
 111111111111111111111
-100000000000000000001
+120000000000000000001
 100000000000000000001
 1E0000000000000000001
 100010100001010000001

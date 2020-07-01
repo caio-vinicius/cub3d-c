@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/25 13:23:05 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/01 11:47:21 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,27 @@ static t_tex	init_textures(t_vars vars, t_cub *cub)
 			&width, &height);
 	textures.ea.img_addr = mlx_get_data_addr(textures.ea.img, &textures.ea.bpp,
 			&textures.ea.line_length, &textures.ea.endian);
+	textures.s.img = mlx_xpm_file_to_image(vars.init, cub->t_s, &width,
+			&height);
+	textures.s.img_addr = mlx_get_data_addr(textures.s.img, &textures.s.bpp,
+			&textures.s.line_length, &textures.s.endian);
 	return (textures);
+}
+
+static	void	define_dir_plane(char pos, t_sprite *sprite, t_player player)
+{
+	sprite->pos_x = (float)player.x + 0.5;
+	sprite->pos_y = (float)player.y + 0.5;
+	if (pos == 'N' || pos == 'S')
+	{
+		sprite->dir_y = (pos == 'N' ? -1 : 1);
+		sprite->plane_x = (pos == 'N' ? 0.60 : -0.66);
+	}
+	else if (pos == 'W' || pos == 'E')
+	{
+		sprite->dir_x = (pos == 'W' ? -1 : 1);
+		sprite->plane_y = (pos == 'W' ? -0.60 : 0.60);
+	}
 }
 
 static t_game	setup(t_game game)
@@ -61,10 +81,16 @@ static t_game	setup(t_game game)
 	game.player.ad_direction = 0;
 	game.player.ws_direction = 0;
 	game.player.rot_angle = define_dir(game.cub->gen.rot_angle);
-	game.player.ad_speed = 5 * (PI / 180);
+	game.player.ad_speed = 15 * (PI / 180);
 	game.player.ws_speed = 15;
 	game.cub->gen.window_width = game.cub->gen.cols * TILE_SIZE;
 	game.cub->gen.window_height = game.cub->gen.rows * TILE_SIZE;
+	//sprite_start
+	define_dir_plane(game.cub->gen.rot_angle, &game.sprite, game.player);
+	game.sprite.zbuffer = malloc(game.cub->width * sizeof(float));
+	game.sprite.amount = 1;
+	game.sprite.order = malloc(game.sprite.amount * sizeof(int));
+	//sprite_end
 	game.ray = malloc(game.cub->width * sizeof(t_ray));
 	game.textures = init_textures(game.vars, game.cub);
 	return (game);
@@ -81,7 +107,6 @@ static int		release_button(int keycode, t_game *game)
 		game->player.ad_direction = 0;
 	else if (keycode == RIGHT_ARROW)
 		game->player.ad_direction = 0;
-	game_loop(0, game);
 	return (0);
 }
 
@@ -95,6 +120,8 @@ int		main(int argc, char *argv[])
 {
 	t_game	game;
 
+	//test bzero
+	ft_bzero(&game, sizeof(t_game));
 	game_validateargs(argc, argv, &game);
 	game.vars.init = mlx_init();
 	game.cub = cub_analyzecub(argv[1]);
