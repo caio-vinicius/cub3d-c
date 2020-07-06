@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 21:37:49 by caio              #+#    #+#             */
-/*   Updated: 2020/07/01 13:45:05 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/06 14:00:03 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_distance(t_game *game, t_player player)
+/*void	get_distance(t_sprite *sprite, t_player player)
 {
 	float			distance[game->sprite.amount];
 	int				distance_tmp;
@@ -20,9 +20,9 @@ void	get_distance(t_game *game, t_player player)
 	unsigned int	i;
 
 	i = 0;
-	while (i < game->sprite.amount)
+	while (i < sprite.amount)
 	{
-		game->sprite.order[i] = i;
+		sprite.order[i] = i;
 		distance[i] = ((player.x - 2.0) * (player.x - 2.0) + (player.y - 2.0) * (player.y - 2.0));
 		i++;
 	}
@@ -35,90 +35,82 @@ void	get_distance(t_game *game, t_player player)
 			distance[i] = distance[i + 1];
 			distance[i + 1] = distance_tmp;
 			tmp = game->sprite.order[i];
-			game->sprite.order[i] = game->sprite.order[i + 1];
-			game->sprite.order[i + 1] = tmp;
+			sprite.order[i] = sprite.order[i + 1];
+			sprite.order[i + 1] = tmp;
 			i = 0;
 		}
 		i++;
 	}
-}
+}*/
 
-static void	sprite_height(t_game *game, t_sprite *sprite)
+static void	sprite_height(t_cub *cub, t_sprite *sprite)
 {
-	sprite->height = abs((int)(game->cub->height / sprite->transform_y));
-	sprite->draw_start_y = -sprite->height / 2 + game->cub->height / 2;
+	sprite->height = abs((int)(cub->height / sprite->transform_y));
+	sprite->draw_start_y = -sprite->height / 2 + cub->height / 2;
+	sprite->draw_end_y = sprite->height / 2 + cub->height / 2;
 	if (sprite->draw_start_y < 0)
 		sprite->draw_start_y = 0;
-	sprite->draw_end_y = sprite->height / 2 + game->cub->height / 2;
-	if (sprite->draw_end_y >= (int)game->cub->height)
-		sprite->draw_end_y = game->cub->height - 1;
+	if (sprite->draw_end_y >= (int)cub->height)
+		sprite->draw_end_y = cub->height - 1;
 }
 
-static void	sprite_width(t_game *game, t_sprite *sprite)
+static void	sprite_width(t_cub *cub, t_sprite *sprite)
 {
-	sprite->width = abs((int)(game->cub->height / sprite->transform_y));
+	sprite->width = abs((int)(cub->height / sprite->transform_y));
 	sprite->draw_start_x = -sprite->width / 2 + sprite->screen_x;
+	sprite->draw_end_x = sprite->width / 2 + sprite->screen_x;
 	if (sprite->draw_start_x < 0)
 		sprite->draw_start_x = 0;
-	sprite->draw_end_x = sprite->width / 2 + sprite->screen_x;
-	if (sprite->draw_end_x >= (int)game->cub->width)
-		sprite->draw_end_x = game->cub->width - 1;
+	if (sprite->draw_end_x >= (int)cub->width)
+		sprite->draw_end_x = cub->width - 1;
 }
 
-static void		draw_sprite(t_game *game, t_sprite *sprite, t_data *data)
+static void		draw_sprite(t_cub *cub, t_sprite *sprite, t_data *data, t_img texture)
 {
-	unsigned int color;
+	int color;
+	int x;
+	int y;
 
 	color = 0;
-	while (sprite->draw_start_x < sprite->draw_end_x)
+	x = sprite->draw_start_x;
+	y = 0;
+	while (x < sprite->draw_end_x)
 	{
-		sprite->tex_x = (int)(256 * (sprite->x - (-sprite->width / 2 +
-						sprite->screen_x)) * TEX_WIDTH / sprite->width) / 256;
-		if (sprite->transform_y > 0 && sprite->draw_start_x >= 0 &&
-				sprite->draw_start_x < (int)game->cub->width && sprite->transform_y <
-				sprite->zbuffer[(int)sprite->draw_start_x])
+		if (sprite->transform_y > 0 && x >= 0 && x < (int)cub->width &&
+				sprite->transform_y < sprite->zbuffer[x])
 		{
-			while (sprite->y < sprite->draw_end_y)
+			sprite->tex_x = (int)(256 * (x - (-sprite->width / 2 + sprite->screen_x)) * TEX_WIDTH / sprite->width) / 256;
+			y = sprite->draw_start_y - 1;
+			while (++y < sprite->draw_end_y)
 			{
-				sprite->d = (sprite->y) * 256 - game->cub->height * 128
-					+ sprite->height * 128;
-				sprite->tex_y = ((sprite->d * TEX_HEIGHT) /
-						sprite->height) / 256;
-				color = game->textures.s.img_addr[(int)TEX_WIDTH *
-					sprite->tex_y + sprite->tex_x];
-				if (color != 0)
-					data->img_addr[(int)sprite->x] = color;
-				sprite->y++;
+				sprite->d = y * 256 - cub->height * 128 + sprite->height * 128;
+				sprite->tex_y = ((sprite->d * TEX_HEIGHT) / sprite->height) / 256;
+				color = texture.img_addr[TEX_WIDTH * sprite->tex_y + sprite->tex_x];
+				if ((color & 0x00FFFFFF) != 0x0)
+					data->img_addr[y * cub->width + x] = color;
 			}
 		}
-		sprite->x++;
+		x++;
 	}
 }
 
-void	game_rendersprites(t_data *data, t_player player, t_game *game)
+void	game_rendersprites(t_data *data, t_sprite sprite, t_cub *cub, t_img texture)
 {
-	t_sprite sprite;
 	unsigned int i;
 
-	sprite.dir_x = game->sprite.dir_x;
-	sprite.dir_y = game->sprite.dir_y;
-	sprite.plane_x = game->sprite.plane_x;
-	sprite.plane_y = game->sprite.plane_y;
-	sprite.pos_x = game->sprite.pos_x;
-	sprite.pos_y = game->sprite.pos_y;
 	i = 0;
-	get_distance(game, player);
-	while (i < game->sprite.amount)
-	{
-		sprite.x = 2.0 - sprite.pos_x;
-		sprite.y = 2.0 - sprite.pos_y;
-		sprite.invdet = 1.0 / (sprite.plane_x * sprite.dir_y - sprite.dir_x * sprite.plane_y);
-		sprite.transform_x = sprite.invdet * (sprite.dir_y * sprite.x - sprite.dir_x * sprite.y);
-		sprite.transform_y = sprite.invdet * (-sprite.plane_y * sprite.x + sprite.plane_x * game->sprite.y);
-		sprite.screen_x = (int)(game->cub->width / 2) * (1 + sprite.transform_x / sprite.transform_y);
-		sprite_height(game, &sprite);
-		sprite_width(game, &sprite);
-		draw_sprite(game, &sprite, data);
-		i++;
-	}
+	//get_distance(&sprite, player);
+	//while (i < sprite.amount)
+	//{
+	sprite.x = 10.5 - sprite.pos_x;
+	sprite.y = 6.5 - sprite.pos_y;
+	sprite.invdet = 1.0 / (sprite.plane_x * sprite.dir_y - sprite.dir_x * sprite.plane_y);
+	sprite.transform_x = sprite.invdet * (sprite.dir_y * sprite.x - sprite.dir_x * sprite.y);
+	sprite.transform_y = sprite.invdet * (-sprite.plane_y * sprite.x + sprite.plane_x * sprite.y);
+	sprite.screen_x = (int)((cub->width / 2) * (1 + sprite.transform_x / sprite.transform_y));
+	sprite_height(cub, &sprite);
+	sprite_width(cub, &sprite);
+	draw_sprite(cub, &sprite, data, texture);
+	//i++;
+	//}
 }
