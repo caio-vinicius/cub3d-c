@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/06/30 11:39:32 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 11:45:11 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	render(t_game game)
 			&game.data.line_length, &game.data.endian);
 	game_renderbackground(&game.data, game.cub);
 	game_renderwalls(&game.data, game.ray, game.cub, game.player, game.textures, &game.sprite);
-	game_rendersprites(&game.data, game.player, &game);
+	game_rendersprites(&game.data, game.sprite, game.cub, game.player, game.textures.s);
 	game_rendermap(&game.data, game.cub);
 	game_renderrays(&game.data, game.cub, game.player, game.ray);
 	if (game.bmp == 1 && bmp == 0)

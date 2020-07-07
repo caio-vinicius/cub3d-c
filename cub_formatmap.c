@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:19:48 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 13:34:11 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:04:51 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	**cub_formatmap(char **map, t_gen *gen)
 				gen->y_player = y;
 				gen->rot_angle = map[y][x];
 			}
+			if (map[y][x] == '2')
+				gen->amount_sprites++;
 			x++;
 		}
 		x = 0;

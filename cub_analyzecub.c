@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 13:14:57 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:12:56 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,7 @@ static t_cub	*init_cub()
 
 	if (!(cub = malloc(sizeof(t_cub))))
 		return (NULL);
-	cub->width = 0;
-	cub->height = 0;
-	cub->t_no = NULL;
-	cub->t_so = NULL;
-	cub->t_we = NULL;
-	cub->t_ea = NULL;
-	cub->t_s = NULL;
-	cub->map = NULL;
-	cub->gen.cols = 0;
-	cub->gen.rows = 0;
-	cub->gen.x_player = 0;
-	cub->gen.y_player = 0;
-	cub->gen.rot_angle = 0;
+	ft_bzero(cub, sizeof(t_cub));
 	return (cub);
 }
 

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/06/25 11:56:18 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 11:45:41 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define CUB3D_H
 
 # include "cub.h"
+# include "bmp.h"
 
 # include <mlx.h>
 # include <math.h>
-// remember to remove
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -34,11 +34,9 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-// tile size 32 and scale of 0.25 is the best combination so far
 # define TILE_SIZE 32
 # define MINIMAP_SCALE 0.25
 # define MINIMAP_MARGIN 10
-//bug here when strip width is changed
 # define WALL_STRIP_WIDTH 1.0
 # define FOV_ANGLE (60 * (PI / 180))
 
@@ -68,19 +66,17 @@ typedef struct	s_data {
 	int	endian;
 }		t_data;
 
-# include "bmp.h"
-
 typedef struct		s_vars {
 	void		*init;
 	void		*window;
 }			t_vars;
 
 typedef struct	s_player {
-	float	x;
-	float	y;
+	int	x;
+	int	y;
 	void	*player;
-	int	ad_direction; // -1 left, +1 right
-	int	ws_direction; // -1 back, +1 front
+	int	ad_direction; 
+	int	ws_direction;
 	float	rot_angle;
 	float	ad_speed;
 	float	ws_speed;
@@ -135,12 +131,48 @@ typedef struct	s_wall {
 	int	distance_from_top;
 }		t_wall;
 
+typedef struct		s_sprite {
+	float		x;
+	float		y;
+	float		invdet;
+	float		transform_x;
+	float		transform_y;
+	int		screen_x;
+	int		screen_y;
+	int		width;
+	int		height;
+	int		draw_start_x;
+	int		draw_end_x;
+	int		draw_start_y;
+	int		draw_end_y;
+	float		*zbuffer;
+	int		*order;
+	int		tex_x;
+	int		tex_y;
+	int		d;
+	float		plane_x;
+	float		plane_y;
+	float		dir_x;
+	float		dir_y;
+	float		pos_x;
+	float		pos_y;
+	unsigned int	amount;
+}			t_sprite;
+
+typedef struct	s_img {
+	void	*img;
+	int	*img_addr;
+	int	bpp;
+	int	line_length;
+	int	endian;
+}		t_img;
+
 typedef struct	s_tex {
 	t_data	no;
 	t_data  so;
 	t_data	we;
 	t_data	ea;
-	t_data	s;
+	t_img	s;
 }		t_tex;
 
 typedef struct		s_game {
@@ -149,6 +181,7 @@ typedef struct		s_game {
 	t_ray		*ray;
 	t_cub		*cub;
 	t_data		data;
+	t_sprite	sprite;
 	t_tex		textures;
 	unsigned int	bmp;
 }			t_game;
@@ -165,10 +198,12 @@ void	game_castray		(float ray_angle, int id, t_game *game);
 void	game_moveplayer		(t_player *player, t_cub cub);
 void	game_rendermap		(t_data *data, t_cub *cub);
 void	game_renderrays		(t_data *data, t_cub *cub, t_player player, t_ray *ray);
-void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player, t_tex textures);
+void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player, t_tex textures, t_sprite *sprite);
 void	game_renderbackground	(t_data *data, t_cub *cub);
+void	game_rendersprites	(t_data *data, t_sprite sprite, t_cub *cub, t_player player, t_img texture);
 void	game_validateargs	(int argc, char *argv[], t_game *game);
 void	game_validatescreen	(t_vars vars, t_cub *cub);
 int	game_loop		(int keycode, t_game *game);
+void	bmp_save_bitmap		(t_data data, t_cub cub);
 
 #endif

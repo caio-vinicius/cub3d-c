@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:02:08 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 23:58:19 by caio             ###   ########.fr       */
+/*   Updated: 2020/06/28 19:51:28 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define BITMAP_HEADER_BYTES 12
 # define BITS_PER_PIXEL 32
 
+//remember to remove
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -24,6 +25,7 @@
 # include "cub3d.h"
 # include "libft.h"
 
+//ifndef check later
 //check specific types later
 //# include <stdint.h>
 
@@ -47,7 +49,5 @@ typedef struct		s_bitmap_headers {
 	t_file_header	file_h;
 	t_img_header	img_h;
 }			t_headers;
-
-void	bmp_save_bitmap		(t_data data, t_cub cub);
 
 #endif

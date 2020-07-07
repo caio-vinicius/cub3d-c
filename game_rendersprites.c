@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 21:37:49 by caio              #+#    #+#             */
-/*   Updated: 2020/07/06 14:00:03 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:00:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,41 +76,41 @@ static void		draw_sprite(t_cub *cub, t_sprite *sprite, t_data *data, t_img textu
 	y = 0;
 	while (x < sprite->draw_end_x)
 	{
-		if (sprite->transform_y > 0 && x >= 0 && x < (int)cub->width &&
-				sprite->transform_y < sprite->zbuffer[x])
+		if (sprite->transform_y > 0 && x >= 0 && x < (int)cub->width/* && sprite->transform_y < sprite->zbuffer[x]*/)
 		{
 			sprite->tex_x = (int)(256 * (x - (-sprite->width / 2 + sprite->screen_x)) * TEX_WIDTH / sprite->width) / 256;
-			y = sprite->draw_start_y - 1;
-			while (++y < sprite->draw_end_y)
+			y = sprite->draw_start_y;
+			while (y < sprite->draw_end_y)
 			{
 				sprite->d = y * 256 - cub->height * 128 + sprite->height * 128;
 				sprite->tex_y = ((sprite->d * TEX_HEIGHT) / sprite->height) / 256;
 				color = texture.img_addr[TEX_WIDTH * sprite->tex_y + sprite->tex_x];
-				if ((color & 0x00FFFFFF) != 0x0)
+				if ((color & 0x00FFFFFF) != 0)
 					data->img_addr[y * cub->width + x] = color;
+				y++;
 			}
 		}
 		x++;
 	}
 }
 
-void	game_rendersprites(t_data *data, t_sprite sprite, t_cub *cub, t_img texture)
+void	game_rendersprites(t_data *data, t_sprite sprite, t_cub *cub, t_player player, t_img texture)
 {
 	unsigned int i;
 
 	i = 0;
 	//get_distance(&sprite, player);
-	//while (i < sprite.amount)
-	//{
-	sprite.x = 10.5 - sprite.pos_x;
-	sprite.y = 6.5 - sprite.pos_y;
-	sprite.invdet = 1.0 / (sprite.plane_x * sprite.dir_y - sprite.dir_x * sprite.plane_y);
-	sprite.transform_x = sprite.invdet * (sprite.dir_y * sprite.x - sprite.dir_x * sprite.y);
-	sprite.transform_y = sprite.invdet * (-sprite.plane_y * sprite.x + sprite.plane_x * sprite.y);
-	sprite.screen_x = (int)((cub->width / 2) * (1 + sprite.transform_x / sprite.transform_y));
-	sprite_height(cub, &sprite);
-	sprite_width(cub, &sprite);
-	draw_sprite(cub, &sprite, data, texture);
-	//i++;
-	//}
+	while (i < sprite.amount)
+	{
+		sprite.x = 10 - sprite.pos_x;
+		sprite.y = 6 - sprite.pos_y;
+		sprite.invdet = 1.0 / (sprite.plane_x * sprite.dir_y - sprite.dir_x * sprite.plane_y);
+		sprite.transform_x = sprite.invdet * (sprite.dir_y * sprite.x - sprite.dir_x * sprite.y);
+		sprite.transform_y = sprite.invdet * (-sprite.plane_y * sprite.x + sprite.plane_x * sprite.y);
+		sprite.screen_x = (int)((cub->width / 2) * (1 + sprite.transform_x / sprite.transform_y));
+		sprite_height(cub, &sprite);
+		sprite_width(cub, &sprite);
+		draw_sprite(cub, &sprite, data, texture);
+		i++;
+	}
 }

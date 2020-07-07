@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:46:16 by caio              #+#    #+#             */
-/*   Updated: 2020/07/01 10:32:18 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:08:46 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ static unsigned int	*choose_texture(t_tex textures, t_ray *ray, int i)
 		texture = (unsigned int*)textures.we.img_addr;
 	else if (ray[i].facing_right && ray[i].was_hit_vertical)
 		texture = (unsigned int*)textures.ea.img_addr;
-	if (ray[i].wall_hit_content == '2')
-		texture = (unsigned int*)textures.s.img_addr;
+	//remember to remove
+	//if (ray[i].wall_hit_content == '2')
+	//	texture = (unsigned int*)textures.s.img_addr;
 	return (texture);
 }
 

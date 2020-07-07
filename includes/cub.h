@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 15:47:13 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:07:15 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@
 
 typedef int t_color;
 
-typedef struct	s_gen {
-	int	cols;
-	int	rows;
-	int	window_width;
-	int	window_height;
-	int	x_player;
-	int	y_player;
-	char	rot_angle;
-}		t_gen;
+typedef struct		s_gen {
+	int		cols;
+	int		rows;
+	int		window_width;
+	int		window_height;
+	int		x_player;
+	int		y_player;
+	char		rot_angle;
+	unsigned int	amount_sprites;
+}			t_gen;
 
 typedef struct		s_cub {
 	unsigned int	width;
