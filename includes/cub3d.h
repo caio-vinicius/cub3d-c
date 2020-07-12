@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/07/07 11:45:41 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/12 15:55:25 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-# define TILE_SIZE 32
 # define MINIMAP_SCALE 0.25
 # define MINIMAP_MARGIN 10
 # define WALL_STRIP_WIDTH 1.0
 # define FOV_ANGLE (60 * (PI / 180))
 
-# define TEX_WIDTH 32
-# define TEX_HEIGHT 32
+# define TILE_SIZE 64
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 # define SOUTH (PI / 2)
 # define WEST (PI)
@@ -138,7 +138,6 @@ typedef struct		s_sprite {
 	float		transform_x;
 	float		transform_y;
 	int		screen_x;
-	int		screen_y;
 	int		width;
 	int		height;
 	int		draw_start_x;
@@ -147,6 +146,7 @@ typedef struct		s_sprite {
 	int		draw_end_y;
 	float		*zbuffer;
 	int		*order;
+	float		*distance;
 	int		tex_x;
 	int		tex_y;
 	int		d;
@@ -157,6 +157,7 @@ typedef struct		s_sprite {
 	float		pos_x;
 	float		pos_y;
 	unsigned int	amount;
+	t_sprites_pos	*positions;
 }			t_sprite;
 
 typedef struct	s_img {
@@ -195,12 +196,12 @@ int	game_iswalkable		(float x, float y, char **map, t_gen gen);
 void	game_drawsquare		(t_data *data, int size, int color);
 void	game_castallrays	(t_game *game);
 void	game_castray		(float ray_angle, int id, t_game *game);
-void	game_moveplayer		(t_player *player, t_cub cub);
+void	game_moveplayer		(t_player *player, t_cub cub, t_sprite *sprite);
 void	game_rendermap		(t_data *data, t_cub *cub);
 void	game_renderrays		(t_data *data, t_cub *cub, t_player player, t_ray *ray);
 void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player, t_tex textures, t_sprite *sprite);
 void	game_renderbackground	(t_data *data, t_cub *cub);
-void	game_rendersprites	(t_data *data, t_sprite sprite, t_cub *cub, t_player player, t_img texture);
+void	game_rendersprites	(t_data *data, t_sprite sprite, t_cub *cub, t_player player, t_img texture, t_vars vars);
 void	game_validateargs	(int argc, char *argv[], t_game *game);
 void	game_validatescreen	(t_vars vars, t_cub *cub);
 int	game_loop		(int keycode, t_game *game);

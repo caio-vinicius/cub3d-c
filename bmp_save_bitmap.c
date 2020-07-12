@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:02:51 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 23:58:04 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 14:43:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static t_img_header	init_img_header(t_img_header img_h, t_cub cub)
 
 void	bmp_save_bitmap(t_data data, t_cub cub)
 {
-	int			fd;
 	t_headers	headers;
+	int			fd;
 	int			y;
 
 	y = cub.height;

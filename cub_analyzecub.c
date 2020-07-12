@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/07/07 12:12:56 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:57:24 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_cub	*cub_analyzecub(char *file)
 	cub_validatevars(*cub);
 	cub_validatemap(cub->map);
 	cub->map = cub_formatmap(cub->map, &cub->gen);
+	cub_getsprites(cub->map, &cub->gen);
 	if (!cub->gen.rot_angle)
 		cub_print_exit(EMDIR);
 	return (cub);

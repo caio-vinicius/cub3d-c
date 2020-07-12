@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:05:42 by caio              #+#    #+#             */
-/*   Updated: 2020/06/25 12:06:35 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 13:41:54 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	mem_exit_clear(t_game game)
 		i++;
 	}
 	free(game.cub->map);
+	free(game.cub->gen.sprites);
 	free(game.cub);
 }
 

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:19:25 by caio              #+#    #+#             */
-/*   Updated: 2020/07/07 12:10:24 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/08 12:44:46 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	game_iswalkable(float x, float y, char **map, t_gen gen)
 	y_map = floor(y / TILE_SIZE);
 	if (map[y_map][x_map] == '0' || map[y_map][x_map] == 'N' ||
 			map[y_map][x_map] == 'S' || map[y_map][x_map] == 'E' ||
-			map[y_map][x_map] == 'W' || map[y_map][x_map] == '2')
+			map[y_map][x_map] == 'W')
 		return (1);
 	//check the sprite here later, last condition
 	return (0);

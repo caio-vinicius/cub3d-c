@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/07/07 12:07:15 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/07 12:58:09 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@
 
 typedef int t_color;
 
+typedef struct		s_sprites_pos {
+	unsigned int	x;
+	unsigned int	y;
+}			t_sprites_pos;
+
 typedef struct		s_gen {
 	int		cols;
 	int		rows;
@@ -41,6 +46,7 @@ typedef struct		s_gen {
 	int		y_player;
 	char		rot_angle;
 	unsigned int	amount_sprites;
+	t_sprites_pos	*sprites;	
 }			t_gen;
 
 typedef struct		s_cub {
@@ -65,6 +71,7 @@ char	**cub_getmap		(char *s);
 void	cub_validatevars	(t_cub cub);
 void	cub_validatemap		(char **map);
 char	**cub_formatmap		(char **map, t_gen *gen);
+void	cub_getsprites		(char **map, t_gen *gen);
 int	cub_isstrmap		(char *s);
 int	cub_ischarmap		(char c);
 int	cub_iswall		(int c);
