@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/07/12 15:55:25 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/17 21:36:18 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void	game_rendermap		(t_data *data, t_cub *cub);
 void	game_renderrays		(t_data *data, t_cub *cub, t_player player, t_ray *ray);
 void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player, t_tex textures, t_sprite *sprite);
 void	game_renderbackground	(t_data *data, t_cub *cub);
-void	game_rendersprites	(t_data *data, t_sprite sprite, t_cub *cub, t_player player, t_img texture, t_vars vars);
+void	game_rendersprites	(t_data *data, t_sprite sprite, t_cub *cub, t_player player, t_img texture);
 void	game_validateargs	(int argc, char *argv[], t_game *game);
 void	game_validatescreen	(t_vars vars, t_cub *cub);
 int	game_loop		(int keycode, t_game *game);

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/07/11 16:16:41 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/17 18:03:48 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static	void	define_dir_plane(char pos, t_sprite *sprite, t_cub *cub)
 	if (pos == 'N' || pos == 'S')
 	{
 		sprite->dir_y = (pos == 'N' ? -1 : 1);
-		sprite->plane_x = (pos == 'N' ? 0.60 : -0.60);
+		sprite->plane_x = (pos == 'N' ? -0.60 : 0.60);
 	}
 	else if (pos == 'W' || pos == 'E')
 	{
 		sprite->dir_x = (pos == 'W' ? -1 : 1);
-		sprite->plane_y = (pos == 'W' ? -0.60 : 0.60);
+		sprite->plane_y = (pos == 'W' ? 0.60 : -0.60);
 	}
 }
 
