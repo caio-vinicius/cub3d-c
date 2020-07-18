@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/07/17 18:03:48 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/18 13:37:46 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static float	define_dir(char rot_angle)
 	return (dir);
 }
 
-static t_tex	init_textures(t_vars vars, t_cub *cub)
+static t_tex	init_textures(t_vars vars, t_cub *cub, t_game game)
 {
 	int		width;
 	int		height;
@@ -40,6 +40,8 @@ static t_tex	init_textures(t_vars vars, t_cub *cub)
 	textures.we.img = mlx_xpm_file_to_image(vars.init, cub->t_we, &width, &height);
 	textures.ea.img = mlx_xpm_file_to_image(vars.init, cub->t_ea, &width, &height);
 	textures.s.img = mlx_xpm_file_to_image(vars.init, cub->t_s, &width, &height);
+	if (!textures.no.img || !textures.so.img || !textures.we.img || !textures.ea.img  || !textures.s.img)
+		game_print_exit(EPATH, 2, game);
 	textures.no.img_addr = mlx_get_data_addr(textures.no.img, &textures.no.bpp, &textures.no.line_length, &textures.no.endian);
 	textures.so.img_addr = mlx_get_data_addr(textures.so.img, &textures.so.bpp, &textures.so.line_length, &textures.so.endian);
 	textures.we.img_addr = mlx_get_data_addr(textures.we.img, &textures.we.bpp, &textures.we.line_length, &textures.we.endian);
@@ -50,8 +52,8 @@ static t_tex	init_textures(t_vars vars, t_cub *cub)
 
 static	void	define_dir_plane(char pos, t_sprite *sprite, t_cub *cub)
 {
-	sprite->pos_x = (float)(cub->gen.x_player) + 0.5;
-	sprite->pos_y = (float)(cub->gen.y_player) + 0.5;
+	sprite->pos_x = (float)(cub->gen.x_player);
+	sprite->pos_y = (float)(cub->gen.y_player);
 	if (pos == 'N' || pos == 'S')
 	{
 		sprite->dir_y = (pos == 'N' ? -1 : 1);
@@ -71,7 +73,7 @@ static t_game	setup(t_game game)
 	game.player.ad_direction = 0;
 	game.player.ws_direction = 0;
 	game.player.rot_angle = define_dir(game.cub->gen.rot_angle);
-	game.player.ad_speed = 15 * (PI / 180);
+	game.player.ad_speed = 5 * (PI / 180);
 	game.player.ws_speed = 10;
 	game.cub->gen.window_width = game.cub->gen.cols * TILE_SIZE;
 	game.cub->gen.window_height = game.cub->gen.rows * TILE_SIZE;
@@ -84,7 +86,7 @@ static t_game	setup(t_game game)
 	game.sprite.distance = ft_calloc(game.sprite.amount, sizeof(int) + 2);
 	//sprite_end
 	game.ray = malloc(game.cub->width * sizeof(t_ray));
-	game.textures = init_textures(game.vars, game.cub);
+	game.textures = init_textures(game.vars, game.cub, game);
 	return (game);
 }
 
@@ -98,6 +100,10 @@ static int		release_button(int keycode, t_game *game)
 	else if (keycode == LEFT_ARROW)
 		game->player.ad_direction = 0;
 	else if (keycode == RIGHT_ARROW)
+		game->player.ad_direction = 0;
+	else if (keycode == LEFT_KEY)
+		game->player.ad_direction = 0;
+	else if (keycode == RIGHT_KEY)
 		game->player.ad_direction = 0;
 	return (0);
 }

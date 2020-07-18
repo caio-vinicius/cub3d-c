@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/07/17 21:36:18 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/18 13:50:12 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,17 @@
 # define WALL_STRIP_WIDTH 1.0
 # define FOV_ANGLE (60 * (PI / 180))
 
-# define TILE_SIZE 64
-# define TEX_WIDTH 64
-# define TEX_HEIGHT 64
+# define TILE_SIZE 32
+# define TEX_WIDTH 32
+# define TEX_HEIGHT 32
 
 # define SOUTH (PI / 2)
 # define WEST (PI)
 # define NORTH (PI * 1.5)
 # define EAST TWO_PI
 
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
 # define UP_ARROW 119
 # define DOWN_ARROW 115
 # define LEFT_ARROW 97
@@ -196,7 +198,7 @@ int	game_iswalkable		(float x, float y, char **map, t_gen gen);
 void	game_drawsquare		(t_data *data, int size, int color);
 void	game_castallrays	(t_game *game);
 void	game_castray		(float ray_angle, int id, t_game *game);
-void	game_moveplayer		(t_player *player, t_cub cub, t_sprite *sprite);
+void	game_moveplayer		(t_player *player, t_cub cub, t_sprite *sprite, char dir);
 void	game_rendermap		(t_data *data, t_cub *cub);
 void	game_renderrays		(t_data *data, t_cub *cub, t_player player, t_ray *ray);
 void	game_renderwalls	(t_data *data, t_ray *ray, t_cub *cub, t_player player, t_tex textures, t_sprite *sprite);

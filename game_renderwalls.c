@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:46:16 by caio              #+#    #+#             */
-/*   Updated: 2020/07/10 18:03:21 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/18 12:07:49 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	game_renderwalls(t_data *data, t_ray *ray, t_cub *cub, t_player player,
 	while (i < cub->width)
 	{
 		wall.perp_distance = ray[i].distance * cos(ray[i].angle - player.rot_angle);
-		sprite->zbuffer[i] = ray[i].distance;
+		sprite->zbuffer[i] = wall.perp_distance / TILE_SIZE;
 		wall.distance_projection_plane = (cub->width / 2) / tan(FOV_ANGLE / 2);
 		wall.projected_height = (TILE_SIZE / wall.perp_distance) * wall.distance_projection_plane;
 		wall.strip_height = wall.projected_height;
