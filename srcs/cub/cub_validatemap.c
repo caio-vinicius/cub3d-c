@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:22:50 by caio              #+#    #+#             */
-/*   Updated: 2020/07/20 21:58:09 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/21 17:15:30 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	is_surrounded_by_walls(int x, int y, int strlen, char **map)
 		cub_print_exit(ENSURRW);
 }
 
-void	cub_validatemap(char **map)
+void		cub_validatemap(char **map)
 {
 	int x;
 	int y;

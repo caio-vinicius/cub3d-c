@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:37:17 by caio              #+#    #+#             */
-/*   Updated: 2020/07/20 21:58:43 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/21 10:44:02 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,45 +33,30 @@ static void	render(t_game game)
 	mlx_destroy_image(game.vars.init, game.data.img);
 }
 
-static void	update(t_game *game, char dir)
+static void	update(t_game *game)
 {
-	game_moveplayer(&game->player, *game->cub, &game->sprite, dir);
+	game_moveplayer(&game->player, *game->cub, &game->sprite);
 	game_castallrays(game);
 }
 
-static char	process_keys(int keycode, t_game *game)
+static void	process_keys(int keycode, t_game *game)
 {
 	if (keycode == UP_ARROW)
-	{
 		game->player.ws_direction = 1;
-		return ('F');
-	}
 	else if (keycode == DOWN_ARROW)
-	{
 		game->player.ws_direction = -1;
-		return ('B');
-	}
 	else if (keycode == LEFT_ARROW)
-	{
 		game->player.ad_direction = -1;
-		return ('L');
-	}
 	else if (keycode == RIGHT_ARROW)
-	{
 		game->player.ad_direction = 1;
-		return ('R');
-	}
 	else if (keycode == ESC)
 		game_print_exit(CLOSECL, 1, *game);
-	return (' ');
 }
 
 int			game_loop(int keycode, t_game *game)
 {
-	char dir;
-
-	dir = process_keys(keycode, game);
-	update(game, dir);
+	process_keys(keycode, game);
+	update(game);
 	render(*game);
 	return (0);
 }

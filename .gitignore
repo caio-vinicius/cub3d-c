@@ -4,7 +4,9 @@
 !build
 !get_next_line
 !includes
+!srcs
 !libft
+!minilibx-linux
 !textures32
 !textures64
 !README.md

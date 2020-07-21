@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 21:37:49 by caio              #+#    #+#             */
-/*   Updated: 2020/07/20 16:23:39 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/21 17:15:55 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,15 @@ static void	distance_sprites(t_sprite *sprite, t_player player)
 	int				player_x;
 	int				player_y;
 
-	player_x = player.x / TILE_SIZE;
-	player_y = player.y / TILE_SIZE;
+	player_x = player.x;
+	player_y = player.y;
 	i = 0;
 	while (i < sprite->amount)
 	{
 		sprite->order[i] = i;
-		sprite->distance[i] = pow(player_x - sprite->positions[i].x, 2) *
-			pow(player_y - sprite->positions[i].y, 2);
+		sprite->distance[i] =
+			pow(sprite->positions[i].x * TILE_SIZE - player_x, 2) *
+			pow(sprite->positions[i].y * TILE_SIZE - player_y, 2);
 		i++;
 	}
 }
@@ -116,8 +117,8 @@ void		game_rendersprites(t_data *data, t_sprite s, t_cub cub, t_player p)
 				p.y) / TILE_SIZE;
 		s.transform_x = s.invdet * (s.dir_y * s.x - s.dir_x * s.y);
 		s.transform_y = s.invdet * (-s.plane_y * s.x + s.plane_x * s.y);
-		s.screen_x = (int)((cub.width / 2) *
-				(1 + s.transform_x / s.transform_y));
+		s.screen_x = (int)((cub.width / 2) * (1 + s.transform_x /
+					s.transform_y));
 		sprite_size(cub, &s);
 		draw_sprite(cub, &s, data, s.texture);
 		i++;

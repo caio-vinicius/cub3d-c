@@ -6,25 +6,11 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:23:13 by caio              #+#    #+#             */
-/*   Updated: 2020/07/20 21:40:45 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/21 19:58:23 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static t_ray_vars	find_coords_to_check(t_ray_vars ray, t_grid_vars *vars,
-		int time)
-{
-	if (time == 0)
-		ray.x_to_check = vars->next_touch_x;
-	else
-		ray.x_to_check = vars->next_touch_x + ((ray.facing_left) ? -1 : 0);
-	if (time == 1)
-		ray.y_to_check = vars->next_touch_y;
-	else
-		ray.y_to_check = vars->next_touch_y + ((ray.facing_up) ? -1 : 0);
-	return (ray);
-}
 
 static void			search_wall(t_grid_vars *vars, t_ray_vars ray, t_game game,
 		int time)
@@ -98,9 +84,9 @@ static void			choose_smallest_distance(t_grid_vars horz, t_grid_vars vert,
 			game->player.x, game->player.y, vert.wall_hit_x, vert.wall_hit_y) :
 		INT_MAX;
 	if (vert_hit_distance < horz_hit_distance)
-		set_ray_vert(game, vert, vert_hit_distance, ray.id);
+		set_ray_vert(game->ray, vert, vert_hit_distance, ray.id);
 	else
-		set_ray_horz(game, horz, horz_hit_distance, ray.id);
+		set_ray_horz(game->ray, horz, horz_hit_distance, ray.id);
 	game->ray[ray.id].angle = ray.angle;
 	game->ray[ray.id].facing_down = ray.facing_down;
 	game->ray[ray.id].facing_up = ray.facing_up;

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:32:03 by caio              #+#    #+#             */
-/*   Updated: 2020/07/20 16:42:32 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/21 12:40:07 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	is_sprite(float x, float y, char **map)
 	return (1);
 }
 
-void		game_moveplayer(t_player *player, t_cub cub, t_sprite *s, char dir)
+void		game_moveplayer(t_player *player, t_cub cub, t_sprite *s)
 {
 	float new_x;
 	float new_y;
@@ -32,7 +32,6 @@ void		game_moveplayer(t_player *player, t_cub cub, t_sprite *s, char dir)
 	float old_plane_x;
 	float dir_angle;
 
-	printf("dir %c\n", dir);
 	old_dir_x = s->dir_x;
 	old_plane_x = s->plane_x;
 	dir_angle = player->ad_direction * player->ad_speed;
