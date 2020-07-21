@@ -1,6 +1,5 @@
 *
 !Makefile
-!*.c
 !build
 !get_next_line
 !includes
