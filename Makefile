@@ -34,7 +34,7 @@ VPATH = srcs/game:srcs/cub:srcs/bmp
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBRARY)
-	$(CC) $^ -lm -lbsd -lmlx -lXext -lX11 $(LIBRARY) -o $@
+	$(CC) $^ -lm -lbsd -lXext -lX11 $(LIBRARY) -o $@
 
 $(LIBRARY):
 	$(MAKE) -C libft
