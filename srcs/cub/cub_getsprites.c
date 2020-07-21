@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_getrgb.c                                       :+:      :+:    :+:   */
+/*   cub_getsprites.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
-/*   Updated: 2020/06/25 13:21:09 by caio             ###   ########.fr       */
+/*   Created: 2020/07/07 12:48:54 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:25:35 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-//thank you aroque.
-t_color	cub_getrgb(char *s)
+void	cub_getsprites(char **map, t_gen *gen)
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	t_color			rgb;
-	char			**color;
+	int sprites;
+	int x;
+	int y;
+	int z;
 
-	color = ft_split(&s[2], ',');
-	r = (unsigned char)ft_atoi(color[0]);
-	g = (unsigned char)ft_atoi(color[1]);
-	b = (unsigned char)ft_atoi(color[2]);
-	rgb = (((r) << 16) + ((g) << 8) + (b));
-	free(color[0]);
-	free(color[1]);
-	free(color[2]);
-	free(color);
-	return (rgb);
+	x = 0;
+	y = 0;
+	z = 0;
+	sprites = gen->amount_sprites;
+	gen->sprites = malloc(sprites * sizeof(t_sprites_pos));
+	while (y < gen->rows)
+	{
+		while (x++ < gen->cols)
+		{
+			if (map[y][x] == '2')
+			{
+				gen->sprites[z].x = x;
+				gen->sprites[z].y = y;
+				if (z++ == sprites)
+					break ;
+			}
+		}
+		x = 0;
+		y++;
+	}
 }

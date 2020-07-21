@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:05:42 by caio              #+#    #+#             */
-/*   Updated: 2020/07/18 12:27:13 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 14:48:54 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ static void	mem_exit_clear(t_game game)
 	free(game.cub);
 }
 
-void	game_print_exit(int id, int type, t_game game)
+void		game_print_exit(int id, int type, t_game game)
 {
 	if (type == 2)
 	{
 		if (id == EMISCUB)
 			ft_putstr_fd("Usage: ./cub3D cub_file [ --save ]\n\toptions: \
-				\n\t\t--save Save the first rendered image in bmp format", type);
+			\n\t\t--save Save the first rendered image in bmp format", type);
 		else if (id == EPATH)
 			ft_putstr_fd("Path textures error\n", type);
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	else if (type == 1)
 	{
 		if (id == CLOSECL)
 			ft_putstr_fd("Closing cub3D...\n", type);
 		mem_exit_clear(game);
-		exit (EXIT_SUCESS);
+		exit(EXIT_SUCESS);
 	}
 }

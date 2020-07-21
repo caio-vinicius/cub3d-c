@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_mlxpixelput.c                                 :+:      :+:    :+:   */
+/*   cub_getrgb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/28 19:53:24 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 19:34:22 by caio             ###   ########.fr       */
+/*   Created: 2020/06/10 23:33:27 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:23:58 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
-void	game_mlxpixelput(t_data *data, int x, int y, int color)
+t_color	cub_getrgb(char *s)
 {
-	char    *dst;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	t_color			rgb;
+	char			**color;
 
-	dst = data->img_addr + (y * data->line_length + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
+	color = ft_split(&s[2], ',');
+	r = (unsigned char)ft_atoi(color[0]);
+	g = (unsigned char)ft_atoi(color[1]);
+	b = (unsigned char)ft_atoi(color[2]);
+	rgb = (((r) << 16) + ((g) << 8) + (b));
+	free(color[0]);
+	free(color[1]);
+	free(color[2]);
+	free(color);
+	return (rgb);
 }

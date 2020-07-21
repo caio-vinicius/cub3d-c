@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:02:51 by caio              #+#    #+#             */
-/*   Updated: 2020/07/07 14:43:01 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 13:59:59 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ static t_file_header	init_file_header(t_file_header file_h, t_cub cub)
 	return (file_h);
 }
 
-static t_img_header	init_img_header(t_img_header img_h, t_cub cub)
+static t_img_header		init_img_header(t_img_header img_h, t_cub cub)
 {
 	img_h.size_header = BITMAP_HEADER_BYTES;
-    img_h.width = cub.width;
-    img_h.height = cub.height;
-    img_h.planes = 1;
-    img_h.bpp = BITS_PER_PIXEL;
+	img_h.width = cub.width;
+	img_h.height = cub.height;
+	img_h.planes = 1;
+	img_h.bpp = BITS_PER_PIXEL;
 	return (img_h);
 }
 
-void	bmp_save_bitmap(t_data data, t_cub cub)
+void					bmp_save(t_data data, t_cub cub)
 {
 	t_headers	headers;
 	int			fd;
@@ -46,7 +46,6 @@ void	bmp_save_bitmap(t_data data, t_cub cub)
 			S_IRGRP | S_IROTH);
 	write(fd, &headers.file_h, 14);
 	write(fd, &headers.img_h, 12);
-
 	while (--y >= 0)
 		write(fd, &data.img_addr[y * data.line_length], data.line_length);
 	close(fd);

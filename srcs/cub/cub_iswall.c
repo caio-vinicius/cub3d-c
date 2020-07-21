@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_drawsquare.c                                  :+:      :+:    :+:   */
+/*   cub_iswall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/29 13:25:51 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 12:25:08 by caio             ###   ########.fr       */
+/*   Created: 2020/06/15 18:20:59 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:26:36 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
-void	game_drawsquare(t_data *data, int size, int color)
+int	cub_iswall(int c)
 {
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
-	while (x <= size)
-	{
-		game_mlxpixelput(data, x, y, color);
-		if (y++ == size)
-		{
-			y = 0;
-			x++;
-		}
-	}
+	if (c == '1' || c == ' ')
+		return (1);
+	return (0);
 }

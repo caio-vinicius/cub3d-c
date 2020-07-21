@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:02:08 by caio              #+#    #+#             */
-/*   Updated: 2020/06/28 19:51:28 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 17:16:24 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,8 @@
 # define BITMAP_HEADER_BYTES 12
 # define BITS_PER_PIXEL 32
 
-//remember to remove
-# include <stdio.h>
-# include <unistd.h>
-# include <fcntl.h>
-
 # include "cub3d.h"
 # include "libft.h"
-
-//ifndef check later
-//check specific types later
-//# include <stdint.h>
 
 typedef struct		s_bitmap_file_header {
 	unsigned char	bitmap_type[2];

@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 20:24:00 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 15:47:48 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 14:26:58 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,9 @@ void	cub_print_exit(int id)
 			\n\t\t--save Save the first rendered image in bmp format", 2);
 	else if (id == EMDIR)
 		ft_putstr_fd("Error\nMissing position letter on map\n", 2);
-	exit (EXIT_FAILURE);
+	else if (id == EFORMAT)
+		ft_putstr_fd("Error\nFile isn't .cub format", 2);
+	else if (id == EDOUBC)
+		ft_putstr_fd("Error\nMore than one directive of same type on cub", 2);
+	exit(EXIT_FAILURE);
 }

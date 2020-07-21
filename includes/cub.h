@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:22:38 by caio              #+#    #+#             */
-/*   Updated: 2020/07/18 12:23:42 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 17:26:24 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,9 @@
 # define EXIT_SUCESS 0
 # define EXIT_FAILURE 1
 
+# include "errno.h"
 # include "get_next_line.h"
 # include "libft.h"
-
-//error codes
-# define CLOSECL 0 /* Sucess terminating process */
-# define EBADFD 1  /* File descriptor in bad state */
-# define ENSURRW 2 /* Map no surround by walls */
-# define EBADCUB 3 /* Bad cub file */
-# define EMISCUB 4 /* Missing cub file */
-# define EMDIR 5 /* Missing position letter on map */
-# define EPATH 6 /* Missing path of the map */ 
-
-// remember to remove
-# include <stdio.h>
 
 typedef int t_color;
 

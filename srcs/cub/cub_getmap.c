@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_getsprites.c                                   :+:      :+:    :+:   */
+/*   cub_getmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/07 12:48:54 by caio              #+#    #+#             */
-/*   Updated: 2020/07/10 21:20:31 by caio             ###   ########.fr       */
+/*   Created: 2020/06/11 16:31:30 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:23:07 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	cub_getsprites(char **map, t_gen *gen)
+char	**cub_getmap(char *s)
 {
-	int sprites;
-	int x;
-	int y;
-	int z;
+	char			**tmp;
+	static char		**map;
+	int				i;
+	static int		j;
 
-	x = 0;
-	y = 0;
-	z = 0;
-	sprites = gen->amount_sprites;
-	//free on the end
-	gen->sprites = malloc(sprites * sizeof(t_sprites_pos));
-	while (y < gen->rows)
+	i = 0;
+	tmp = malloc((j + 2) * sizeof(char*));
+	if (map)
 	{
-		while (x < gen->cols)
+		while (i < j)
 		{
-			if (map[y][x] == '2')
-			{
-				gen->sprites[z].x = x;
-				gen->sprites[z].y = y;
-				z++;
-				if (z == sprites)
-					break ;
-			}
-			x++;
+			tmp[i] = map[i];
+			i++;
 		}
-		x = 0;
-		y++;
+		free(map);
 	}
+	tmp[j] = ft_strdup(s);
+	tmp[j + 1] = NULL;
+	map = tmp;
+	j++;
+	return (map);
 }

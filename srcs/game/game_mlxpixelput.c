@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_ischarmap.c                                    :+:      :+:    :+:   */
+/*   game_mlxpixelput.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/15 10:05:07 by caio              #+#    #+#             */
-/*   Updated: 2020/06/15 23:02:15 by caio             ###   ########.fr       */
+/*   Created: 2020/04/28 19:53:24 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:43:16 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub3d.h"
 
-int		cub_ischarmap(char c)
+void	game_mlxpixelput(t_data *data, int x, int y, int color)
 {
-	if (!c || c == '\0')
-		return (0);
-	if (c == '0' || c == '1' || c == '2' || c == 'N' ||
-			c == 'S' || c == 'E' || c == 'W')
-			return (1);
-	else
-			return (0);
+	char *dst;
+
+	dst = data->img_addr + (y * data->line_length + x * (data->bpp / 8));
+	*(unsigned int*)dst = color;
 }

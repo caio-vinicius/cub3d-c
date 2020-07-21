@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_normalizeangle.c                              :+:      :+:    :+:   */
+/*   game_renderrays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/29 13:18:11 by caio              #+#    #+#             */
-/*   Updated: 2020/06/19 19:33:59 by caio             ###   ########.fr       */
+/*   Created: 2020/05/29 13:33:14 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:50:14 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	game_normalizeangle(float angle)
+void	game_renderrays(t_data *data, t_cub *cub, t_player player, t_ray *ray)
 {
-	angle = remainder(angle, TWO_PI);
-	if (angle < 0)
-		angle = TWO_PI + angle;
-	return (angle);
-}
+	unsigned int i;
 
+	i = 0;
+	while (i < cub->width)
+	{
+		game_drawline(
+			MINIMAP_SCALE * player.x + MINIMAP_MARGIN,
+			MINIMAP_SCALE * player.y + MINIMAP_MARGIN,
+			MINIMAP_SCALE * ray[i].wall_hit_x + MINIMAP_MARGIN,
+			MINIMAP_SCALE * ray[i].wall_hit_y + MINIMAP_MARGIN,
+			data);
+		i++;
+	}
+}

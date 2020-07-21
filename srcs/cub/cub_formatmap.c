@@ -6,13 +6,13 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:19:48 by caio              #+#    #+#             */
-/*   Updated: 2020/07/07 12:43:55 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 14:21:39 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static char		*is_allocation_enough(char *map, int length)
+static char	*is_allocation_enough(char *map, int length)
 {
 	char	*tmp;
 	int		strlen;
@@ -28,12 +28,13 @@ static char		*is_allocation_enough(char *map, int length)
 	return (map);
 }
 
-static int		find_biggest_line(char **ptr)
+static int	find_biggest_line(char **ptr)
 {
 	int i;
 	int y;
 	int ptrlen;
 	int strlen;
+
 	ptrlen = cub_ptrlen(ptr);
 	y = 0;
 	strlen = 0;
@@ -50,7 +51,14 @@ static int		find_biggest_line(char **ptr)
 	return (i);
 }
 
-char	**cub_formatmap(char **map, t_gen *gen)
+static void	get_player_info(t_gen *gen, int x, int y, char **map)
+{
+	gen->x_player = x;
+	gen->y_player = y;
+	gen->rot_angle = map[y][x];
+}
+
+char		**cub_formatmap(char **map, t_gen *gen)
 {
 	int		x;
 	int		y;
@@ -69,13 +77,8 @@ char	**cub_formatmap(char **map, t_gen *gen)
 				map[y][x] = '1';
 			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' ||
 					map[y][x] == 'W')
-			{
-				gen->x_player = x;
-				gen->y_player = y;
-				gen->rot_angle = map[y][x];
-			}
-			if (map[y][x] == '2')
-				gen->amount_sprites++;
+				get_player_info(gen, x, y, map);
+			gen->amount_sprites += (map[y][x] == '2') ? 1 : 0;
 			x++;
 		}
 		x = 0;

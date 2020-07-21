@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_renderrays.c                                  :+:      :+:    :+:   */
+/*   cub_ischarmap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/29 13:33:14 by caio              #+#    #+#             */
-/*   Updated: 2020/06/23 11:54:56 by caio             ###   ########.fr       */
+/*   Created: 2020/06/15 10:05:07 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:26:17 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
-void	game_renderrays(t_data *data, t_cub *cub, t_player player, t_ray *ray)
+int		cub_ischarmap(char c)
 {
-	unsigned int i;
-
-	i = 0;
-	while (i < cub->width)
-	{
-		game_drawline(
-			MINIMAP_SCALE * player.x + MINIMAP_MARGIN,
-			MINIMAP_SCALE * player.y + MINIMAP_MARGIN,
-			MINIMAP_SCALE * ray[i].wall_hit_x + MINIMAP_MARGIN,
-			MINIMAP_SCALE * ray[i].wall_hit_y + MINIMAP_MARGIN,
-			data
-		);
-		i++;
-	}
+	if (!c || c == '\0')
+		return (0);
+	if (c == '0' || c == '1' || c == '2' || c == 'N' ||
+			c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	else
+		return (0);
 }

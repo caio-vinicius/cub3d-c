@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 13:27:44 by caio              #+#    #+#             */
-/*   Updated: 2020/06/20 15:39:45 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/20 14:49:32 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	draw_wall_on_image(t_data *data, int x1, int y1, int size)
 	}
 }
 
-void	game_rendermap(t_data *data, t_cub *cub)
+void		game_rendermap(t_data *data, t_cub *cub)
 {
 	int	size;
 	int	x;

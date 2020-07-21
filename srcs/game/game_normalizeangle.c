@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_getmap.c                                       :+:      :+:    :+:   */
+/*   game_normalizeangle.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 16:31:30 by caio              #+#    #+#             */
-/*   Updated: 2020/07/09 12:54:49 by caio             ###   ########.fr       */
+/*   Created: 2020/05/29 13:18:11 by caio              #+#    #+#             */
+/*   Updated: 2020/07/20 14:47:45 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub3d.h"
 
-//thank you sfreitas.
-char	**cub_getmap(char *s)
+float	game_normalizeangle(float angle)
 {
-	char			**tmp;
-	static char		**map;
-	int				i;
-	static int		j;
-
-	i = 0;
-	tmp = malloc((j + 2) * sizeof(char*));
-	if (map)
-	{
-		while (i < j)
-		{
-			tmp[i] = map[i];
-			i++;
-		}
-		free(map);
-	}
-	tmp[j] = ft_strdup(s);
-	tmp[j + 1] = NULL;
-	map = tmp;
-	j++;
-	return (map);
+	angle = remainder(angle, TWO_PI);
+	if (angle < 0)
+		angle = TWO_PI + angle;
+	return (angle);
 }
