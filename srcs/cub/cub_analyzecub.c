@@ -58,11 +58,11 @@ t_cub			*cub_analyzecub(char *file)
 	static int	i;
 	t_cub		*cub;
 
+	if ((fd = open(file, O_RDONLY)) == -1)
+		cub_print_exit(EBADFD);
 	if (ft_strncmp(ft_strrchr(file, '.'), ".cub", 3))
 		cub_print_exit(EFORMAT);
 	cub = init_cub();
-	if ((fd = open(file, O_RDONLY)) == -1)
-		cub_print_exit(EBADFD);
 	while (get_next_line(fd, &line) > 0)
 		i = recognize_identifier(line, cub, i);
 	free(line);
