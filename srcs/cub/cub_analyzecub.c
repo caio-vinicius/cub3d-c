@@ -6,17 +6,15 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/07/20 21:55:04 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/27 08:55:01 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int		recognize_identifier(char *s, t_cub *cub, int i)
+static int		recognize_directives(char *s, t_cub *cub, int i)
 {
-	if ((s[0] == '\n' || s[0] == ' ' || s[0] == '\0'))
-		(void)s;
-	else if (s[0] == 'R' && ++i)
+	if (s[0] == 'R' && ++i)
 		cub_getr(s, cub);
 	else if (s[0] == 'N' && s[1] == 'O' && ++i)
 		cub->t_no = cub_getpath(s, 3);
@@ -32,8 +30,19 @@ static int		recognize_identifier(char *s, t_cub *cub, int i)
 		cub->floor = cub_getrgb(s);
 	else if (s[0] == 'C' && ++i)
 		cub->ceiling = cub_getrgb(s);
+	return (i);
+}
+
+static int		recognize_identifier(char *s, t_cub *cub, int i)
+{
+	if ((s[0] == '\n' || s[0] == '\0'))
+		(void)s;
+	else if (s && (!(cub_isstrmap(s))))
+		recognize_directives(s, cub, i);
 	else if (cub_isstrmap(s))
 		cub->map = cub_getmap(s);
+	else if (s[0] == ' ')
+		(void)s;
 	else
 		cub_print_exit(EBADCUB);
 	free(s);
