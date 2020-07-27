@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/07/21 20:25:37 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:05:15 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define EKEYPRESS 2
 # define EKEYRELEASE 3
 # define EKEYDESTROY 17
+# define EFOCUSIN 9
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
