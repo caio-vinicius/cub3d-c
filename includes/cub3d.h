@@ -65,6 +65,9 @@ void				game_validateargs		(int argc, char *argv[],
 												t_game *game);
 void				game_validatescreen		(t_vars vars, t_cub *cub);
 int					game_loop				(int keycode, t_game *game);
-void				bmp_save				(t_data data, t_cub cub);
+int				game_call_loop			(t_game *game);
+int				game_x_exit			(t_game *game);
+
+void				bmp_save			(t_data data, t_cub cub);
 
 #endif

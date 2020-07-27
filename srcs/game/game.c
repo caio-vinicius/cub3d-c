@@ -74,12 +74,6 @@ static int		release_button(int keycode, t_game *game)
 	return (0);
 }
 
-static int		x_exit(t_game *game)
-{
-	game_print_exit(CLOSECL, 1, *game);
-	return (0);
-}
-
 int				main(int argc, char *argv[])
 {
 	t_game	game;
@@ -93,10 +87,10 @@ int				main(int argc, char *argv[])
 		game.vars.window = mlx_new_window(game.vars.init, game.cub->width,
 				game.cub->height, "cub3d");
 	game = setup(game);
-	game_loop(0, &game);
+	mlx_hook(game.vars.window, EFOCUSIN, 1L << 21, game_call_loop, &game);
 	mlx_hook(game.vars.window, EKEYPRESS, 1L << 0, game_loop, &game);
 	mlx_hook(game.vars.window, EKEYRELEASE, 1L << 1, release_button, &game);
-	mlx_hook(game.vars.window, EKEYDESTROY, 1L << 17, x_exit, &game);
+	mlx_hook(game.vars.window, EKEYDESTROY, 1L << 17, game_x_exit, &game);
 	mlx_loop(game.vars.init);
 	return (0);
 }

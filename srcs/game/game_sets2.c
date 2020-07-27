@@ -24,3 +24,15 @@ t_ray_vars	find_coords_to_check(t_ray_vars ray, t_grid_vars *vars, int time)
 		ray.y_to_check = vars->next_touch_y + ((ray.facing_up) ? -1 : 0);
 	return (ray);
 }
+
+int		game_x_exit(t_game *game)
+{
+	game_print_exit(CLOSECL, 1, *game);
+	return (0);
+}
+
+int		game_call_loop(t_game *game)
+{
+	game_loop(0, game);
+	return (0);
+}
