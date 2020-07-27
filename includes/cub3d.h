@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:29 by caio              #+#    #+#             */
-/*   Updated: 2020/07/21 20:00:18 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:08:18 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ void				game_validateargs		(int argc, char *argv[],
 												t_game *game);
 void				game_validatescreen		(t_vars vars, t_cub *cub);
 int					game_loop				(int keycode, t_game *game);
-int				game_call_loop			(t_game *game);
-int				game_x_exit			(t_game *game);
-
-void				bmp_save			(t_data data, t_cub cub);
+int					game_call_loop			(t_game *game);
+int					game_x_exit				(t_game *game);
+void				bmp_save				(t_data data, t_cub cub);
 
 #endif
