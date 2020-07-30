@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 14:27:39 by caio              #+#    #+#             */
-/*   Updated: 2020/07/27 08:55:01 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/30 14:13:17 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int		recognize_directives(char *s, t_cub *cub, int i)
 		cub->floor = cub_getrgb(s);
 	else if (s[0] == 'C' && ++i)
 		cub->ceiling = cub_getrgb(s);
+	else
+		cub_print_exit(EBADCUB);
 	return (i);
 }
 
@@ -38,7 +40,7 @@ static int		recognize_identifier(char *s, t_cub *cub, int i)
 	if ((s[0] == '\n' || s[0] == '\0'))
 		(void)s;
 	else if (s && (!(cub_isstrmap(s))))
-		recognize_directives(s, cub, i);
+		i = recognize_directives(s, cub, i);
 	else if (cub_isstrmap(s))
 		cub->map = cub_getmap(s);
 	else if (s[0] == ' ')
@@ -46,7 +48,8 @@ static int		recognize_identifier(char *s, t_cub *cub, int i)
 	else
 		cub_print_exit(EBADCUB);
 	free(s);
-	(i > 8) ? cub_print_exit(EDOUBC) : 0;
+	if (i > 8)
+		cub_print_exit(EDOUBC);
 	return (i);
 }
 
