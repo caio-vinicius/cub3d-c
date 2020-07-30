@@ -6,7 +6,7 @@
 /*   By: caio <csouza-f@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 13:10:00 by caio              #+#    #+#             */
-/*   Updated: 2020/07/21 20:22:58 by caio             ###   ########.fr       */
+/*   Updated: 2020/07/27 12:00:57 by caio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int				main(int argc, char *argv[])
 		game.vars.window = mlx_new_window(game.vars.init, game.cub->width,
 				game.cub->height, "cub3d");
 	game = setup(game);
+	game_loop(0, &game);
 	mlx_hook(game.vars.window, EFOCUSIN, 1L << 21, game_call_loop, &game);
 	mlx_hook(game.vars.window, EKEYPRESS, 1L << 0, game_loop, &game);
 	mlx_hook(game.vars.window, EKEYRELEASE, 1L << 1, release_button, &game);
