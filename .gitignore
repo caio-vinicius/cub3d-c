@@ -1,4 +1,5 @@
 *
+!*.pdf
 !Makefile
 !build
 !get_next_line
